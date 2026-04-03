@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>移植日から出産までのスケジュール完全ガイド【週ごと解説】 | 体外受精スケジューラー</title>
+  <meta name="description" content="移植日から妊娠判定、胎嚢確認、心拍確認、安定期、出産までの流れを週ごとにわかりやすく解説。記事の最後から妊活スケジュール作成ツールへそのまま進めます。">
+  <meta name="robots" content="index,follow">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    :root {
+      --pink: #ec4899;
+      --pink-dark: #be185d;
+      --pink-light: #fce7f3;
+      --pink-soft: #fff4f8;
+      --purple: #8b5cf6;
+      --purple-soft: #f5f3ff;
+      --blue-soft: #eff6ff;
+      --green-soft: #ecfdf5;
+      --amber-soft: #fffbeb;
+      --text: #1f2937;
+      --text-sub: #6b7280;
+      --line: #f1e8ee;
+      --bg: linear-gradient(180deg, #fff8fb 0%, #fff 24%, #fff 100%);
+      --radius: 18px;
+      --shadow: 0 8px 28px rgba(190, 24, 93, 0.08), 0 2px 8px rgba(15, 23, 42, 0.04);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.8;
+    }
+
+    a {
+      color: var(--pink-dark);
+      text-decoration: none;
+    }
+
+    a:hover { text-decoration: underline; }
+
+    .page {
+      width: min(100%, 760px);
+      margin: 0 auto;
+      padding: 20px 16px 56px;
+    }
+
+    .crumbs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      font-size: 12px;
+      color: var(--text-sub);
+      margin-bottom: 18px;
+    }
+
+    .crumbs span { color: #c4b5fd; }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(252, 231, 243, 0.95), rgba(245, 243, 255, 0.98));
+      border: 1px solid #f4d8e6;
+      border-radius: 26px;
+      box-shadow: var(--shadow);
+      padding: 24px 18px;
+      margin-bottom: 18px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.8);
+      color: var(--pink-dark);
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(28px, 6.8vw, 40px);
+      line-height: 1.25;
+      color: var(--pink-dark);
+      letter-spacing: 0.01em;
+    }
+
+    .lead {
+      margin: 0;
+      font-size: 15px;
+      color: #4b5563;
+    }
+
+    main article {
+      display: grid;
+      gap: 18px;
+    }
+
+    section {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px 18px;
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: 23px;
+      line-height: 1.4;
+      color: var(--text);
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      font-size: 19px;
+      line-height: 1.45;
+      color: var(--pink-dark);
+    }
+
+    p {
+      margin: 0 0 12px;
+      font-size: 15px;
+    }
+
+    p:last-child { margin-bottom: 0; }
+
+    .note {
+      font-size: 13px;
+      color: var(--text-sub);
+    }
+
+    .summary-grid,
+    .schedule-list,
+    .detail-list,
+    .faq-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .summary-card {
+      border-radius: 16px;
+      padding: 14px 14px 13px;
+      border: 1px solid #f4d8e6;
+      background: linear-gradient(180deg, #fff, #fff8fb);
+    }
+
+    .summary-card strong {
+      display: block;
+      font-size: 15px;
+      color: var(--pink-dark);
+      margin-bottom: 4px;
+    }
+
+    .summary-card p {
+      font-size: 14px;
+      color: var(--text-sub);
+    }
+
+    .schedule-item {
+      display: grid;
+      grid-template-columns: 92px 1fr;
+      gap: 12px;
+      align-items: start;
+      padding: 14px 0;
+      border-top: 1px solid #f4f4f5;
+    }
+
+    .schedule-item:first-child {
+      border-top: none;
+      padding-top: 4px;
+    }
+
+    .schedule-term {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 38px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      background: var(--pink-light);
+      color: var(--pink-dark);
+      font-size: 13px;
+      font-weight: 800;
+      text-align: center;
+      line-height: 1.35;
+    }
+
+    .schedule-item h3 {
+      margin-bottom: 6px;
+      font-size: 17px;
+      color: var(--text);
+    }
+
+    .detail-block {
+      border-radius: 16px;
+      padding: 16px 15px;
+      border: 1px solid #f4f4f5;
+      background: #fff;
+    }
+
+    .detail-block:nth-child(1) { background: linear-gradient(180deg, #fff, #fff8fb); }
+    .detail-block:nth-child(2) { background: linear-gradient(180deg, #fff, #fffaf4); }
+    .detail-block:nth-child(3) { background: linear-gradient(180deg, #fff, #fff8fb); }
+    .detail-block:nth-child(4) { background: linear-gradient(180deg, #fff, #fffbf5); }
+    .detail-block:nth-child(5) { background: linear-gradient(180deg, #fff, #f9fafb); }
+    .detail-block:nth-child(6) { background: linear-gradient(180deg, #fff, #f7fdfb); }
+    .detail-block:nth-child(7) { background: linear-gradient(180deg, #fff, #fffaf4); }
+    .detail-block:nth-child(8) { background: linear-gradient(180deg, #fff, #fff6fa); }
+
+    .detail-block ul {
+      margin: 10px 0 0;
+      padding-left: 18px;
+    }
+
+    .detail-block li {
+      margin-bottom: 8px;
+      font-size: 14px;
+      color: #374151;
+    }
+
+    .faq-item {
+      border-radius: 16px;
+      padding: 15px 15px 14px;
+      background: #fff;
+      border: 1px solid #f4f4f5;
+    }
+
+    .faq-item h3 {
+      font-size: 17px;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    .faq-item p {
+      font-size: 14px;
+      color: var(--text-sub);
+    }
+
+    .cta {
+      background: linear-gradient(135deg, rgba(236, 72, 153, 0.12), rgba(139, 92, 246, 0.12));
+      border: 1px solid #f3d3e2;
+      padding: 22px 18px;
+    }
+
+    .cta-copy {
+      font-size: 16px;
+      color: #374151;
+      margin-bottom: 16px;
+    }
+
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 54px;
+      padding: 14px 18px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #ec4899, #be185d);
+      color: #fff;
+      font-size: 16px;
+      font-weight: 800;
+      box-shadow: 0 8px 20px rgba(190, 24, 93, 0.24);
+    }
+
+    .cta-button:hover {
+      text-decoration: none;
+      filter: brightness(1.02);
+    }
+
+    .cta-sub {
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--text-sub);
+    }
+
+    footer {
+      margin-top: 18px;
+      text-align: center;
+      font-size: 12px;
+      color: #9ca3af;
+      line-height: 1.8;
+    }
+
+    @media (min-width: 680px) {
+      .page { padding-top: 28px; }
+
+      .summary-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <nav class="crumbs" aria-label="パンくず">
+      <a href="../../index.html">ホーム</a>
+      <span>›</span>
+      <span>記事</span>
+      <span>›</span>
+      <span>移植日から出産までのスケジュール完全ガイド</span>
+    </nav>
+
+    <header class="hero">
+      <div class="eyebrow">妊活スケジュールの目安ガイド</div>
+      <h1>移植日から出産までのスケジュール完全ガイド【週ごと解説】</h1>
+      <p class="lead">
+        移植日が決まると、「いつ妊娠判定になるの？」「心拍確認はいつ頃？」「安定期はいつ？」と、その後の流れが気になる方は多いはずです。
+        このページでは、一般的な目安として、移植後から出産までの流れを週ごとに整理しました。記事の最後から、そのままあなた用のスケジュール作成ツールにも進めます。
+      </p>
+    </header>
+
+    <main>
+      <article>
+        <section aria-labelledby="summary">
+          <h2 id="summary">まずは全体の流れを確認</h2>
+          <p>
+            細かい予定を読む前に、まずは全体像をつかんでおくと安心です。移植後は「判定待ち」「妊娠初期の確認」「安定期以降の経過」という流れで進むことが一般的です。
+          </p>
+          <div class="summary-grid">
+            <div class="summary-card">
+              <strong>0週：移植</strong>
+              <p>胚移植を行う時期です。ここがスケジュールの出発点になります。</p>
+            </div>
+            <div class="summary-card">
+              <strong>1〜2週：判定待ち</strong>
+              <p>判定日まで落ち着かない時期ですが、一般的には数日から10日前後で結果確認へ進みます。</p>
+            </div>
+            <div class="summary-card">
+              <strong>4〜5週：妊娠判定・胎嚢確認の時期</strong>
+              <p>血液検査での妊娠判定後、胎嚢確認へ向かう流れがよく見られます。</p>
+            </div>
+            <div class="summary-card">
+              <strong>6〜7週：心拍確認の時期</strong>
+              <p>心拍が確認できるかどうかが大きな節目になる時期です。</p>
+            </div>
+            <div class="summary-card">
+              <strong>8〜12週：つわりが出やすい時期</strong>
+              <p>体調の変化が強く出やすく、無理をしない過ごし方が大切になります。</p>
+            </div>
+            <div class="summary-card">
+              <strong>16週ごろ：安定期</strong>
+              <p>一般的には妊娠16週ごろから安定期と呼ばれることが多いです。</p>
+            </div>
+            <div class="summary-card">
+              <strong>28週ごろ：妊娠後期</strong>
+              <p>出産に向けた準備が少しずつ現実的になる時期です。</p>
+            </div>
+            <div class="summary-card">
+              <strong>37〜40週：出産が近づく時期</strong>
+              <p>臨月に入り、いよいよ出産が近づいてきます。</p>
+            </div>
+          </div>
+        </section>
+
+        <section aria-labelledby="schedule-list">
+          <h2 id="schedule-list">移植日から出産までの全体スケジュール一覧</h2>
+          <p>
+            下の一覧では、移植後の流れを大きな区切りでまとめています。細かい日付は個人差やクリニック方針で前後しやすいため、ここでは「何が起こりやすい時期か」をつかむための目安として見てください。
+          </p>
+          <div class="schedule-list">
+            <div class="schedule-item">
+              <div class="schedule-term">0週</div>
+              <div>
+                <h3>移植当日</h3>
+                <p>胚移植を行うタイミングです。一般的には無理のない範囲で普段通りに過ごしつつ、その後の投薬や判定日までの予定を確認します。</p>
+              </div>
+            </div>
+            <div class="schedule-item">
+              <div class="schedule-term">1〜2週</div>
+              <div>
+                <h3>妊娠判定までの待機期間</h3>
+                <p>判定日までは気持ちが落ち着きにくい時期です。一般的には移植後数日から10日前後で血液検査や判定日を迎えるケースが多く見られます。</p>
+              </div>
+            </div>
+            <div class="schedule-item">
+              <div class="schedule-term">4〜5週</div>
+              <div>
+                <h3>妊娠判定後、胎嚢確認へ</h3>
+                <p>妊娠判定後は、胎嚢確認が次の目安になります。通院間隔や確認時期は、一般的な流れより前後することがあります。</p>
+              </div>
+            </div>
+            <div class="schedule-item">
+              <div class="schedule-term">6〜7週</div>
+              <div>
+                <h3>心拍確認の時期</h3>
+                <p>心拍確認は大きな節目です。順調な経過かどうかを確認しながら、次の通院予定が決まっていきます。</p>
+              </div>
+            </div>
+            <div class="schedule-item">
+              <div class="schedule-term">8〜12週</div>
+              <div>
+                <h3>妊娠初期の経過観察</h3>
+                <p>つわりなど体調変化が出やすく、日常生活の調整が必要になることもあります。母子手帳や転院の準備が話題になることもあります。</p>
+              </div>
+            </div>
+            <div class="schedule-item">
+              <div class="schedule-term">16週ごろ</div>
+              <div>
+                <h3>安定期</h3>
+                <p>一般的には妊娠16週ごろが安定期の目安です。体調が落ち着く方もいますが、無理は禁物です。</p>
+              </div>
+            </div>
+            <div class="schedule-item">
+              <div class="schedule-term">28週ごろ</div>
+              <div>
+                <h3>妊娠後期</h3>
+                <p>出産準備や入院準備が現実味を帯びてくる時期です。生活面の見直しや、家族との共有も進めやすくなります。</p>
+              </div>
+            </div>
+            <div class="schedule-item">
+              <div class="schedule-term">37〜40週</div>
+              <div>
+                <h3>出産が近づく時期</h3>
+                <p>臨月に入り、いよいよ出産を意識する時期です。体調変化に注意しつつ、最終的な準備を整えていきます。</p>
+              </div>
+            </div>
+          </div>
+          <p class="note">上記は一般的な目安です。実際の通院日や検査日、投薬内容は医療機関の方針や経過により異なります。</p>
+        </section>
+
+        <section aria-labelledby="weekly-guide">
+          <h2 id="weekly-guide">移植後のスケジュールを週ごとに解説</h2>
+          <div class="detail-list">
+            <section class="detail-block" aria-labelledby="week-0-3">
+              <h3 id="week-0-3">0〜3週</h3>
+              <p>移植直後から判定待ちまでの時期です。日数の数え方に戸惑いやすいですが、まずは移植日を基準に今後の見通しを持つことが大切です。</p>
+              <ul>
+                <li>移植当日は通院予定と投薬内容の確認が中心になります。</li>
+                <li>移植後数日から判定日までは、気持ちが不安定になりやすい時期です。</li>
+                <li>フライング検査を気にする方も多いですが、正式な判定日までは結果が揺れやすいことがあります。</li>
+              </ul>
+            </section>
+
+            <section class="detail-block" aria-labelledby="week-4-5">
+              <h3 id="week-4-5">4〜5週</h3>
+              <p>妊娠判定後、次の目安として胎嚢確認が話題になりやすい時期です。通院スケジュールが少しずつ具体化してきます。</p>
+              <ul>
+                <li>一般的には妊娠判定後に、胎嚢確認の日程が調整されます。</li>
+                <li>この時期はまだ経過を慎重に見ていく段階で、予定は前後しやすいです。</li>
+                <li>移植日からの数え方を整理しておくと、次の受診目安がわかりやすくなります。</li>
+              </ul>
+            </section>
+
+            <section class="detail-block" aria-labelledby="week-6-7">
+              <h3 id="week-6-7">6〜7週</h3>
+              <p>心拍確認が意識されることの多い時期です。ここはスケジュール上の大きな節目として覚えておきたい区間です。</p>
+              <ul>
+                <li>一般的には妊娠6〜7週ごろに心拍確認の時期を迎えることが多いです。</li>
+                <li>通院が続く時期なので、仕事や家庭の予定と合わせて管理すると負担が減ります。</li>
+                <li>「何週目の受診なのか」を把握しておくと、見通しが立てやすくなります。</li>
+              </ul>
+            </section>
+
+            <section class="detail-block" aria-labelledby="week-8-11">
+              <h3 id="week-8-11">8〜11週</h3>
+              <p>妊娠初期のなかでも、つわりや体調変化が出やすいと感じる方が多い時期です。生活リズムを無理なく整えていくことが大切です。</p>
+              <ul>
+                <li>一般的にはつわりが強く出やすい時期のひとつとされます。</li>
+                <li>母子手帳や今後の通院先について考え始めるタイミングになることもあります。</li>
+                <li>予定を詰め込みすぎず、余白のあるスケジュール管理が役立ちます。</li>
+              </ul>
+            </section>
+
+            <section class="detail-block" aria-labelledby="week-12-15">
+              <h3 id="week-12-15">12〜15週</h3>
+              <p>初期から中期へ向かう移行期です。少しずつ先の予定を考えやすくなる一方で、体調には個人差があるため無理は禁物です。</p>
+              <ul>
+                <li>つわりが落ち着く方もいれば、まだ継続する方もいます。</li>
+                <li>今後の働き方や通院の組み立てを見直すタイミングになりやすいです。</li>
+                <li>妊娠16週ごろの安定期をひとつの目安として見通しを持てます。</li>
+              </ul>
+            </section>
+
+            <section class="detail-block" aria-labelledby="week-16-27">
+              <h3 id="week-16-27">16〜27週</h3>
+              <p>一般的に安定期と呼ばれる時期を含む区間です。気持ちに少し余裕が出てくる方もいますが、予定管理は引き続き大切です。</p>
+              <ul>
+                <li>妊娠16週ごろから安定期と呼ばれることが一般的です。</li>
+                <li>体調が比較的落ち着いてくる場合は、出産準備を少しずつ始めやすくなります。</li>
+                <li>健診予定や家庭の予定を、月単位で見える化しておくと管理しやすくなります。</li>
+              </ul>
+            </section>
+
+            <section class="detail-block" aria-labelledby="week-28-36">
+              <h3 id="week-28-36">28〜36週</h3>
+              <p>妊娠後期に入り、出産を意識した準備が進みやすい時期です。生活面でも、より現実的な調整が必要になってきます。</p>
+              <ul>
+                <li>一般的には妊娠28週ごろから妊娠後期に入ります。</li>
+                <li>入院準備や家族との役割分担を確認しやすい時期です。</li>
+                <li>仕事や家事の負担を見直しながら、無理のない過ごし方を整えます。</li>
+              </ul>
+            </section>
+
+            <section class="detail-block" aria-labelledby="week-37-40">
+              <h3 id="week-37-40">37〜40週</h3>
+              <p>出産が近づく最終段階です。細かな予定を詰め込むより、すぐ動ける準備と心の余白を持っておくことが大切になります。</p>
+              <ul>
+                <li>一般的には37週以降が臨月の目安とされます。</li>
+                <li>出産予定日はあくまで目安で、実際のタイミングには幅があります。</li>
+                <li>移植日から逆算した全体の流れを見ておくと、ここまでの経過も振り返りやすくなります。</li>
+              </ul>
+            </section>
+          </div>
+        </section>
+
+        <section aria-labelledby="faq">
+          <h2 id="faq">よくある質問</h2>
+          <div class="faq-list">
+            <section class="faq-item" aria-labelledby="faq-judge">
+              <h3 id="faq-judge">いつ妊娠判定になる？</h3>
+              <p>一般的には、移植後数日から10日前後で判定日を設定するケースが見られます。ただし判定方法や日程は、胚の状態や医療機関の方針によって異なります。</p>
+            </section>
+            <section class="faq-item" aria-labelledby="faq-heartbeat">
+              <h3 id="faq-heartbeat">いつ心拍確認できる？</h3>
+              <p>一般的には妊娠6〜7週ごろが心拍確認の目安とされることが多いです。実際の確認時期には個人差があるため、受診日の案内に沿って確認していくのが安心です。</p>
+            </section>
+            <section class="faq-item" aria-labelledby="faq-nausea">
+              <h3 id="faq-nausea">つわりはいつ頃から？</h3>
+              <p>一般的には妊娠5〜6週ごろから体調変化を感じ始め、8〜12週ごろに強く出やすいと言われることがあります。ただし症状の出方にはかなり個人差があります。</p>
+            </section>
+            <section class="faq-item" aria-labelledby="faq-stable">
+              <h3 id="faq-stable">安定期はいつ？</h3>
+              <p>一般的には妊娠16週ごろから安定期と呼ばれることが多いです。ただし安定期に入っても無理をしないことは大切で、体調や医師の案内を優先して予定を組むのがおすすめです。</p>
+            </section>
+          </div>
+        </section>
+
+        <section class="cta" aria-labelledby="tool-cta">
+          <h2 id="tool-cta">自分用のスケジュールを作る</h2>
+          <p class="cta-copy">日付を入れるだけで、あなた専用の妊活・通院スケジュールを自動で作成できます。</p>
+          <a class="cta-button" href="../../index.html">スケジュールを自動作成する</a>
+          <p class="cta-sub">採卵日や移植日が決まっている場合も、途中から入力して流れを確認できます。</p>
+        </section>
+      </article>
+    </main>
+
+    <footer>
+      この記事は一般的な流れの目安をまとめたものです。実際の検査日や通院スケジュールは、医療機関の案内をご確認ください。
+    </footer>
+  </div>
+</body>
+</html>

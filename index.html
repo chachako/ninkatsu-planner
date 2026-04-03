@@ -3,459 +3,1145 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>妊活スケジューラー | 移植日から出産まで自動計算</title>
+  <title>体外受精スケジューラー | 妊活サポート</title>
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
+    :root {
+      --pink:        #ec4899;
+      --pink-dark:   #be185d;
+      --pink-light:  #fce7f3;
+      --pink-mid:    #fbcfe8;
+      --purple:      #7c3aed;
+      --purple-light:#f5f3ff;
+      --blue:        #3b82f6;
+      --gray:        #6b7280;
+      --text:        #1f2937;
+      --text-sub:    #6b7280;
+      --radius:      18px;
+      --shadow:      0 4px 24px rgba(190,24,93,.08), 0 1px 4px rgba(0,0,0,.04);
+    }
+
     body {
-      font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
-      background: linear-gradient(160deg, #fff1f6 0%, #fce7f3 40%, #ede9fe 100%);
+      font-family: -apple-system, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+      background: linear-gradient(160deg, #fff1f6 0%, #fce7f3 35%, #f0ebfe 100%);
       min-height: 100vh;
-      padding: 28px 16px 48px;
-      color: #374151;
+      padding: 24px 16px 64px;
+      color: var(--text);
+      line-height: 1.55;
     }
+    .app { max-width: 540px; margin: 0 auto; }
 
-    .container {
-      max-width: 520px;
-      margin: 0 auto;
-    }
+    /* ── Header ── */
+    .hd { text-align: center; margin-bottom: 22px; }
+    .hd-icon { font-size: 38px; margin-bottom: 6px; }
+    .hd h1 { font-size: 21px; font-weight: 800; color: var(--pink-dark); }
+    .hd p  { font-size: 13px; color: var(--text-sub); margin-top: 4px; }
 
-    /* ─── Header ─── */
-    header {
-      text-align: center;
-      margin-bottom: 28px;
-    }
-    .header-icon {
-      font-size: 36px;
-      line-height: 1;
-      margin-bottom: 8px;
-    }
-    h1 {
-      font-size: 20px;
-      font-weight: 800;
-      color: #be185d;
-      letter-spacing: 0.05em;
-      margin-bottom: 6px;
-    }
-    .subtitle {
-      font-size: 12px;
-      color: #a1a1aa;
-      letter-spacing: 0.04em;
-    }
-
-    /* ─── Cards ─── */
+    /* ── Card ── */
     .card {
-      background: #fff;
-      border-radius: 20px;
-      padding: 22px 20px;
-      margin-bottom: 14px;
-      box-shadow: 0 4px 24px rgba(190, 24, 93, 0.07);
+      background: #fff; border-radius: var(--radius); padding: 20px;
+      margin-bottom: 12px; box-shadow: var(--shadow);
+    }
+    .guide-card {
+      background: linear-gradient(135deg, #fff8fb, #f8f5ff);
+      border: 1px solid #f3d9e7;
+    }
+    .guide-eyebrow {
+      font-size: 10px; font-weight: 700; letter-spacing: .12em;
+      color: var(--text-sub); margin-bottom: 8px;
+    }
+    .guide-title {
+      font-size: 17px; font-weight: 800; line-height: 1.45;
+      color: var(--pink-dark); margin-bottom: 8px;
+    }
+    .guide-body {
+      font-size: 13px; color: var(--text-sub); margin-bottom: 14px;
+    }
+    .guide-link {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 100%; min-height: 46px; border-radius: 12px;
+      background: #fff; border: 2px solid var(--pink-mid);
+      color: var(--pink-dark); font-size: 14px; font-weight: 800;
+      text-decoration: none; transition: background .18s, border-color .18s, transform .18s;
+    }
+    .guide-link:hover {
+      background: var(--pink-light); border-color: var(--pink);
+      transform: translateY(-1px); text-decoration: none;
     }
 
-    .card-label {
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #d1d5db;
-      margin-bottom: 10px;
+    /* ── Form ── */
+    .fg { margin-bottom: 16px; }
+    .fg:last-of-type { margin-bottom: 0; }
+    .fg-label {
+      font-size: 13px; font-weight: 700; color: var(--pink-dark);
+      margin-bottom: 7px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
     }
-
-    /* ─── Input card ─── */
-    .input-label {
-      display: block;
-      font-size: 13px;
-      font-weight: 700;
-      color: #be185d;
-      margin-bottom: 10px;
-    }
+    .fg-opt { font-size: 11px; font-weight: 400; color: var(--text-sub); }
+    .fg-hint { font-size: 11px; color: var(--text-sub); margin-top: 5px; }
 
     input[type="date"] {
-      width: 100%;
-      padding: 13px 16px;
-      border: 2px solid #fbcfe8;
-      border-radius: 12px;
-      font-size: 17px;
-      color: #374151;
-      background: #fdf9fb;
-      outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
-      cursor: pointer;
+      width: 100%; padding: 13px 15px;
+      border: 2px solid var(--pink-mid); border-radius: 12px;
+      font-size: 17px; color: var(--text); background: #fdf9fb;
+      outline: none; transition: border-color .2s, box-shadow .2s; cursor: pointer;
     }
-    input[type="date"]:focus {
-      border-color: #ec4899;
-      box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.12);
+    input[type="date"]:focus { border-color: var(--pink); box-shadow: 0 0 0 4px rgba(236,72,153,.1); }
+    input[type="date"].filled { border-color: var(--pink); }
+
+    .divider { height: 1px; background: #f3f4f6; margin: 16px 0; }
+
+    /* ── Embryo toggle ── */
+    .et-label { font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 8px; }
+    .et-row { display: flex; gap: 8px; }
+    .et-btn {
+      flex: 1; padding: 10px 8px; text-align: center;
+      border: 2px solid #e9d5ff; border-radius: 10px;
+      background: #fff; cursor: pointer; transition: all .18s;
+    }
+    .et-btn .em { display: block; font-size: 13px; font-weight: 700; color: var(--purple); }
+    .et-btn .es { display: block; font-size: 10px; color: var(--text-sub); font-weight: 400; margin-top: 2px; }
+    .et-btn.active { border-color: var(--purple); background: var(--purple-light); }
+    .et-btn.active .em { color: #5b21b6; }
+
+    /* ── Results ── */
+    #results { animation: fadeUp .4s ease both; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: none; }
     }
 
-    .embryo-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 14px;
+    /* ── Status card ── */
+    .sc {
+      border-radius: var(--radius); padding: 22px 20px;
+      margin-bottom: 12px; box-shadow: var(--shadow);
     }
-    .embryo-row span {
-      font-size: 12px;
-      color: #a1a1aa;
-      white-space: nowrap;
+    .sc-ey   { font-size: 11px; font-weight: 700; letter-spacing: .1em; opacity: .75; margin-bottom: 5px; }
+    .sc-ttl  { font-size: 26px; font-weight: 800; line-height: 1.2; margin-bottom: 6px; }
+    .sc-body { font-size: 13px; opacity: .85; }
+
+    /* ── Next event ── */
+    .ne {
+      background: #fff; border-radius: var(--radius); padding: 16px 18px;
+      margin-bottom: 12px; box-shadow: var(--shadow);
+      display: flex; align-items: center; gap: 12px;
     }
-    .toggle-wrap {
-      display: flex;
-      gap: 6px;
+    .ne-icon { font-size: 28px; flex-shrink: 0; }
+    .ne-lbl  { font-size: 10px; font-weight: 700; letter-spacing: .1em; color: var(--text-sub); }
+    .ne-name { font-size: 15px; font-weight: 700; color: var(--text); margin: 3px 0 2px; }
+    .ne-date { font-size: 12px; color: var(--pink); font-weight: 600; }
+    .ne-days {
+      margin-left: auto; flex-shrink: 0; text-align: center;
+      background: var(--pink-light); border-radius: 10px; padding: 9px 13px; min-width: 54px;
     }
-    .tbtn {
-      padding: 8px 16px;
-      border: 2px solid #f3e8ff;
-      border-radius: 99px;
+    .ne-days .nd { font-size: 22px; font-weight: 900; color: var(--pink-dark); line-height: 1; }
+    .ne-days .nl { font-size: 10px; font-weight: 700; color: var(--pink-dark); }
+
+    /* ── Calendar ── */
+    .cal-card {
       background: #fff;
-      font-size: 12px;
-      font-weight: 700;
-      color: #c4b5fd;
-      cursor: pointer;
-      transition: all 0.18s;
-      line-height: 1;
-    }
-    .tbtn.active {
-      border-color: #7c3aed;
-      background: #f5f3ff;
-      color: #6d28d9;
-    }
-
-    /* ─── Block 1: Due date ─── */
-    .due-main {
-      font-size: 28px;
-      font-weight: 800;
-      color: #be185d;
-      margin-bottom: 4px;
-      line-height: 1.2;
-    }
-    .due-sub {
-      font-size: 13px;
-      color: #a1a1aa;
-    }
-    .due-sub .countdown {
-      font-weight: 700;
-      color: #ec4899;
-    }
-
-    /* ─── Block 2: Week ─── */
-    .week-row {
-      display: flex;
-      align-items: baseline;
-      gap: 2px;
-    }
-    .wn { font-size: 48px; font-weight: 900; color: #7c3aed; line-height: 1; }
-    .wu { font-size: 18px; font-weight: 700; color: #7c3aed; }
-    .dn { font-size: 32px; font-weight: 800; color: #a78bfa; margin-left: 10px; line-height: 1; }
-    .du { font-size: 14px; font-weight: 700; color: #a78bfa; }
-
-    .progress-wrap {
-      margin-top: 14px;
-    }
-    .progress-bar {
-      height: 8px;
-      background: #ede9fe;
-      border-radius: 99px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 12px;
       overflow: hidden;
+      border: 1px solid #f3e8f0;
     }
-    .progress-fill {
-      height: 100%;
-      border-radius: 99px;
-      background: linear-gradient(90deg, #c084fc, #7c3aed);
-      transition: width 0.6s cubic-bezier(.4,0,.2,1);
-      min-width: 4px;
-    }
-    .progress-labels {
-      display: flex;
-      justify-content: space-between;
-      font-size: 10px;
-      color: #d1d5db;
-      margin-top: 5px;
-    }
-    .week-note {
-      font-size: 13px;
-      color: #9ca3af;
-      margin-top: 6px;
-    }
-
-    /* ─── Block 3: Events ─── */
-    .events-list { list-style: none; }
-
-    .ev-item {
+    .cal-head {
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 12px;
-      padding: 11px 0;
-      border-bottom: 1px solid #f9fafb;
+      padding: 16px 18px 12px;
+      border-bottom: 1px solid #f3f4f6;
+      background: linear-gradient(180deg, #fff 0%, #fff8fb 100%);
     }
-    .ev-item:last-child { border-bottom: none; }
-
-    .ev-dot {
-      width: 10px;
-      height: 10px;
+    .cal-title-wrap { min-width: 0; }
+    .cal-kicker {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      color: var(--text-sub);
+      margin-bottom: 4px;
+    }
+    .cal-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1.1;
+    }
+    .cal-nav { display: flex; align-items: center; gap: 8px; }
+    .cal-btn {
+      border: 1px solid #e5e7eb;
+      background: #fff;
+      color: var(--text);
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .18s, border-color .18s, color .18s;
+    }
+    .cal-btn:hover {
+      background: #fdf2f8;
+      border-color: var(--pink-mid);
+      color: var(--pink-dark);
+    }
+    .cal-grid-head {
+      display: table;
+      table-layout: fixed;
+      width: 100%;
+      background: #fafafa;
+      border-bottom: 1px solid #eceff3;
+      box-shadow: inset 0 0 0 1px #eceff3;
+    }
+    .cal-grid-head div {
+      display: table-cell;
+      width: 14.285714%;
+      padding: 10px 8px;
+      text-align: right;
+      vertical-align: middle;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-sub);
+      box-shadow: inset 1px 0 0 #eceff3;
+    }
+    .cal-grid-head div:first-child { box-shadow: none; }
+    .cal-grid-head .sun { color: #dc2626; }
+    .cal-grid-head .sat { color: #2563eb; }
+    .cal-body { background: #fff; }
+    .cal-week {
+      position: relative;
+      border-bottom: 1px solid #eceff3;
+    }
+    .cal-week:last-child { border-bottom: none; }
+    .cal-week-grid {
+      display: table;
+      table-layout: fixed;
+      width: 100%;
+      box-shadow: inset 0 0 0 1px #eceff3;
+    }
+    .cal-day {
+      display: table-cell;
+      width: 14.285714%;
+      vertical-align: top;
+      min-height: 132px;
+      padding: 8px 6px 8px;
+      background: #fff;
+      box-shadow: inset 1px 0 0 #eceff3;
+    }
+    .cal-day:first-child { box-shadow: none; }
+    .cal-day.muted { background: #fafafa; }
+    .cal-day.today { background: linear-gradient(180deg, #fff8fb 0%, #fff 100%); }
+    .cal-day-head {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 6px;
+    }
+    .cal-day-num {
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
-      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text);
     }
-    .ev-dot.past    { background: #e5e7eb; }
-    .ev-dot.future  { background: #f9a8d4; }
-    .ev-dot.today   { background: #ec4899; box-shadow: 0 0 0 3px #fce7f3; }
-    .ev-dot.key     { background: #ec4899; }
-
-    .ev-info { flex: 1; min-width: 0; }
-    .ev-name {
-      font-size: 14px;
-      font-weight: 600;
-      color: #374151;
-      white-space: nowrap;
+    .cal-day.today .cal-day-num {
+      background: var(--pink);
+      color: #fff;
+    }
+    .cal-day.muted .cal-day-num { color: #9ca3af; }
+    .cal-day-content {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .cal-event {
+      display: block;
+      border-radius: 6px;
+      padding: 3px 6px;
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1.35;
+      white-space: normal;
+      overflow: visible;
+      text-overflow: clip;
+      word-break: break-word;
+      border-left: 3px solid transparent;
+      background: #f8fafc;
+      color: var(--text);
+    }
+    .cal-event.phase-stim { background: #eff6ff; border-left-color: #3b82f6; color: #1d4ed8; }
+    .cal-event.phase-retrieval { background: #f5f3ff; border-left-color: #8b5cf6; color: #6d28d9; }
+    .cal-event.phase-rest { background: #f3f4f6; border-left-color: #9ca3af; color: #4b5563; }
+    .cal-event.phase-fet { background: #fdf2f8; border-left-color: #ec4899; color: #be185d; }
+    .cal-event.phase-pregnancy { background: #fff1f6; border-left-color: #be185d; color: #9d174d; }
+    .cal-event.est { opacity: .78; }
+    .cal-more {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text-sub);
+      padding: 2px 2px 0;
+    }
+    .cal-bars {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 42px;
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      grid-auto-rows: 22px;
+      pointer-events: none;
+    }
+    .cal-bar {
+      position: relative;
+      height: 20px;
+      margin: 0 4px 2px;
+      border-radius: 6px;
+      padding: 3px 8px;
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1.2;
+      color: #fff;
+      box-shadow: 0 1px 0 rgba(255,255,255,.45) inset;
       overflow: hidden;
+      white-space: nowrap;
       text-overflow: ellipsis;
     }
-    .ev-name.past { color: #9ca3af; }
-    .ev-sub {
-      font-size: 11px;
-      color: #c4b5fd;
-      margin-top: 1px;
+    .cal-bar.edge-start { margin-left: 0; }
+    .cal-bar.edge-end   { margin-right: 0; }
+    .cal-bar.continue-start {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
     }
-    .ev-sub.past { color: #d1d5db; }
+    .cal-bar.continue-end {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    .cal-bar.stim-med { background: linear-gradient(90deg, #60a5fa, #3b82f6); }
+    .cal-bar.estrogen-med { background: linear-gradient(90deg, #f472b6, #ec4899); }
+    .cal-bar.prog-med { background: linear-gradient(90deg, #c084fc, #8b5cf6); }
 
-    .ev-right { text-align: right; flex-shrink: 0; }
-    .ev-date {
-      font-size: 13px;
-      font-weight: 600;
-      color: #6b7280;
-    }
-    .ev-date.past { color: #d1d5db; }
-    .ev-badge {
-      display: inline-block;
-      font-size: 10px;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 99px;
-      margin-top: 3px;
-    }
-    .ev-badge.done  { background: #f3f4f6; color: #9ca3af; }
-    .ev-badge.now   { background: #fce7f3; color: #be185d; }
-    .ev-badge.soon  { background: #fdf4ff; color: #a855f7; }
+    /* ── Timeline card ── */
+    .tlc { border-radius: var(--radius); padding: 20px 18px; background: #fff; box-shadow: var(--shadow); margin-bottom: 12px; }
+    .tlc-hd { font-size: 10px; font-weight: 700; letter-spacing: .12em; color: var(--text-sub); margin-bottom: 14px; }
 
-    /* ─── Empty / before transfer ─── */
-    .empty-msg {
-      font-size: 14px;
-      color: #9ca3af;
-      text-align: center;
-      padding: 10px 0;
+    /* ── Timeline ── */
+    .tl { position: relative; padding-left: 30px; }
+    .tl::before {
+      content: ''; position: absolute; left: 9px; top: 10px; bottom: 14px;
+      width: 2px;
+      background: linear-gradient(to bottom, #ec4899 0%, #c4b5fd 60%, #e9d5ff 100%);
     }
 
-    /* ─── Footer ─── */
-    footer {
-      text-align: center;
-      font-size: 11px;
-      color: #d1d5db;
-      margin-top: 24px;
-      line-height: 1.7;
+    /* Phase group */
+    .tl-phase { margin-bottom: 4px; }
+    .tl-phase-hd {
+      position: relative; margin-bottom: 8px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .tl-phase-hd::before {
+      content: ''; position: absolute; left: -26px; top: 50%;
+      transform: translateY(-50%);
+      width: 8px; height: 8px; border-radius: 50%;
+      background: currentColor; opacity: .3;
+    }
+    .tl-ph-label { font-size: 10px; font-weight: 700; letter-spacing: .08em; padding: 2px 10px; border-radius: 99px; }
+
+    /* Event item */
+    .tl-item { position: relative; margin-bottom: 14px; display: flex; gap: 0; }
+    .tl-item:last-child { margin-bottom: 0; }
+
+    .tl-dot {
+      position: absolute; left: -25px; top: 6px;
+      width: 12px; height: 12px; border-radius: 50%;
+      border: 2px solid #fff; flex-shrink: 0;
+      transition: box-shadow .3s;
+    }
+    .tl-dot.past    { background: #d1d5db; box-shadow: 0 0 0 2px #d1d5db; }
+    .tl-dot.active  { background: var(--pink); box-shadow: 0 0 0 5px rgba(236,72,153,.2); animation: tl-pulse 1.8s infinite; }
+    .tl-dot.key     { background: var(--pink-dark); box-shadow: 0 0 0 2px var(--pink-dark); }
+    .tl-dot.normal  { background: #c4b5fd; box-shadow: 0 0 0 2px #c4b5fd; }
+    .tl-dot.est     { background: #fbbf24; box-shadow: 0 0 0 2px #fbbf24; }
+
+    @keyframes tl-pulse {
+      0%,100% { box-shadow: 0 0 0 5px rgba(236,72,153,.2); }
+      50%     { box-shadow: 0 0 0 9px rgba(236,72,153,.05); }
     }
 
-    /* hidden */
-    #results { display: none; }
-    #results.show { display: block; }
+    .tl-body { flex: 1; }
+    .tl-row1 { display: flex; align-items: flex-start; gap: 6px; flex-wrap: wrap; }
+    .tl-name { font-size: 13px; font-weight: 700; color: var(--text); }
+    .tl-name.past { color: #9ca3af; }
+    .tl-sub { font-size: 11px; color: var(--text-sub); margin-top: 2px; line-height: 1.4; }
+    .tl-sub.past { color: #d1d5db; }
+    .tl-date { font-size: 11px; font-weight: 600; color: var(--pink); margin-top: 2px; }
+    .tl-date.past { color: #d1d5db; }
+    .tl-date.est  { color: #d97706; }
+
+    /* Badges */
+    .badge {
+      display: inline-flex; align-items: center;
+      font-size: 9px; font-weight: 700; padding: 2px 7px; border-radius: 99px;
+      flex-shrink: 0;
+    }
+    .b-done  { background: #f3f4f6; color: #9ca3af; }
+    .b-today { background: var(--pink-light); color: var(--pink-dark); }
+    .b-soon  { background: var(--purple-light); color: var(--purple); }
+    .b-est   { background: #fef3c7; color: #d97706; }
+
+    /* "今ここ" marker */
+    .tl-now-marker {
+      position: relative; margin-bottom: 14px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .tl-now-marker::before {
+      content: '';
+      position: absolute; left: -26px; top: 50%; transform: translateY(-50%);
+      width: 14px; height: 14px; border-radius: 50%;
+      background: #fff; border: 3px solid var(--pink);
+      box-shadow: 0 0 0 4px rgba(236,72,153,.15);
+    }
+    .tl-now-tag {
+      font-size: 12px; font-weight: 800; color: var(--pink-dark);
+      background: var(--pink-light); padding: 4px 14px; border-radius: 99px;
+    }
+
+    /* ── Export ── */
+    .exp { display: flex; gap: 10px; margin-bottom: 12px; }
+    .exp-btn {
+      flex: 1; padding: 12px 8px; border: 2px solid var(--pink-mid);
+      border-radius: 12px; background: #fff; color: var(--pink-dark);
+      font-size: 13px; font-weight: 700; cursor: pointer; transition: all .18s;
+      text-align: center; line-height: 1.3;
+    }
+    .exp-btn:hover { background: var(--pink-light); border-color: var(--pink); }
+
+    /* ── Toast ── */
+    .toast {
+      position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px);
+      background: #1f2937; color: #fff; padding: 10px 20px; border-radius: 99px;
+      font-size: 13px; font-weight: 600; pointer-events: none;
+      transition: transform .3s, opacity .3s; opacity: 0; z-index: 999;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+    footer { text-align: center; font-size: 11px; color: #c4b5fd; margin-top: 20px; line-height: 1.9; }
+    .hidden { display: none !important; }
+
+    @media (max-width: 640px) {
+      .cal-head {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .cal-nav { width: 100%; justify-content: space-between; }
+      .cal-btn { flex: 1; text-align: center; }
+      .cal-day {
+        min-height: 116px;
+        padding: 6px 4px 6px;
+      }
+      .cal-day-num {
+        width: 24px;
+        height: 24px;
+        font-size: 11px;
+      }
+      .cal-event, .cal-bar {
+        font-size: 10px;
+      }
+      .cal-bars { top: 36px; }
+    }
   </style>
 </head>
 <body>
-<div class="container">
+<div class="app">
 
-  <!-- Header -->
-  <header>
-    <div class="header-icon">🌸</div>
-    <h1>妊活スケジューラー</h1>
-    <p class="subtitle">移植日を入れるだけ — 出産まで自動計算</p>
-  </header>
+  <div class="hd">
+    <div class="hd-icon">🌸</div>
+    <h1>体外受精スケジューラー</h1>
+    <p>入力するだけで、あなたのスケジュールが見えてくる</p>
+  </div>
 
   <!-- ── 入力 ── -->
   <div class="card">
-    <label class="input-label" for="transferDate">移植日（胚移植日）</label>
-    <input type="date" id="transferDate" onchange="calc()">
-    <div class="embryo-row">
-      <span>胚のステージ：</span>
-      <div class="toggle-wrap">
-        <button class="tbtn active" id="btn5" onclick="setEmbryo(5)">D5（5日目胚盤胞）</button>
-        <button class="tbtn"        id="btn3" onclick="setEmbryo(3)">D3（3日目初期胚）</button>
+    <div class="fg">
+      <div class="fg-label">今回の治療を開始した日（生理1日目）</div>
+      <input type="date" id="stimDate">
+      <div class="fg-hint">採卵に向けて治療を始める周期の生理1日目</div>
+    </div>
+    <div class="divider"></div>
+    <div class="fg">
+      <div class="fg-label">採卵日（OPU）<span class="fg-opt">あとで変更できます</span></div>
+      <input type="date" id="opuDate">
+    </div>
+    <div class="divider"></div>
+    <div class="fg">
+      <div class="fg-label">移植日（ET）<span class="fg-opt">あとで変更できます</span></div>
+      <input type="date" id="etDate">
+    </div>
+    <div class="divider"></div>
+    <div class="fg" style="margin-bottom:0">
+      <div class="et-label">移植する胚のステージ</div>
+      <div class="et-row">
+        <button class="et-btn active" id="btn5" onclick="setEmbryo(5)">
+          <span class="em">D5（5日目胚）</span>
+          <span class="es">一般的な胚盤胞</span>
+        </button>
+        <button class="et-btn" id="btn3" onclick="setEmbryo(3)">
+          <span class="em">D3（3日目胚）</span>
+          <span class="es">初期胚</span>
+        </button>
       </div>
     </div>
   </div>
 
   <!-- ── 結果 ── -->
-  <div id="results">
+  <div class="card guide-card">
+    <div class="guide-eyebrow">GUIDE ARTICLE</div>
+    <div class="guide-title">移植日から出産までの流れを、週ごとにまとめた記事も読めます</div>
+    <div class="guide-body">妊娠判定、胎嚢確認、心拍確認、安定期、出産までの目安を、スマホで読みやすく整理しています。</div>
+    <a class="guide-link" href="./articles/embryo-transfer-schedule/index.html">記事を読む</a>
+  </div>
 
-    <!-- Block 1 出産予定日 -->
-    <div class="card">
-      <div class="card-label">出産予定日</div>
-      <div class="due-main" id="dueMain">—</div>
-      <div class="due-sub"  id="dueSub"></div>
+  <div id="results" class="hidden">
+
+    <!-- 現在のステータス -->
+    <div class="sc" id="statusCard"></div>
+
+    <!-- 次のイベント -->
+    <div class="ne" id="nextCard"></div>
+
+    <!-- カレンダー -->
+    <div class="cal-card">
+      <div class="cal-head">
+        <div class="cal-title-wrap">
+          <div class="cal-kicker">CALENDAR VIEW</div>
+          <div class="cal-title" id="calendarTitle"></div>
+        </div>
+        <div class="cal-nav">
+          <button class="cal-btn" type="button" onclick="moveCalendar(-1)">← 前月</button>
+          <button class="cal-btn" type="button" onclick="jumpCalendarToday()">今月</button>
+          <button class="cal-btn" type="button" onclick="moveCalendar(1)">次月 →</button>
+        </div>
+      </div>
+      <div class="cal-grid-head">
+        <div class="sun">日</div>
+        <div>月</div>
+        <div>火</div>
+        <div>水</div>
+        <div>木</div>
+        <div>金</div>
+        <div class="sat">土</div>
+      </div>
+      <div class="cal-body" id="calendar"></div>
     </div>
 
-    <!-- Block 2 現在の週数 -->
-    <div class="card">
-      <div class="card-label">現在の妊娠週数</div>
-      <div id="weekBlock"></div>
+    <!-- タイムライン -->
+    <div class="tlc">
+      <div class="tlc-hd">TIMELINE — スケジュール一覧</div>
+      <div class="tl" id="timeline"></div>
     </div>
 
-    <!-- Block 3 重要イベント -->
-    <div class="card">
-      <div class="card-label">重要イベント一覧</div>
-      <ul class="events-list" id="evList"></ul>
+    <!-- エクスポート -->
+    <div class="exp">
+      <button class="exp-btn" onclick="downloadICS()">📅<br>カレンダーに追加<br>（ICSダウンロード）</button>
+      <button class="exp-btn" onclick="copyURL()">🔗<br>このURLを<br>コピー</button>
     </div>
 
   </div>
 
   <footer>
-    ※ 計算は目安です。実際のスケジュールは担当医にご確認ください。<br>
+    ※ スケジュールはホルモン補充周期（HRT）の標準的な目安です。<br>
+    ※ 実際の日程はクリニックの方針・体の状態により異なります。<br>
     ※ データはブラウザ外に送信されません。
   </footer>
 </div>
 
+<div class="toast" id="toast"></div>
+
 <script>
-  let embryoDay = 5;
+// ── 状態 ────────────────────────────────────────────────────
+let embryoDay   = 5;
+let computed    = null;
+let initialized = false;
+let userInteracted = false;
+let currentCalendarMonth = null;
+const STORE_KEY = 'ivf-sch-v3';
 
-  function setEmbryo(d) {
-    embryoDay = d;
-    document.getElementById('btn5').classList.toggle('active', d === 5);
-    document.getElementById('btn3').classList.toggle('active', d === 3);
-    calc();
+// ── ユーティリティ ───────────────────────────────────────────
+const addDays  = (d, n) => { const r = new Date(d); r.setDate(r.getDate() + n); return r; };
+const today0   = ()     => { const t = new Date(); t.setHours(0,0,0,0); return t; };
+const parseD   = v      => v ? new Date(v + 'T00:00:00') : null;
+const floor0   = d      => { const x = new Date(d); x.setHours(0,0,0,0); return x; };
+const diffDays = (a, b) => Math.round((floor0(a) - floor0(b)) / 86400000);
+const startOfMonth = d => new Date(d.getFullYear(), d.getMonth(), 1);
+const endOfMonth   = d => new Date(d.getFullYear(), d.getMonth() + 1, 0);
+const startOfWeek  = d => addDays(floor0(d), -floor0(d).getDay());
+const endOfWeek    = d => addDays(startOfWeek(d), 6);
+const DOW      = ['日','月','火','水','木','金','土'];
+const fmtFull  = d      => `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日（${DOW[d.getDay()]}）`;
+const fmtShort = d      => `${d.getMonth()+1}月${d.getDate()}日（${DOW[d.getDay()]}）`;
+const fmtMonth = d      => `${d.getFullYear()}年${d.getMonth()+1}月`;
+const icsDate  = d      => {
+  const x = new Date(d);
+  return `${x.getFullYear()}${String(x.getMonth()+1).padStart(2,'0')}${String(x.getDate()).padStart(2,'0')}`;
+};
+
+// ── 初期化 ──────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', () => {
+  const fromURL = restoreFromURL();
+  if (!fromURL) restoreFromStorage();
+
+  // 入力ハイライト
+  ['stimDate','opuDate','etDate'].forEach(id => {
+    const el = document.getElementById(id);
+    el.classList.toggle('filled', !!el.value);
+    el.addEventListener('change', onInput);
+  });
+
+  initialized = true;
+  const hasAny = ['stimDate','opuDate','etDate'].some(id => document.getElementById(id).value);
+  if (hasAny) runCalc();
+});
+
+// ── 入力ハンドラ ─────────────────────────────────────────────
+function onInput(e) {
+  userInteracted = true;
+  e.target.classList.toggle('filled', !!e.target.value);
+  saveToURL();
+  saveToStorage();
+  runCalc();
+}
+
+function setEmbryo(n) {
+  userInteracted = true;
+  embryoDay = n;
+  document.getElementById('btn5').classList.toggle('active', n === 5);
+  document.getElementById('btn3').classList.toggle('active', n === 3);
+  if (!initialized) return;
+  saveToURL(); saveToStorage(); runCalc();
+}
+
+// ── URL 保存 / 復元 ─────────────────────────────────────────
+function saveToURL() {
+  const p = new URLSearchParams();
+  const s = document.getElementById('stimDate').value;
+  const o = document.getElementById('opuDate').value;
+  const e = document.getElementById('etDate').value;
+  if (s) p.set('start', s);
+  if (o) p.set('opu',   o);
+  if (e) p.set('et',    e);
+  p.set('d', embryoDay);
+  history.replaceState(null, '', '?' + p.toString());
+}
+
+function restoreFromURL() {
+  const p = new URLSearchParams(location.search);
+  let found = false;
+  if (p.has('start')) { document.getElementById('stimDate').value = p.get('start'); found = true; }
+  if (p.has('opu'))   { document.getElementById('opuDate').value  = p.get('opu');   found = true; }
+  if (p.has('et'))    { document.getElementById('etDate').value   = p.get('et');    found = true; }
+  if (p.has('d'))     embryoDay = parseInt(p.get('d')) || 5;
+  document.getElementById('btn5').classList.toggle('active', embryoDay === 5);
+  document.getElementById('btn3').classList.toggle('active', embryoDay === 3);
+  return found;
+}
+
+// ── localStorage ───────────────────────────────────────────
+function saveToStorage() {
+  try {
+    localStorage.setItem(STORE_KEY, JSON.stringify({
+      start: document.getElementById('stimDate').value,
+      opu:   document.getElementById('opuDate').value,
+      et:    document.getElementById('etDate').value,
+      d:     embryoDay
+    }));
+  } catch (_) {}
+}
+
+function restoreFromStorage() {
+  try {
+    const data = JSON.parse(localStorage.getItem(STORE_KEY) || 'null');
+    if (!data) return;
+    if (data.start) document.getElementById('stimDate').value = data.start;
+    if (data.opu)   document.getElementById('opuDate').value  = data.opu;
+    if (data.et)    document.getElementById('etDate').value   = data.et;
+    if (data.d)     { embryoDay = data.d; }
+    document.getElementById('btn5').classList.toggle('active', embryoDay === 5);
+    document.getElementById('btn3').classList.toggle('active', embryoDay === 3);
+  } catch (_) {}
+}
+
+// ── メイン計算 ──────────────────────────────────────────────
+function runCalc() {
+  const stimIn = parseD(document.getElementById('stimDate').value);
+  const opuIn  = parseD(document.getElementById('opuDate').value);
+  const etIn   = parseD(document.getElementById('etDate').value);
+
+  if (!stimIn && !opuIn && !etIn) {
+    document.getElementById('results').classList.add('hidden');
+    return;
   }
 
-  // ── helpers ──────────────────────────────────────────────
-  function addDays(base, n) {
-    const d = new Date(base);
-    d.setDate(d.getDate() + n);
-    return d;
+  const gestAtET = embryoDay === 5 ? 19 : 17;
+
+  // ─ どの入力を起点にするか優先順位: ET > OPU > STIM ─
+  let et, etEst, opu, opuEst, stim, stimEst;
+
+  if (etIn) {
+    et = etIn; etEst = false;
+    opu  = opuIn  || addDays(et, -(14 + 28 + 12 + embryoDay)); opuEst = !opuIn;
+    stim = stimIn || addDays(opu, -13);                         stimEst = !stimIn;
+  } else if (opuIn) {
+    opu = opuIn; opuEst = false;
+    stim = stimIn || addDays(opu, -13);                         stimEst = !stimIn;
+    et   = addDays(opu, 14 + 28 + 12 + embryoDay);             etEst = true;
+  } else {
+    stim = stimIn; stimEst = false;
+    opu  = addDays(stim, 13);                                   opuEst = true;
+    et   = addDays(stim, 13 + 14 + 28 + 12 + embryoDay);       etEst = true;
   }
 
-  function today0() {
-    const t = new Date();
-    t.setHours(0, 0, 0, 0);
-    return t;
+  const fetPeriod = addDays(et, -(12 + embryoDay));
+  const due       = addDays(et, 280 - gestAtET);
+  const today     = today0();
+
+  const evD = n => addDays(et, n - gestAtET); // 妊娠n日目の絶対日付
+
+  // ─ イベント定義 ─
+  const events = [
+    // 採卵周期
+    { id:'stim',     phase:'stim',      name:'治療開始（生理1日目）',   sub:'採卵に向けた治療周期スタート',              date:stim,                   est:stimEst, key:true  },
+    { id:'inj',      phase:'stim',      name:'排卵誘発剤の注射開始',    sub:'D3頃から毎日注射・卵胞を育てる',            date:addDays(stim,2),        est:stimEst, key:false },
+    { id:'fcheck1',  phase:'stim',      name:'受診①・卵胞確認',        sub:'D6頃・経腟エコーで卵胞数・サイズを確認',    date:addDays(stim,5),        est:stimEst, key:false },
+    { id:'fcheck2',  phase:'stim',      name:'受診②・卵胞発育確認',    sub:'D10頃・エコー＋採血（E2値確認）',           date:addDays(stim,9),        est:stimEst, key:false },
+    { id:'hcg',      phase:'stim',      name:'HCG注射（トリガー）',    sub:'採卵36〜40時間前・卵子の最終成熟を促す',     date:addDays(opu,-2),        est:opuEst,  key:true  },
+    // 採卵・受精・凍結
+    { id:'opu',      phase:'retrieval', name:'採卵日（OPU）',           sub:'麻酔下で採卵・当日は安静に',                date:opu,                    est:opuEst,  key:true  },
+    { id:'fert',     phase:'retrieval', name:'受精確認',                sub:'翌日・IVF / ICSIの結果が報告されます',      date:addDays(opu,1),         est:opuEst,  key:false },
+    { id:'div',      phase:'retrieval', name:'分割確認（3日目胚）',     sub:'採卵3日後・細胞分裂の状態を確認',           date:addDays(opu,3),         est:opuEst,  key:false },
+    { id:'blast',    phase:'retrieval', name:'胚盤胞確認・凍結',        sub:'採卵5〜6日後・良好な胚を凍結保存',          date:addDays(opu,5),         est:opuEst,  key:true  },
+    // 卵巣休憩期
+    { id:'reststart',phase:'rest',      name:'採卵後の生理',            sub:'採卵約2週間後・卵巣のリセット',             date:addDays(opu,14),        est:true,    key:false },
+    { id:'restmid',  phase:'rest',      name:'卵巣休憩期',              sub:'通常1〜2周期ほど待機（クリニックにより異なる）', date:addDays(opu,28),   est:true,    key:false },
+    { id:'consult',  phase:'rest',      name:'移植周期の方針を相談',    sub:'担当医と移植スケジュールを確認',             date:addDays(fetPeriod,-7),  est:etEst,   key:false },
+    // 移植周期
+    { id:'fetst',    phase:'fet',       name:'移植周期スタート（生理）', sub:'移植に向けた新しい周期の開始',              date:fetPeriod,              est:etEst,   key:false },
+    { id:'estrogen', phase:'fet',       name:'エストロゲン製剤開始',    sub:'D2頃〜子宮内膜を厚くする薬の服用開始',      date:addDays(fetPeriod,1),   est:etEst,   key:false },
+    { id:'ucheck',   phase:'fet',       name:'受診・子宮内膜確認',      sub:'D12頃・内診エコー＋採血',                   date:addDays(fetPeriod,11),  est:etEst,   key:true  },
+    { id:'prog',     phase:'fet',       name:'プロゲステロン製剤開始',  sub:`D13頃・黄体ホルモン補充（移植${embryoDay}日前）`, date:addDays(fetPeriod,12), est:etEst, key:false },
+    { id:'etprev',   phase:'fet',       name:'移植前日',                sub:'安静にする・激しい運動・飲酒を避ける',       date:addDays(et,-1),         est:etEst,   key:false },
+    // 妊娠〜出産
+    { id:'et',       phase:'pregnancy', name:'胚移植（ET）',            sub:'当日は安静に・無理をしない',                date:et,                     est:etEst,   key:true  },
+    { id:'bt5',      phase:'pregnancy', name:'BT5　フライング検査',     sub:'薄い陽性が出る可能性あり・一喜一憂しないで', date:addDays(et,5),          est:etEst,   key:false },
+    { id:'bt9',      phase:'pregnancy', name:'判定日（BT9〜10）',       sub:'血液検査でhCG値を確認・正式な判定日',        date:addDays(et,9),          est:etEst,   key:true  },
+    { id:'sac',      phase:'pregnancy', name:'胎嚢確認',                sub:'妊娠5〜6週頃・超音波で確認',                date:evD(35),                est:etEst,   key:false },
+    { id:'hb',       phase:'pregnancy', name:'心拍確認',                sub:'妊娠7〜8週頃・ドキドキの受診',               date:evD(49),                est:etEst,   key:true  },
+    { id:'mhb',      phase:'pregnancy', name:'母子手帳の取得',          sub:'妊娠11〜12週頃・産院も探し始めましょう',     date:evD(77),                est:etEst,   key:false },
+    { id:'stable',   phase:'pregnancy', name:'安定期（妊娠16週）',     sub:'流産リスクが大幅に下がります',               date:evD(112),               est:etEst,   key:true  },
+    { id:'late',     phase:'pregnancy', name:'妊娠後期（28週）',        sub:'出産に向けた準備が始まります',               date:evD(196),               est:etEst,   key:false },
+    { id:'matl',     phase:'pregnancy', name:'産休開始（目安）',        sub:'妊娠34週・出産予定日の6週前',               date:evD(238),               est:etEst,   key:false },
+    { id:'due',      phase:'pregnancy', name:'出産予定日',              sub:'妊娠40週・いよいよです！',                  date:due,                    est:etEst,   key:true  },
+  ];
+
+  const medicationBars = [
+    {
+      id: 'stim-med',
+      title: '排卵誘発剤',
+      start: addDays(stim, 2),
+      end: addDays(opu, -2),
+      colorClass: 'stim-med'
+    },
+    {
+      id: 'estrogen-med',
+      title: 'エストロゲン製剤',
+      start: addDays(fetPeriod, 1),
+      end: addDays(et, -1),
+      colorClass: 'estrogen-med'
+    },
+    {
+      id: 'prog-med',
+      title: 'プロゲステロン製剤',
+      start: addDays(fetPeriod, 12),
+      end: addDays(et, 9),
+      colorClass: 'prog-med'
+    }
+  ].filter(bar => bar.start <= bar.end);
+
+  events.sort((a, b) => a.date - b.date);
+
+  const defaultMonthBase = events.find(ev => floor0(ev.date) >= today)?.date || today;
+  if (!currentCalendarMonth) {
+    currentCalendarMonth = startOfMonth(defaultMonthBase);
   }
 
-  const DOW = ['日','月','火','水','木','金','土'];
+  computed = { stim, stimEst, opu, opuEst, et, etEst, due, gestAtET, events, medicationBars, today };
 
-  function fmt(d) {
-    return `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日（${DOW[d.getDay()]}）`;
+  render();
+
+}
+
+// ── フェーズ設定 ─────────────────────────────────────────────
+const PHASES = {
+  stim:     { label:'採卵周期（卵巣刺激）', color:'#3b82f6',  bg:'#eff6ff'  },
+  retrieval:{ label:'採卵・受精・凍結',      color:'#8b5cf6',  bg:'#f5f3ff'  },
+  rest:     { label:'卵巣休憩期',            color:'#6b7280',  bg:'#f9fafb'  },
+  fet:      { label:'移植周期',              color:'#ec4899',  bg:'#fdf2f8'  },
+  pregnancy:{ label:'妊娠〜出産',            color:'#be185d',  bg:'#fff1f6'  },
+};
+
+const ICONS = {
+  stim:'🌱', inj:'💉', fcheck1:'🔬', fcheck2:'🔬', hcg:'💊',
+  opu:'🥚', fert:'🔬', div:'🔬', blast:'❄️',
+  reststart:'🌙', restmid:'🌙', consult:'💬',
+  fetst:'🌸', estrogen:'💊', ucheck:'🔍', prog:'💊', etprev:'🛏️',
+  et:'🌸', bt5:'🧪', bt9:'💝', sac:'🔬', hb:'💗',
+  mhb:'📕', stable:'🌟', late:'👶', matl:'🎒', due:'🎀',
+};
+
+// ── ステータス判定 ────────────────────────────────────────────
+function getStatus(et, opu, etEst, gestAtET, today) {
+  const etD  = floor0(et);
+  const opuD = floor0(opu);
+  const bt   = diffDays(today, etD); // 移植からの日数（負=移植前）
+
+  if (etD > today) {
+    if (opuD > today) {
+      const d = diffDays(opuD, today);
+      return { bg:'linear-gradient(135deg,#dbeafe,#ede9fe)', color:'#1e40af',
+        ey:`採卵周期`, ttl:`採卵まであと ${d} 日`, body:'卵巣を刺激して卵子を育てている時期です' };
+    }
+    const d = diffDays(etD, today);
+    return { bg:'linear-gradient(135deg,#fce7f3,#f5f3ff)', color:'#be185d',
+      ey:'移植準備中', ttl:`移植まであと ${d} 日`, body:'卵巣を休ませながら、移植の準備をしている時期です' };
   }
-  function fmtShort(d) {
-    return `${d.getMonth()+1}/${d.getDate()}（${DOW[d.getDay()]}）`;
+
+  if (bt === 0) return { bg:'linear-gradient(135deg,#fce7f3,#f5f3ff)', color:'#be185d',
+    ey:'今日', ttl:'移植日！', body:'深呼吸して、いつも通り穏やかに過ごしましょう' };
+  if (bt <= 4)  return { bg:'linear-gradient(135deg,#fdf2f8,#f5f3ff)', color:'#be185d',
+    ey:`BT${bt}（移植後${bt}日目）`, ttl:'着床待ち期間',
+    body:'胚が子宮に着床しようとしている時期です。安静に過ごしましょう' };
+  if (bt <= 8)  return { bg:'linear-gradient(135deg,#fef3c7,#fce7f3)', color:'#92400e',
+    ey:`BT${bt}（移植後${bt}日目）`, ttl:'フライング検査に反応が出るかも',
+    body:'薄い線が見えることも。一喜一憂せず判定日まで待ちましょう' };
+  if (bt <= 13) return { bg:'linear-gradient(135deg,#fce7f3,#fdf4ff)', color:'#be185d',
+    ey:`BT${bt}（移植後${bt}日目）`, ttl:'判定日前後',
+    body:'もうすぐ正式な結果がわかります。深呼吸して待ちましょう' };
+
+  const gestDays = bt + gestAtET;
+  const gw = Math.floor(gestDays / 7);
+  const gd = gestDays % 7;
+
+  if (gw < 6)  return { bg:'linear-gradient(135deg,#fce7f3,#fef9ee)', color:'#be185d',
+    ey:`妊娠${gw}週${gd}日`, ttl:'妊娠超初期', body:'胎嚢確認に向けて、体を大切にしましょう' };
+  if (gw < 8)  return { bg:'linear-gradient(135deg,#fce7f3,#fef9ee)', color:'#be185d',
+    ey:`妊娠${gw}週${gd}日`, ttl:'妊娠初期', body:'心拍確認の受診が近づいています' };
+  if (gw < 12) return { bg:'linear-gradient(135deg,#fce7f3,#fef9ee)', color:'#be185d',
+    ey:`妊娠${gw}週${gd}日`, ttl:'妊娠初期', body:'心拍が確認されました。無理せず過ごしましょう' };
+  if (gw < 16) return { bg:'linear-gradient(135deg,#fce7f3,#f0fdf4)', color:'#be185d',
+    ey:`妊娠${gw}週${gd}日`, ttl:'もうすぐ安定期！', body:`あと${16-gw}週ほどで安定期に入ります` };
+  if (gw < 28) return { bg:'linear-gradient(135deg,#f0fdf4,#fce7f3)', color:'#166534',
+    ey:`妊娠${gw}週${gd}日`, ttl:'安定期（妊娠中期）', body:'マタニティライフを楽しんで！' };
+  if (gw < 36) return { bg:'linear-gradient(135deg,#fef9ee,#fce7f3)', color:'#92400e',
+    ey:`妊娠${gw}週${gd}日`, ttl:'妊娠後期', body:'出産の準備を始めましょう' };
+  return         { bg:'linear-gradient(135deg,#fce7f3,#fef3c7)', color:'#be185d',
+    ey:`妊娠${gw}週${gd}日`, ttl:'もうすぐ出産！', body:'最後の準備を整えましょう。お体を大切に' };
+}
+
+// ── レンダリング ─────────────────────────────────────────────
+function render() {
+  const { et, opu, etEst, gestAtET, events, medicationBars, today } = computed;
+
+  // 表示
+  const resultsEl = document.getElementById('results');
+  const wasHidden = resultsEl.classList.contains('hidden');
+  resultsEl.classList.remove('hidden');
+  if (wasHidden) resultsEl.style.animation = 'none', requestAnimationFrame(() => resultsEl.style.animation = '');
+  if (wasHidden && userInteracted) {
+    setTimeout(() => resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80);
   }
 
-  // ── main ─────────────────────────────────────────────────
-  function calc() {
-    const val = document.getElementById('transferDate').value;
-    const results = document.getElementById('results');
+  // ── ステータス ──
+  const st = getStatus(et, opu, etEst, gestAtET, today);
+  const sc = document.getElementById('statusCard');
+  sc.style.background = st.bg;
+  sc.style.color      = st.color;
+  sc.innerHTML = `
+    <div class="sc-ey">${st.ey}</div>
+    <div class="sc-ttl">${st.ttl}</div>
+    <div class="sc-body">${st.body}</div>`;
 
-    if (!val) { results.classList.remove('show'); return; }
+  // ── 次のイベント ──
+  const future  = events.filter(ev => floor0(ev.date) >= today);
+  const nextEv  = future[0];
+  const nc      = document.getElementById('nextCard');
+  if (nextEv) {
+    nc.classList.remove('hidden');
+    const d = diffDays(floor0(nextEv.date), today);
+    nc.innerHTML = `
+      <div class="ne-icon">${ICONS[nextEv.id] || '📌'}</div>
+      <div style="flex:1;min-width:0">
+        <div class="ne-lbl">NEXT — 次のイベント</div>
+        <div class="ne-name">${nextEv.name}</div>
+        <div class="ne-date">${fmtShort(nextEv.date)}${nextEv.est ? ' （推定）' : ''}</div>
+      </div>
+      <div class="ne-days">
+        <div class="nd">${d === 0 ? '今日' : d}</div>
+        ${d > 0 ? '<div class="nl">日後</div>' : ''}
+      </div>`;
+  } else {
+    nc.classList.add('hidden');
+  }
 
-    const transfer = new Date(val + 'T00:00:00');
-    const today    = today0();
+  renderCalendar(events, medicationBars, today);
+  // ── タイムライン ──
+  renderTimeline(events, today);
+}
 
-    // 移植日時点の妊娠日数 (LMP換算)
-    //   D5: 2週5日 = 19日, D3: 2週3日 = 17日
-    const gestAtTransfer = embryoDay === 5 ? 19 : 17;
+function renderCalendar(events, medicationBars, today) {
+  const month = currentCalendarMonth || startOfMonth(today);
+  document.getElementById('calendarTitle').textContent = fmtMonth(month);
 
-    // 出産予定日 = LMP + 280日 = transfer + (280 - gestAtTransfer)
-    const dueDate = addDays(transfer, 280 - gestAtTransfer);
+  const body = document.getElementById('calendar');
+  body.innerHTML = '';
+  const hiddenEventIds = new Set(['inj', 'estrogen', 'prog']);
+  const barLabelRemainders = new Map();
 
-    // 今の妊娠日数
-    const daysSinceTransfer = Math.round((today - transfer) / 86400000);
-    const gestDays   = daysSinceTransfer + gestAtTransfer;
-    const gestWeeks  = Math.floor(gestDays / 7);
-    const gestDaysR  = gestDays % 7;
+  const monthStart = startOfMonth(month);
+  const monthEnd = endOfMonth(month);
+  const gridStart = startOfWeek(monthStart);
+  const gridEnd = endOfWeek(monthEnd);
 
-    results.classList.add('show');
+  for (let weekStart = new Date(gridStart); weekStart <= gridEnd; weekStart = addDays(weekStart, 7)) {
+    const weekEnd = addDays(weekStart, 6);
+    const weekEl = document.createElement('div');
+    weekEl.className = 'cal-week';
 
-    // ── Block 1 ──────────────────────────────────────────
-    document.getElementById('dueMain').textContent = fmt(dueDate);
-    const daysLeft = Math.ceil((dueDate - today) / 86400000);
-    const sub = document.getElementById('dueSub');
-    if (daysLeft > 0) {
-      sub.innerHTML = `あと <span class="countdown">${daysLeft} 日</span>`;
-    } else if (daysLeft === 0) {
-      sub.innerHTML = `<span class="countdown">今日が予定日です 🎉</span>`;
-    } else {
-      sub.innerHTML = `予定日から <span class="countdown">${-daysLeft} 日</span> 経過`;
+    const weekGrid = document.createElement('div');
+    weekGrid.className = 'cal-week-grid';
+
+    const dayCells = [];
+    for (let i = 0; i < 7; i++) {
+      const day = addDays(weekStart, i);
+      const dayEvents = events.filter(ev =>
+        floor0(ev.date).getTime() === floor0(day).getTime() && !hiddenEventIds.has(ev.id)
+      );
+      const cell = document.createElement('div');
+      const muted = day.getMonth() !== month.getMonth();
+      const isToday = floor0(day).getTime() === today.getTime();
+      cell.className = `cal-day${muted ? ' muted' : ''}${isToday ? ' today' : ''}`;
+
+      const cellHead = document.createElement('div');
+      cellHead.className = 'cal-day-head';
+      cellHead.innerHTML = `<span class="cal-day-num">${day.getDate()}</span>`;
+      cell.appendChild(cellHead);
+
+      const cellContent = document.createElement('div');
+      cellContent.className = 'cal-day-content';
+
+      dayEvents.slice(0, 3).forEach(ev => {
+        const item = document.createElement('div');
+        item.className = `cal-event phase-${ev.phase}${ev.est ? ' est' : ''}`;
+        item.textContent = ev.name;
+        item.title = `${ev.name}｜${fmtFull(ev.date)}${ev.est ? '（推定）' : ''}`;
+        cellContent.appendChild(item);
+      });
+      if (dayEvents.length > 3) {
+        const more = document.createElement('div');
+        more.className = 'cal-more';
+        more.textContent = `+${dayEvents.length - 3}件`;
+        cellContent.appendChild(more);
+      }
+
+      cell.appendChild(cellContent);
+      dayCells.push(cellContent);
+      weekGrid.appendChild(cell);
     }
 
-    // ── Block 2 ──────────────────────────────────────────
-    const wb = document.getElementById('weekBlock');
-    if (gestDays < 0) {
-      wb.innerHTML = `<p class="empty-msg">移植前のため、まだ計算できません</p>`;
-    } else if (gestWeeks >= 40) {
-      wb.innerHTML = `<p class="week-note" style="color:#be185d;font-weight:700;">🎉 40週を超えました！</p>`;
-    } else {
-      const pct = Math.min((gestDays / 280) * 100, 100).toFixed(1);
-      wb.innerHTML = `
-        <div class="week-row">
-          <span class="wn">${gestWeeks}</span><span class="wu">週</span>
-          <span class="dn">${gestDaysR}</span><span class="du">日</span>
-        </div>
-        <div class="progress-wrap">
-          <div class="progress-bar">
-            <div class="progress-fill" style="width:${pct}%"></div>
-          </div>
-          <div class="progress-labels">
-            <span>妊娠0週</span>
-            <span>${gestWeeks}週${gestDaysR}日 (${pct}%)</span>
-            <span>40週</span>
-          </div>
-        </div>
-      `;
-    }
+    const weekBars = medicationBars
+      .filter(bar => floor0(bar.end) >= floor0(weekStart) && floor0(bar.start) <= floor0(weekEnd))
+      .map(bar => ({
+        ...bar,
+        renderStart: floor0(bar.start) < floor0(weekStart) ? floor0(weekStart) : floor0(bar.start),
+        renderEnd: floor0(bar.end) > floor0(weekEnd) ? floor0(weekEnd) : floor0(bar.end),
+      }))
+      .sort((a, b) => a.renderStart - b.renderStart || a.renderEnd - b.renderEnd);
 
-    // ── Block 3 ──────────────────────────────────────────
-    // イベント日付 = LMP + 目標日数 = transfer - gestAtTransfer + 目標日数
-    function evDate(targetGestDays) {
-      return addDays(transfer, targetGestDays - gestAtTransfer);
-    }
-
-    const events = [
-      { name: '判定日（BT7）',         sub: 'BT7 ・ 移植7日後',        date: addDays(transfer, 7),  key: true  },
-      { name: '判定日（BT10〜12）',    sub: 'BT10〜12 ・ 移植10日後〜', date: addDays(transfer, 10), key: true  },
-      { name: '胎嚢確認',             sub: '妊娠5〜6週頃',             date: evDate(35),             key: false },
-      { name: '心拍確認',             sub: '妊娠7〜8週頃',             date: evDate(49),             key: true  },
-      { name: '母子手帳の取得',        sub: '妊娠11〜12週頃',           date: evDate(77),             key: false },
-      { name: '安定期（妊娠中期へ）',  sub: '妊娠16週',                 date: evDate(112),            key: true  },
-      { name: '妊娠後期',             sub: '妊娠28週',                 date: evDate(196),            key: false },
-      { name: '産休開始（目安）',      sub: '妊娠34週 ・ 出産6週前',     date: evDate(238),            key: true  },
-      { name: '出産予定日',           sub: '妊娠40週',                 date: evDate(280),            key: true  },
-    ];
-
-    const list = document.getElementById('evList');
-    list.innerHTML = '';
-
-    events.forEach(ev => {
-      const d0 = new Date(ev.date); d0.setHours(0,0,0,0);
-      const isPast  = d0 < today;
-      const isToday = d0.getTime() === today.getTime();
-
-      let dotClass = isPast ? 'past' : (ev.key ? 'key' : 'future');
-      if (isToday) dotClass = 'today';
-
-      let badge = '';
-      if (isPast)       badge = `<div class="ev-badge done">完了</div>`;
-      else if (isToday) badge = `<div class="ev-badge now">今日!</div>`;
-      else              badge = `<div class="ev-badge soon">予定</div>`;
-
-      const li = document.createElement('li');
-      li.className = 'ev-item';
-      li.innerHTML = `
-        <div class="ev-dot ${dotClass}"></div>
-        <div class="ev-info">
-          <div class="ev-name ${isPast?'past':''}">${ev.name}</div>
-          <div class="ev-sub  ${isPast?'past':''}">${ev.sub}</div>
-        </div>
-        <div class="ev-right">
-          <div class="ev-date ${isPast?'past':''}">${fmtShort(ev.date)}</div>
-          ${badge}
-        </div>
-      `;
-      list.appendChild(li);
+    const barRows = [];
+    weekBars.forEach(bar => {
+      const startCol = diffDays(bar.renderStart, weekStart);
+      const endCol = diffDays(bar.renderEnd, weekStart);
+      let rowIndex = 0;
+      while (barRows[rowIndex] !== undefined && barRows[rowIndex] >= startCol) rowIndex++;
+      barRows[rowIndex] = endCol;
+      bar.rowIndex = rowIndex;
+      bar.startCol = startCol;
+      bar.endCol = endCol;
     });
+
+    const topPad = (barRows.length * 22) + 4;
+    dayCells.forEach(el => { el.style.paddingTop = `${topPad}px`; });
+
+    const barsLayer = document.createElement('div');
+    barsLayer.className = 'cal-bars';
+
+    weekBars.forEach(bar => {
+      const barEl = document.createElement('div');
+      barEl.className = `cal-bar ${bar.colorClass}`;
+      if (bar.startCol === 0) barEl.classList.add('edge-start');
+      if (bar.endCol === 6) barEl.classList.add('edge-end');
+      if (floor0(bar.start) < floor0(weekStart)) barEl.classList.add('continue-start');
+      if (floor0(bar.end) > floor0(weekEnd)) barEl.classList.add('continue-end');
+
+      const segmentCols = bar.endCol - bar.startCol + 1;
+      const approxCapacity = Math.max(1, segmentCols * 5);
+      const startsThisWeek = floor0(bar.start) >= floor0(weekStart);
+
+      let labelText = '';
+      if (startsThisWeek) {
+        labelText = bar.title.slice(0, approxCapacity);
+        const remainder = bar.title.slice(approxCapacity);
+        if (remainder) barLabelRemainders.set(bar.id, remainder);
+      } else if (barLabelRemainders.has(bar.id)) {
+        const remainder = barLabelRemainders.get(bar.id);
+        labelText = remainder.slice(0, approxCapacity);
+        const nextRemainder = remainder.slice(approxCapacity);
+        if (nextRemainder) barLabelRemainders.set(bar.id, nextRemainder);
+        else barLabelRemainders.delete(bar.id);
+      }
+
+      barEl.textContent = labelText;
+      barEl.title = `${bar.title}｜${fmtFull(bar.start)}〜${fmtFull(bar.end)}`;
+      barEl.style.gridColumn = `${bar.startCol + 1} / ${bar.endCol + 2}`;
+      barEl.style.gridRow = `${bar.rowIndex + 1}`;
+      barsLayer.appendChild(barEl);
+    });
+
+    weekEl.appendChild(weekGrid);
+    weekEl.appendChild(barsLayer);
+    body.appendChild(weekEl);
   }
+}
+
+function moveCalendar(offset) {
+  if (!computed) return;
+  const base = currentCalendarMonth || startOfMonth(computed.today);
+  currentCalendarMonth = new Date(base.getFullYear(), base.getMonth() + offset, 1);
+  renderCalendar(computed.events, computed.medicationBars, computed.today);
+}
+
+function jumpCalendarToday() {
+  if (!computed) return;
+  const monthBase = computed.events.find(ev => floor0(ev.date) >= computed.today)?.date || computed.today;
+  currentCalendarMonth = startOfMonth(monthBase);
+  renderCalendar(computed.events, computed.medicationBars, computed.today);
+}
+
+function renderTimeline(events, today) {
+  const tl = document.getElementById('timeline');
+  tl.innerHTML = '';
+
+  let lastPhase      = null;
+  let nowMarkerAdded = false;
+
+  events.forEach(ev => {
+    const evDay   = floor0(ev.date);
+    const isPast  = evDay < today;
+    const isToday = evDay.getTime() === today.getTime();
+
+    // 「今ここ」マーカー挿入（過去→未来の境界）
+    if (!isPast && !nowMarkerAdded) {
+      nowMarkerAdded = true;
+      const marker = document.createElement('div');
+      marker.className = 'tl-now-marker';
+      marker.innerHTML = '<span class="tl-now-tag">▶ 今ここ</span>';
+      tl.appendChild(marker);
+    }
+
+    // フェーズ区切り
+    if (ev.phase !== lastPhase) {
+      lastPhase = ev.phase;
+      const ph  = PHASES[ev.phase];
+      const phEl = document.createElement('div');
+      phEl.className = 'tl-phase-hd';
+      phEl.style.color = ph.color;
+      phEl.innerHTML = `<span class="tl-ph-label" style="background:${ph.bg};color:${ph.color}">${ph.label}</span>`;
+      tl.appendChild(phEl);
+    }
+
+    // ドットクラス
+    let dotCls = 'tl-dot ';
+    if (isPast)       dotCls += 'past';
+    else if (isToday) dotCls += 'active';
+    else if (ev.key)  dotCls += 'key';
+    else if (ev.est)  dotCls += 'est';
+    else              dotCls += 'normal';
+
+    // バッジ
+    let badge = '';
+    if (isPast)       badge = '<span class="badge b-done">✓ 完了</span>';
+    else if (isToday) badge = '<span class="badge b-today">今日！</span>';
+    else if (ev.est)  badge = '<span class="badge b-est">推定</span>';
+    else              badge = '<span class="badge b-soon">予定</span>';
+
+    const item = document.createElement('div');
+    item.className = 'tl-item';
+    item.innerHTML = `
+      <div class="${dotCls}"></div>
+      <div class="tl-body">
+        <div class="tl-row1">
+          <span class="tl-name${isPast?' past':''}">${ICONS[ev.id]||'📌'} ${ev.name}</span>${badge}
+        </div>
+        <div class="tl-sub${isPast?' past':''}">${ev.sub}</div>
+        <div class="tl-date${isPast?' past':(ev.est?' est':'')}">${fmtShort(ev.date)}${ev.est?' （推定）':''}</div>
+      </div>`;
+    tl.appendChild(item);
+  });
+}
+
+// ── ICS ─────────────────────────────────────────────────────
+function downloadICS() {
+  if (!computed) return;
+  const lines = [
+    'BEGIN:VCALENDAR','VERSION:2.0',
+    'PRODID:-//IVF Scheduler//JA','CALSCALE:GREGORIAN','METHOD:PUBLISH',
+  ];
+  computed.events.forEach(ev => {
+    lines.push(
+      'BEGIN:VEVENT',
+      `DTSTART;VALUE=DATE:${icsDate(ev.date)}`,
+      `DTEND;VALUE=DATE:${icsDate(addDays(ev.date,1))}`,
+      `SUMMARY:${ev.name}`,
+      `DESCRIPTION:${ev.sub}${ev.est?' ※推定日':''}`,
+      'END:VEVENT'
+    );
+  });
+  lines.push('END:VCALENDAR');
+  const blob = new Blob([lines.join('\r\n')], { type:'text/calendar;charset=utf-8' });
+  const a    = Object.assign(document.createElement('a'), { href: URL.createObjectURL(blob), download:'ivf-schedule.ics' });
+  a.click();
+  URL.revokeObjectURL(a.href);
+  showToast('カレンダーに追加しました');
+}
+
+// ── URLコピー ────────────────────────────────────────────────
+async function copyURL() {
+  try {
+    await navigator.clipboard.writeText(location.href);
+    showToast('URLをコピーしました！');
+  } catch (_) {
+    prompt('このURLをコピーしてください:', location.href);
+  }
+}
+
+// ── Toast ────────────────────────────────────────────────────
+function showToast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2200);
+}
 </script>
 </body>
 </html>
