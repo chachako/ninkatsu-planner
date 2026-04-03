@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>移植後の症状まとめ｜着床症状・妊娠初期症状の違いと時期 | 体外受精スケジューラー</title>
+  <meta name="description" content="移植後の下腹部の違和感、胸の張り、眠気、微熱、出血などの症状について、一般的な目安や時期をやさしく解説。記事の最後からスケジュール作成ツールへ進めます。">
+  <meta name="robots" content="index,follow">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    :root {
+      --pink: #ec4899;
+      --pink-dark: #be185d;
+      --pink-light: #fce7f3;
+      --pink-soft: #fff7fb;
+      --purple-soft: #f5f3ff;
+      --blue-soft: #eff6ff;
+      --amber-soft: #fffbeb;
+      --red-soft: #fff1f2;
+      --text: #1f2937;
+      --text-sub: #6b7280;
+      --line: #f0e7ed;
+      --radius: 18px;
+      --shadow: 0 8px 28px rgba(190, 24, 93, 0.08), 0 2px 8px rgba(15, 23, 42, 0.04);
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, #fff7fb 0%, #fff 22%, #fff 100%);
+      line-height: 1.8;
+    }
+
+    a {
+      color: var(--pink-dark);
+      text-decoration: none;
+    }
+
+    a:hover { text-decoration: underline; }
+
+    .page {
+      width: min(100%, 760px);
+      margin: 0 auto;
+      padding: 20px 16px 56px;
+    }
+
+    .crumbs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      font-size: 12px;
+      color: var(--text-sub);
+      margin-bottom: 18px;
+    }
+
+    .crumbs span { color: #c4b5fd; }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(252, 231, 243, 0.95), rgba(245, 243, 255, 0.98));
+      border: 1px solid #f4d8e6;
+      border-radius: 26px;
+      box-shadow: var(--shadow);
+      padding: 24px 18px;
+      margin-bottom: 18px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.8);
+      color: var(--pink-dark);
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(28px, 6.8vw, 40px);
+      line-height: 1.25;
+      color: var(--pink-dark);
+    }
+
+    .lead {
+      margin: 0;
+      font-size: 15px;
+      color: #4b5563;
+    }
+
+    main article {
+      display: grid;
+      gap: 18px;
+    }
+
+    section {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px 18px;
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: 23px;
+      line-height: 1.4;
+      color: var(--text);
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      font-size: 19px;
+      line-height: 1.45;
+      color: var(--pink-dark);
+    }
+
+    p {
+      margin: 0 0 12px;
+      font-size: 15px;
+    }
+
+    p:last-child { margin-bottom: 0; }
+
+    .note {
+      font-size: 13px;
+      color: var(--text-sub);
+    }
+
+    .symptom-list,
+    .timing-list,
+    .faq-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .symptom-card,
+    .timing-card,
+    .faq-card {
+      border-radius: 16px;
+      border: 1px solid #f4d8e6;
+      background: linear-gradient(180deg, #fff, #fff8fb);
+      padding: 14px;
+    }
+
+    .symptom-card h3,
+    .timing-card h3,
+    .faq-card h3 {
+      font-size: 17px;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .symptom-card p,
+    .timing-card p,
+    .faq-card p {
+      font-size: 14px;
+      color: var(--text-sub);
+    }
+
+    .bullets {
+      margin: 12px 0 0;
+      padding-left: 18px;
+    }
+
+    .bullets li {
+      margin-bottom: 8px;
+      font-size: 14px;
+      color: #374151;
+    }
+
+    .highlight {
+      border-radius: 16px;
+      padding: 16px 15px;
+      border: 1px solid #f4f4f5;
+      background: linear-gradient(180deg, #fff, #fffaf4);
+    }
+
+    .warning {
+      border-radius: 16px;
+      padding: 16px 15px;
+      border: 1px solid #fecdd3;
+      background: linear-gradient(180deg, #fff, #fff5f6);
+    }
+
+    .cta {
+      background: linear-gradient(135deg, rgba(236, 72, 153, 0.12), rgba(139, 92, 246, 0.12));
+      border: 1px solid #f3d3e2;
+      padding: 22px 18px;
+    }
+
+    .cta-copy {
+      font-size: 16px;
+      color: #374151;
+      margin-bottom: 16px;
+    }
+
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 54px;
+      padding: 14px 18px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #ec4899, #be185d);
+      color: #fff;
+      font-size: 16px;
+      font-weight: 800;
+      box-shadow: 0 8px 20px rgba(190, 24, 93, 0.24);
+    }
+
+    .cta-button:hover {
+      text-decoration: none;
+      filter: brightness(1.02);
+    }
+
+    .cta-sub {
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--text-sub);
+    }
+
+    footer {
+      margin-top: 18px;
+      text-align: center;
+      font-size: 12px;
+      color: #9ca3af;
+      line-height: 1.8;
+    }
+
+    @media (min-width: 680px) {
+      .page { padding-top: 28px; }
+
+      .symptom-list,
+      .timing-list,
+      .faq-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <nav class="crumbs" aria-label="パンくず">
+      <a href="../../index.html">ホーム</a>
+      <span>›</span>
+      <span>記事</span>
+      <span>›</span>
+      <span>移植後の症状まとめ</span>
+    </nav>
+
+    <header class="hero">
+      <div class="eyebrow">移植後の不安に寄り添うガイド</div>
+      <h1>移植後の症状まとめ｜着床症状・妊娠初期症状の違いと時期</h1>
+      <p class="lead">
+        「これって妊娠？ それともただの体調変化？」と、移植後はほんの小さな変化にも敏感になりやすい時期です。
+        このページでは、移植後に気になりやすい症状や時期の目安を、一般的な範囲でわかりやすく整理しました。
+        はっきり区別できないことも多いからこそ、焦りすぎずに見通しを持てる内容にしています。
+      </p>
+    </header>
+
+    <main>
+      <article>
+        <section aria-labelledby="symptoms">
+          <h2 id="symptoms">移植後に出やすい症状一覧</h2>
+          <p>移植後に感じやすい変化として、次のようなものがよく検索されます。ただし、どれも必ず起こるわけではなく、感じ方にはかなり個人差があります。</p>
+          <div class="symptom-list">
+            <section class="symptom-card" aria-labelledby="symptom-lower">
+              <h3 id="symptom-lower">下腹部の違和感</h3>
+              <p>チクチク、重だるさ、引っ張られる感じなど、表現しにくい違和感を気にする方は少なくありません。</p>
+            </section>
+            <section class="symptom-card" aria-labelledby="symptom-breast">
+              <h3 id="symptom-breast">胸の張り</h3>
+              <p>ホルモン補充や体調変化の影響もあり、胸の張りや敏感さを感じることがあります。</p>
+            </section>
+            <section class="symptom-card" aria-labelledby="symptom-sleep">
+              <h3 id="symptom-sleep">眠気</h3>
+              <p>強い眠気やだるさを感じることがありますが、これだけで妊娠かどうかを判断するのは難しいと考えられます。</p>
+            </section>
+            <section class="symptom-card" aria-labelledby="symptom-fever">
+              <h3 id="symptom-fever">微熱</h3>
+              <p>体がぽかぽかする、少し熱っぽいと感じることがあります。ただし体温の感じ方にも個人差があります。</p>
+            </section>
+            <section class="symptom-card" aria-labelledby="symptom-bleed">
+              <h3 id="symptom-bleed">出血（着床出血の可能性）</h3>
+              <p>少量の出血やおりものの変化が気になることがあります。ただし原因はひとつではなく、着床出血と断定はできません。</p>
+            </section>
+            <section class="symptom-card" aria-labelledby="symptom-none">
+              <h3 id="symptom-none">何も症状がないケースもある</h3>
+              <p>症状がほとんどないまま判定日を迎える方もいます。症状の有無だけで結果を推測しにくいのが実際のところです。</p>
+            </section>
+          </div>
+        </section>
+
+        <section aria-labelledby="timing">
+          <h2 id="timing">症状はいつから出る？</h2>
+          <p>移植後の症状が気になり始める時期としては、一般的には次のような目安がよく挙げられます。ただし実際には、まったく感じない方もいれば、かなり早い段階から気になる方もいます。</p>
+          <div class="timing-list">
+            <section class="timing-card" aria-labelledby="timing-3-5">
+              <h3 id="timing-3-5">移植後3〜5日</h3>
+              <p>下腹部の違和感や、何となくいつもと違う感じを気にし始める方がいます。ただしこの段階では、症状の意味をはっきり判断するのは難しいです。</p>
+            </section>
+            <section class="timing-card" aria-labelledby="timing-week">
+              <h3 id="timing-week">1週間前後</h3>
+              <p>胸の張り、眠気、熱っぽさ、出血などが気になって検索する方が増えやすい時期です。判定日が近づくにつれ不安も強くなりやすいです。</p>
+            </section>
+            <section class="timing-card" aria-labelledby="timing-until">
+              <h3 id="timing-until">判定日まで</h3>
+              <p>途中で症状が出たり消えたりすることもあります。判定日までは、体調の変化だけで結果を決めつけないことが大切です。</p>
+            </section>
+          </div>
+        </section>
+
+        <section aria-labelledby="difference">
+          <h2 id="difference">着床症状と妊娠初期症状の違い</h2>
+          <div class="highlight">
+            <p>
+              実際には、着床症状と妊娠初期症状を明確に区別することは難しいと言われることが多いです。
+              下腹部の違和感や眠気、胸の張りなどは、ホルモン補充やいつもの体調変化とも重なりやすく、症状だけで判断するのは現実的ではありません。
+            </p>
+            <p>
+              また、同じ方でも周期によって感じ方が違うことがあります。一般的な目安はあっても、個人差がとても大きいことを前提に見ておくと、必要以上に振り回されにくくなります。
+            </p>
+          </div>
+        </section>
+
+        <section aria-labelledby="no-symptoms">
+          <h2 id="no-symptoms">症状がない場合はどうなのか</h2>
+          <p>
+            症状がほとんどないと、「今回はだめかもしれない」と不安になってしまうことがあります。
+            でも、症状がなくても妊娠しているケースはありますし、逆に症状があっても結果とは一致しないことがあります。
+          </p>
+          <p>
+            特に移植後は、毎日の体調を細かく観察しすぎると気持ちが消耗しやすくなります。過度な自己判断は避けて、最終的な確認は判定日や受診日に委ねるほうが安心につながりやすいです。
+          </p>
+        </section>
+
+        <section aria-labelledby="when-to-call">
+          <h2 id="when-to-call">受診の目安</h2>
+          <div class="warning">
+            <p>多くの体調変化はすぐに異常と結びつくわけではありませんが、次のような場合は早めに医療機関へ相談しやすい目安になります。</p>
+            <ul class="bullets">
+              <li>強い腹痛が続く場合</li>
+              <li>大量の出血がある場合</li>
+              <li>いつもと違う強い症状で不安が大きい場合</li>
+            </ul>
+            <p class="note">具体的な対応は医療機関ごとの案内を優先してください。</p>
+          </div>
+        </section>
+
+        <section class="cta" aria-labelledby="tool-cta">
+          <h2 id="tool-cta">スケジュールで不安を減らす</h2>
+          <p class="cta-copy">移植日を入力するだけで、判定日や通院予定を自動で確認できます</p>
+          <a class="cta-button" href="../../index.html">スケジュールを確認する</a>
+          <p class="cta-sub">不安になりやすい時期こそ、次の予定が見えるだけで気持ちを整えやすくなります。</p>
+        </section>
+      </article>
+    </main>
+
+    <footer>
+      この記事は一般的な目安をまとめたものです。気になる症状がある場合は、医療機関の案内をご確認ください。
+    </footer>
+  </div>
+</body>
+</html>
