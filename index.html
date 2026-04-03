@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>妊活スケジューラー | 移植日から出産まで自動計算</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+      background: linear-gradient(160deg, #fff1f6 0%, #fce7f3 40%, #ede9fe 100%);
+      min-height: 100vh;
+      padding: 28px 16px 48px;
+      color: #374151;
+    }
+
+    .container {
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    /* ─── Header ─── */
+    header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    .header-icon {
+      font-size: 36px;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    h1 {
+      font-size: 20px;
+      font-weight: 800;
+      color: #be185d;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+    .subtitle {
+      font-size: 12px;
+      color: #a1a1aa;
+      letter-spacing: 0.04em;
+    }
+
+    /* ─── Cards ─── */
+    .card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 22px 20px;
+      margin-bottom: 14px;
+      box-shadow: 0 4px 24px rgba(190, 24, 93, 0.07);
+    }
+
+    .card-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #d1d5db;
+      margin-bottom: 10px;
+    }
+
+    /* ─── Input card ─── */
+    .input-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: #be185d;
+      margin-bottom: 10px;
+    }
+
+    input[type="date"] {
+      width: 100%;
+      padding: 13px 16px;
+      border: 2px solid #fbcfe8;
+      border-radius: 12px;
+      font-size: 17px;
+      color: #374151;
+      background: #fdf9fb;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+    input[type="date"]:focus {
+      border-color: #ec4899;
+      box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.12);
+    }
+
+    .embryo-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .embryo-row span {
+      font-size: 12px;
+      color: #a1a1aa;
+      white-space: nowrap;
+    }
+    .toggle-wrap {
+      display: flex;
+      gap: 6px;
+    }
+    .tbtn {
+      padding: 8px 16px;
+      border: 2px solid #f3e8ff;
+      border-radius: 99px;
+      background: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      color: #c4b5fd;
+      cursor: pointer;
+      transition: all 0.18s;
+      line-height: 1;
+    }
+    .tbtn.active {
+      border-color: #7c3aed;
+      background: #f5f3ff;
+      color: #6d28d9;
+    }
+
+    /* ─── Block 1: Due date ─── */
+    .due-main {
+      font-size: 28px;
+      font-weight: 800;
+      color: #be185d;
+      margin-bottom: 4px;
+      line-height: 1.2;
+    }
+    .due-sub {
+      font-size: 13px;
+      color: #a1a1aa;
+    }
+    .due-sub .countdown {
+      font-weight: 700;
+      color: #ec4899;
+    }
+
+    /* ─── Block 2: Week ─── */
+    .week-row {
+      display: flex;
+      align-items: baseline;
+      gap: 2px;
+    }
+    .wn { font-size: 48px; font-weight: 900; color: #7c3aed; line-height: 1; }
+    .wu { font-size: 18px; font-weight: 700; color: #7c3aed; }
+    .dn { font-size: 32px; font-weight: 800; color: #a78bfa; margin-left: 10px; line-height: 1; }
+    .du { font-size: 14px; font-weight: 700; color: #a78bfa; }
+
+    .progress-wrap {
+      margin-top: 14px;
+    }
+    .progress-bar {
+      height: 8px;
+      background: #ede9fe;
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, #c084fc, #7c3aed);
+      transition: width 0.6s cubic-bezier(.4,0,.2,1);
+      min-width: 4px;
+    }
+    .progress-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: #d1d5db;
+      margin-top: 5px;
+    }
+    .week-note {
+      font-size: 13px;
+      color: #9ca3af;
+      margin-top: 6px;
+    }
+
+    /* ─── Block 3: Events ─── */
+    .events-list { list-style: none; }
+
+    .ev-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 0;
+      border-bottom: 1px solid #f9fafb;
+    }
+    .ev-item:last-child { border-bottom: none; }
+
+    .ev-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .ev-dot.past    { background: #e5e7eb; }
+    .ev-dot.future  { background: #f9a8d4; }
+    .ev-dot.today   { background: #ec4899; box-shadow: 0 0 0 3px #fce7f3; }
+    .ev-dot.key     { background: #ec4899; }
+
+    .ev-info { flex: 1; min-width: 0; }
+    .ev-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #374151;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .ev-name.past { color: #9ca3af; }
+    .ev-sub {
+      font-size: 11px;
+      color: #c4b5fd;
+      margin-top: 1px;
+    }
+    .ev-sub.past { color: #d1d5db; }
+
+    .ev-right { text-align: right; flex-shrink: 0; }
+    .ev-date {
+      font-size: 13px;
+      font-weight: 600;
+      color: #6b7280;
+    }
+    .ev-date.past { color: #d1d5db; }
+    .ev-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 99px;
+      margin-top: 3px;
+    }
+    .ev-badge.done  { background: #f3f4f6; color: #9ca3af; }
+    .ev-badge.now   { background: #fce7f3; color: #be185d; }
+    .ev-badge.soon  { background: #fdf4ff; color: #a855f7; }
+
+    /* ─── Empty / before transfer ─── */
+    .empty-msg {
+      font-size: 14px;
+      color: #9ca3af;
+      text-align: center;
+      padding: 10px 0;
+    }
+
+    /* ─── Footer ─── */
+    footer {
+      text-align: center;
+      font-size: 11px;
+      color: #d1d5db;
+      margin-top: 24px;
+      line-height: 1.7;
+    }
+
+    /* hidden */
+    #results { display: none; }
+    #results.show { display: block; }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <header>
+    <div class="header-icon">🌸</div>
+    <h1>妊活スケジューラー</h1>
+    <p class="subtitle">移植日を入れるだけ — 出産まで自動計算</p>
+  </header>
+
+  <!-- ── 入力 ── -->
+  <div class="card">
+    <label class="input-label" for="transferDate">移植日（胚移植日）</label>
+    <input type="date" id="transferDate" onchange="calc()">
+    <div class="embryo-row">
+      <span>胚のステージ：</span>
+      <div class="toggle-wrap">
+        <button class="tbtn active" id="btn5" onclick="setEmbryo(5)">D5（5日目胚盤胞）</button>
+        <button class="tbtn"        id="btn3" onclick="setEmbryo(3)">D3（3日目初期胚）</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 結果 ── -->
+  <div id="results">
+
+    <!-- Block 1 出産予定日 -->
+    <div class="card">
+      <div class="card-label">出産予定日</div>
+      <div class="due-main" id="dueMain">—</div>
+      <div class="due-sub"  id="dueSub"></div>
+    </div>
+
+    <!-- Block 2 現在の週数 -->
+    <div class="card">
+      <div class="card-label">現在の妊娠週数</div>
+      <div id="weekBlock"></div>
+    </div>
+
+    <!-- Block 3 重要イベント -->
+    <div class="card">
+      <div class="card-label">重要イベント一覧</div>
+      <ul class="events-list" id="evList"></ul>
+    </div>
+
+  </div>
+
+  <footer>
+    ※ 計算は目安です。実際のスケジュールは担当医にご確認ください。<br>
+    ※ データはブラウザ外に送信されません。
+  </footer>
+</div>
+
+<script>
+  let embryoDay = 5;
+
+  function setEmbryo(d) {
+    embryoDay = d;
+    document.getElementById('btn5').classList.toggle('active', d === 5);
+    document.getElementById('btn3').classList.toggle('active', d === 3);
+    calc();
+  }
+
+  // ── helpers ──────────────────────────────────────────────
+  function addDays(base, n) {
+    const d = new Date(base);
+    d.setDate(d.getDate() + n);
+    return d;
+  }
+
+  function today0() {
+    const t = new Date();
+    t.setHours(0, 0, 0, 0);
+    return t;
+  }
+
+  const DOW = ['日','月','火','水','木','金','土'];
+
+  function fmt(d) {
+    return `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日（${DOW[d.getDay()]}）`;
+  }
+  function fmtShort(d) {
+    return `${d.getMonth()+1}/${d.getDate()}（${DOW[d.getDay()]}）`;
+  }
+
+  // ── main ─────────────────────────────────────────────────
+  function calc() {
+    const val = document.getElementById('transferDate').value;
+    const results = document.getElementById('results');
+
+    if (!val) { results.classList.remove('show'); return; }
+
+    const transfer = new Date(val + 'T00:00:00');
+    const today    = today0();
+
+    // 移植日時点の妊娠日数 (LMP換算)
+    //   D5: 2週5日 = 19日, D3: 2週3日 = 17日
+    const gestAtTransfer = embryoDay === 5 ? 19 : 17;
+
+    // 出産予定日 = LMP + 280日 = transfer + (280 - gestAtTransfer)
+    const dueDate = addDays(transfer, 280 - gestAtTransfer);
+
+    // 今の妊娠日数
+    const daysSinceTransfer = Math.round((today - transfer) / 86400000);
+    const gestDays   = daysSinceTransfer + gestAtTransfer;
+    const gestWeeks  = Math.floor(gestDays / 7);
+    const gestDaysR  = gestDays % 7;
+
+    results.classList.add('show');
+
+    // ── Block 1 ──────────────────────────────────────────
+    document.getElementById('dueMain').textContent = fmt(dueDate);
+    const daysLeft = Math.ceil((dueDate - today) / 86400000);
+    const sub = document.getElementById('dueSub');
+    if (daysLeft > 0) {
+      sub.innerHTML = `あと <span class="countdown">${daysLeft} 日</span>`;
+    } else if (daysLeft === 0) {
+      sub.innerHTML = `<span class="countdown">今日が予定日です 🎉</span>`;
+    } else {
+      sub.innerHTML = `予定日から <span class="countdown">${-daysLeft} 日</span> 経過`;
+    }
+
+    // ── Block 2 ──────────────────────────────────────────
+    const wb = document.getElementById('weekBlock');
+    if (gestDays < 0) {
+      wb.innerHTML = `<p class="empty-msg">移植前のため、まだ計算できません</p>`;
+    } else if (gestWeeks >= 40) {
+      wb.innerHTML = `<p class="week-note" style="color:#be185d;font-weight:700;">🎉 40週を超えました！</p>`;
+    } else {
+      const pct = Math.min((gestDays / 280) * 100, 100).toFixed(1);
+      wb.innerHTML = `
+        <div class="week-row">
+          <span class="wn">${gestWeeks}</span><span class="wu">週</span>
+          <span class="dn">${gestDaysR}</span><span class="du">日</span>
+        </div>
+        <div class="progress-wrap">
+          <div class="progress-bar">
+            <div class="progress-fill" style="width:${pct}%"></div>
+          </div>
+          <div class="progress-labels">
+            <span>妊娠0週</span>
+            <span>${gestWeeks}週${gestDaysR}日 (${pct}%)</span>
+            <span>40週</span>
+          </div>
+        </div>
+      `;
+    }
+
+    // ── Block 3 ──────────────────────────────────────────
+    // イベント日付 = LMP + 目標日数 = transfer - gestAtTransfer + 目標日数
+    function evDate(targetGestDays) {
+      return addDays(transfer, targetGestDays - gestAtTransfer);
+    }
+
+    const events = [
+      { name: '判定日（BT7）',         sub: 'BT7 ・ 移植7日後',        date: addDays(transfer, 7),  key: true  },
+      { name: '判定日（BT10〜12）',    sub: 'BT10〜12 ・ 移植10日後〜', date: addDays(transfer, 10), key: true  },
+      { name: '胎嚢確認',             sub: '妊娠5〜6週頃',             date: evDate(35),             key: false },
+      { name: '心拍確認',             sub: '妊娠7〜8週頃',             date: evDate(49),             key: true  },
+      { name: '母子手帳の取得',        sub: '妊娠11〜12週頃',           date: evDate(77),             key: false },
+      { name: '安定期（妊娠中期へ）',  sub: '妊娠16週',                 date: evDate(112),            key: true  },
+      { name: '妊娠後期',             sub: '妊娠28週',                 date: evDate(196),            key: false },
+      { name: '産休開始（目安）',      sub: '妊娠34週 ・ 出産6週前',     date: evDate(238),            key: true  },
+      { name: '出産予定日',           sub: '妊娠40週',                 date: evDate(280),            key: true  },
+    ];
+
+    const list = document.getElementById('evList');
+    list.innerHTML = '';
+
+    events.forEach(ev => {
+      const d0 = new Date(ev.date); d0.setHours(0,0,0,0);
+      const isPast  = d0 < today;
+      const isToday = d0.getTime() === today.getTime();
+
+      let dotClass = isPast ? 'past' : (ev.key ? 'key' : 'future');
+      if (isToday) dotClass = 'today';
+
+      let badge = '';
+      if (isPast)       badge = `<div class="ev-badge done">完了</div>`;
+      else if (isToday) badge = `<div class="ev-badge now">今日!</div>`;
+      else              badge = `<div class="ev-badge soon">予定</div>`;
+
+      const li = document.createElement('li');
+      li.className = 'ev-item';
+      li.innerHTML = `
+        <div class="ev-dot ${dotClass}"></div>
+        <div class="ev-info">
+          <div class="ev-name ${isPast?'past':''}">${ev.name}</div>
+          <div class="ev-sub  ${isPast?'past':''}">${ev.sub}</div>
+        </div>
+        <div class="ev-right">
+          <div class="ev-date ${isPast?'past':''}">${fmtShort(ev.date)}</div>
+          ${badge}
+        </div>
+      `;
+      list.appendChild(li);
+    });
+  }
+</script>
+</body>
+</html>
