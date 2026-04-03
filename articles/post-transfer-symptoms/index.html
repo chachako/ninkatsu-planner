@@ -58,6 +58,42 @@
 
     .crumbs span { color: #c4b5fd; }
 
+    .article-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: -4px 0 18px;
+    }
+
+    .article-pill,
+    .article-pill-current {
+      display: inline-flex;
+      align-items: center;
+      min-height: 38px;
+      padding: 0 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .article-pill {
+      background: #fff;
+      border: 1px solid #f4d8e6;
+      color: var(--pink-dark);
+      box-shadow: var(--shadow);
+    }
+
+    .article-pill:hover {
+      text-decoration: none;
+      background: var(--pink-light);
+    }
+
+    .article-pill-current {
+      background: var(--pink-light);
+      border: 1px solid #fbcfe8;
+      color: var(--pink-dark);
+    }
+
     .hero {
       background: linear-gradient(135deg, rgba(252, 231, 243, 0.95), rgba(245, 243, 255, 0.98));
       border: 1px solid #f4d8e6;
@@ -233,6 +269,12 @@
       color: #9ca3af;
       line-height: 1.8;
     }
+    footer a {
+      color: #be185d;
+      text-decoration: none;
+      font-weight: 700;
+    }
+    footer a:hover { text-decoration: underline; }
 
     @media (min-width: 680px) {
       .page { padding-top: 28px; }
@@ -253,6 +295,12 @@
       <span>記事</span>
       <span>›</span>
       <span>移植後の症状まとめ</span>
+    </nav>
+
+    <nav class="article-nav" aria-label="関連記事">
+      <span class="article-pill-current">この記事: 移植後の症状まとめ</span>
+      <a class="article-pill" href="../embryo-transfer-schedule/index.html">移植日から出産まで</a>
+      <a class="article-pill" href="../ivf-process/index.html">体外受精の流れ</a>
     </nav>
 
     <header class="hero">
@@ -298,6 +346,13 @@
           </div>
         </section>
 
+        <section class="cta" aria-labelledby="tool-cta-top">
+          <h2 id="tool-cta-top">不安な時期を先に見える化する</h2>
+          <p class="cta-copy">移植日を入力すると、判定日や次の受診目安をすぐ確認できます</p>
+          <a class="cta-button" href="../../index.html">スケジュールを確認する</a>
+          <p class="cta-sub">症状の有無だけで考え込みやすい時期こそ、次の予定が見えると気持ちを整えやすくなります。</p>
+        </section>
+
         <section aria-labelledby="timing">
           <h2 id="timing">症状はいつから出る？</h2>
           <p>移植後の症状が気になり始める時期としては、一般的には次のような目安がよく挙げられます。ただし実際には、まったく感じない方もいれば、かなり早い段階から気になる方もいます。</p>
@@ -330,6 +385,13 @@
           </div>
         </section>
 
+        <section class="cta" aria-labelledby="tool-cta-mid">
+          <h2 id="tool-cta-mid">判定日までの流れを確認しておく</h2>
+          <p class="cta-copy">症状の違いが気になり始めたタイミングで、受診や判定までの日数を整理できます</p>
+          <a class="cta-button" href="../../index.html">スケジュールを確認する</a>
+          <p class="cta-sub">いま何日目なのかが分かるだけでも、「様子を見る時期」と「相談したい時期」を分けやすくなります。</p>
+        </section>
+
         <section aria-labelledby="no-symptoms">
           <h2 id="no-symptoms">症状がない場合はどうなのか</h2>
           <p>
@@ -354,8 +416,8 @@
           </div>
         </section>
 
-        <section class="cta" aria-labelledby="tool-cta">
-          <h2 id="tool-cta">スケジュールで不安を減らす</h2>
+        <section class="cta" aria-labelledby="tool-cta-bottom">
+          <h2 id="tool-cta-bottom">スケジュールで不安を減らす</h2>
           <p class="cta-copy">移植日を入力するだけで、判定日や通院予定を自動で確認できます</p>
           <a class="cta-button" href="../../index.html">スケジュールを確認する</a>
           <p class="cta-sub">不安になりやすい時期こそ、次の予定が見えるだけで気持ちを整えやすくなります。</p>
@@ -364,7 +426,8 @@
     </main>
 
     <footer>
-      この記事は一般的な目安をまとめたものです。気になる症状がある場合は、医療機関の案内をご確認ください。
+      この記事は一般的な目安をまとめたものです。気になる症状がある場合は、医療機関の案内をご確認ください。<br>
+      <a href="../../privacy-policy/index.html">プライバシーポリシー</a> / <a href="../../contact/index.html">お問い合わせ</a>
     </footer>
   </div>
 </body>

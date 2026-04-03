@@ -57,6 +57,42 @@
 
     .crumbs span { color: #c4b5fd; }
 
+    .article-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: -4px 0 18px;
+    }
+
+    .article-pill,
+    .article-pill-current {
+      display: inline-flex;
+      align-items: center;
+      min-height: 38px;
+      padding: 0 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .article-pill {
+      background: #fff;
+      border: 1px solid #f4d8e6;
+      color: var(--pink-dark);
+      box-shadow: var(--shadow);
+    }
+
+    .article-pill:hover {
+      text-decoration: none;
+      background: var(--pink-light);
+    }
+
+    .article-pill-current {
+      background: var(--pink-light);
+      border: 1px solid #fbcfe8;
+      color: var(--pink-dark);
+    }
+
     .hero {
       background: linear-gradient(135deg, rgba(252, 231, 243, 0.95), rgba(245, 243, 255, 0.98));
       border: 1px solid #f4d8e6;
@@ -256,6 +292,12 @@
       color: #9ca3af;
       line-height: 1.8;
     }
+    footer a {
+      color: #be185d;
+      text-decoration: none;
+      font-weight: 700;
+    }
+    footer a:hover { text-decoration: underline; }
 
     @media (min-width: 680px) {
       .page { padding-top: 28px; }
@@ -274,6 +316,12 @@
       <span>記事</span>
       <span>›</span>
       <span>体外受精のスケジュール完全ガイド</span>
+    </nav>
+
+    <nav class="article-nav" aria-label="関連記事">
+      <span class="article-pill-current">この記事: 体外受精の流れ</span>
+      <a class="article-pill" href="../embryo-transfer-schedule/index.html">移植日から出産まで</a>
+      <a class="article-pill" href="../post-transfer-symptoms/index.html">移植後の症状まとめ</a>
     </nav>
 
     <header class="hero">
@@ -327,6 +375,13 @@
           </div>
         </section>
 
+        <section class="cta" aria-labelledby="tool-cta-top">
+          <h2 id="tool-cta-top">まずは自分の通院予定を見てみる</h2>
+          <p class="cta-copy">生理日や移植日を入れるだけで、体外受精の流れをあなた用の予定として確認できます</p>
+          <a class="cta-button" href="../../index.html">スケジュールを作成する</a>
+          <p class="cta-sub">先に全体像を把握しておくと、このあとの各フェーズの説明も自分ごととして読みやすくなります。</p>
+        </section>
+
         <section aria-labelledby="phase-detail">
           <h2 id="phase-detail">スケジュールをフェーズごとに解説</h2>
           <div class="detail-list">
@@ -369,6 +424,13 @@
           <p class="note">実際の治療内容や日数は、採卵数、胚の状態、治療方針などによって異なります。ここでは一般的な流れの目安としてまとめています。</p>
         </section>
 
+        <section class="cta" aria-labelledby="tool-cta-mid">
+          <h2 id="tool-cta-mid">ここまで読んだら日程に当てはめる</h2>
+          <p class="cta-copy">採卵から移植までの流れを理解したあとなら、次の通院や判定日もイメージしやすくなります</p>
+          <a class="cta-button" href="../../index.html">スケジュールを作成する</a>
+          <p class="cta-sub">途中の段階からでも入力できるので、いま決まっている日付だけで確認して大丈夫です。</p>
+        </section>
+
         <section aria-labelledby="faq">
           <h2 id="faq">体外受精でよくある不安</h2>
           <div class="faq-list">
@@ -387,8 +449,8 @@
           </div>
         </section>
 
-        <section class="cta" aria-labelledby="tool-cta">
-          <h2 id="tool-cta">スケジュールを自動で作る</h2>
+        <section class="cta" aria-labelledby="tool-cta-bottom">
+          <h2 id="tool-cta-bottom">スケジュールを自動で作る</h2>
           <p class="cta-copy">日付を入力するだけで、通院や移植までのスケジュールを自動で作成できます</p>
           <a class="cta-button" href="../../index.html">スケジュールを作成する</a>
           <p class="cta-sub">採卵日や移植日が決まっている場合でも、途中から入力して全体の流れを確認できます。</p>
@@ -397,7 +459,8 @@
     </main>
 
     <footer>
-      この記事は一般的な流れの目安をまとめたものです。実際の通院日や治療内容は、医療機関の案内をご確認ください。
+      この記事は一般的な流れの目安をまとめたものです。実際の通院日や治療内容は、医療機関の案内をご確認ください。<br>
+      <a href="../../privacy-policy/index.html">プライバシーポリシー</a> / <a href="../../contact/index.html">お問い合わせ</a>
     </footer>
   </div>
 </body>

@@ -429,6 +429,8 @@
     .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
     footer { text-align: center; font-size: 11px; color: #c4b5fd; margin-top: 20px; line-height: 1.9; }
+    footer a { color: #be185d; text-decoration: none; font-weight: 700; }
+    footer a:hover { text-decoration: underline; }
     .hidden { display: none !important; }
 
     @media (max-width: 640px) {
@@ -474,11 +476,19 @@
     <div class="fg">
       <div class="fg-label">採卵日（OPU）<span class="fg-opt">あとで変更できます</span></div>
       <input type="date" id="opuDate">
+      <div class="fg-hint">採卵日が決まっていればそのまま入力してください</div>
+    </div>
+    <div class="divider"></div>
+    <div class="fg">
+      <div class="fg-label">移植周期の生理開始日<span class="fg-opt">移植日の目安を出せます</span></div>
+      <input type="date" id="fetStartDate">
+      <div class="fg-hint">ホルモン補充周期で移植準備を始める周期の生理1日目</div>
     </div>
     <div class="divider"></div>
     <div class="fg">
       <div class="fg-label">移植日（ET）<span class="fg-opt">あとで変更できます</span></div>
       <input type="date" id="etDate">
+      <div class="fg-hint">未定でも大丈夫です。移植周期の生理開始日があれば目安を自動計算します</div>
     </div>
     <div class="divider"></div>
     <div class="fg" style="margin-bottom:0">
@@ -554,7 +564,8 @@
   <footer>
     ※ スケジュールはホルモン補充周期（HRT）の標準的な目安です。<br>
     ※ 実際の日程はクリニックの方針・体の状態により異なります。<br>
-    ※ データはブラウザ外に送信されません。
+    ※ データはブラウザ外に送信されません。<br>
+    <a href="./privacy-policy/index.html">プライバシーポリシー</a> / <a href="./contact/index.html">お問い合わせ</a>
   </footer>
 </div>
 
@@ -594,14 +605,14 @@ window.addEventListener('DOMContentLoaded', () => {
   if (!fromURL) restoreFromStorage();
 
   // 入力ハイライト
-  ['stimDate','opuDate','etDate'].forEach(id => {
+  ['stimDate','opuDate','fetStartDate','etDate'].forEach(id => {
     const el = document.getElementById(id);
     el.classList.toggle('filled', !!el.value);
     el.addEventListener('change', onInput);
   });
 
   initialized = true;
-  const hasAny = ['stimDate','opuDate','etDate'].some(id => document.getElementById(id).value);
+  const hasAny = ['stimDate','opuDate','fetStartDate','etDate'].some(id => document.getElementById(id).value);
   if (hasAny) runCalc();
 });
 
@@ -628,9 +639,11 @@ function saveToURL() {
   const p = new URLSearchParams();
   const s = document.getElementById('stimDate').value;
   const o = document.getElementById('opuDate').value;
+  const f = document.getElementById('fetStartDate').value;
   const e = document.getElementById('etDate').value;
   if (s) p.set('start', s);
   if (o) p.set('opu',   o);
+  if (f) p.set('fet',   f);
   if (e) p.set('et',    e);
   p.set('d', embryoDay);
   history.replaceState(null, '', '?' + p.toString());
@@ -641,6 +654,7 @@ function restoreFromURL() {
   let found = false;
   if (p.has('start')) { document.getElementById('stimDate').value = p.get('start'); found = true; }
   if (p.has('opu'))   { document.getElementById('opuDate').value  = p.get('opu');   found = true; }
+  if (p.has('fet'))   { document.getElementById('fetStartDate').value = p.get('fet'); found = true; }
   if (p.has('et'))    { document.getElementById('etDate').value   = p.get('et');    found = true; }
   if (p.has('d'))     embryoDay = parseInt(p.get('d')) || 5;
   document.getElementById('btn5').classList.toggle('active', embryoDay === 5);
@@ -654,6 +668,7 @@ function saveToStorage() {
     localStorage.setItem(STORE_KEY, JSON.stringify({
       start: document.getElementById('stimDate').value,
       opu:   document.getElementById('opuDate').value,
+      fet:   document.getElementById('fetStartDate').value,
       et:    document.getElementById('etDate').value,
       d:     embryoDay
     }));
@@ -666,6 +681,7 @@ function restoreFromStorage() {
     if (!data) return;
     if (data.start) document.getElementById('stimDate').value = data.start;
     if (data.opu)   document.getElementById('opuDate').value  = data.opu;
+    if (data.fet)   document.getElementById('fetStartDate').value = data.fet;
     if (data.et)    document.getElementById('etDate').value   = data.et;
     if (data.d)     { embryoDay = data.d; }
     document.getElementById('btn5').classList.toggle('active', embryoDay === 5);
@@ -677,9 +693,10 @@ function restoreFromStorage() {
 function runCalc() {
   const stimIn = parseD(document.getElementById('stimDate').value);
   const opuIn  = parseD(document.getElementById('opuDate').value);
+  const fetIn  = parseD(document.getElementById('fetStartDate').value);
   const etIn   = parseD(document.getElementById('etDate').value);
 
-  if (!stimIn && !opuIn && !etIn) {
+  if (!stimIn && !opuIn && !fetIn && !etIn) {
     document.getElementById('results').classList.add('hidden');
     return;
   }
@@ -687,23 +704,39 @@ function runCalc() {
   const gestAtET = embryoDay === 5 ? 19 : 17;
 
   // ─ どの入力を起点にするか優先順位: ET > OPU > STIM ─
-  let et, etEst, opu, opuEst, stim, stimEst;
-
-  if (etIn) {
-    et = etIn; etEst = false;
-    opu  = opuIn  || addDays(et, -(14 + 28 + 12 + embryoDay)); opuEst = !opuIn;
-    stim = stimIn || addDays(opu, -13);                         stimEst = !stimIn;
-  } else if (opuIn) {
-    opu = opuIn; opuEst = false;
-    stim = stimIn || addDays(opu, -13);                         stimEst = !stimIn;
-    et   = addDays(opu, 14 + 28 + 12 + embryoDay);             etEst = true;
-  } else {
-    stim = stimIn; stimEst = false;
-    opu  = addDays(stim, 13);                                   opuEst = true;
-    et   = addDays(stim, 13 + 14 + 28 + 12 + embryoDay);       etEst = true;
+  let stim = null, stimEst = false, opu = null, opuEst = false;
+  if (opuIn) {
+    opu = opuIn;
+    opuEst = false;
+    stim = stimIn || addDays(opu, -13);
+    stimEst = !stimIn;
+  } else if (stimIn) {
+    stim = stimIn;
+    stimEst = false;
+    opu = addDays(stim, 13);
+    opuEst = true;
   }
 
-  const fetPeriod = addDays(et, -(12 + embryoDay));
+  let fetPeriod, fetEst, et, etEst;
+  if (etIn) {
+    et = etIn;
+    etEst = false;
+    fetPeriod = fetIn || addDays(et, -(12 + embryoDay));
+    fetEst = !fetIn;
+  } else if (fetIn) {
+    fetPeriod = fetIn;
+    fetEst = false;
+    et = addDays(fetPeriod, 12 + embryoDay);
+    etEst = true;
+  } else if (opu) {
+    et = addDays(opu, 14 + 28 + 12 + embryoDay);
+    etEst = true;
+    fetPeriod = addDays(et, -(12 + embryoDay));
+    fetEst = true;
+  } else {
+    document.getElementById('results').classList.add('hidden');
+    return;
+  }
   const due       = addDays(et, 280 - gestAtET);
   const today     = today0();
 
@@ -769,6 +802,19 @@ function runCalc() {
     }
   ].filter(bar => bar.start <= bar.end);
 
+  const retrievalEventIds = new Set(['stim','inj','fcheck1','fcheck2','hcg','opu','fert','div','blast','reststart','restmid','consult']);
+  if (!stim || !opu) {
+    for (let i = events.length - 1; i >= 0; i -= 1) {
+      if (retrievalEventIds.has(events[i].id)) events.splice(i, 1);
+    }
+    for (let i = medicationBars.length - 1; i >= 0; i -= 1) {
+      if (medicationBars[i].id === 'stim-med') medicationBars.splice(i, 1);
+    }
+  }
+
+  const fetStartEvent = events.find(ev => ev.id === 'fetst');
+  if (fetStartEvent) fetStartEvent.est = fetEst;
+
   events.sort((a, b) => a.date - b.date);
 
   const defaultMonthBase = events.find(ev => floor0(ev.date) >= today)?.date || today;
@@ -776,7 +822,7 @@ function runCalc() {
     currentCalendarMonth = startOfMonth(defaultMonthBase);
   }
 
-  computed = { stim, stimEst, opu, opuEst, et, etEst, due, gestAtET, events, medicationBars, today };
+  computed = { stim, stimEst, opu, opuEst, fetPeriod, fetEst, et, etEst, due, gestAtET, events, medicationBars, today };
 
   render();
 
@@ -803,11 +849,11 @@ const ICONS = {
 // ── ステータス判定 ────────────────────────────────────────────
 function getStatus(et, opu, etEst, gestAtET, today) {
   const etD  = floor0(et);
-  const opuD = floor0(opu);
   const bt   = diffDays(today, etD); // 移植からの日数（負=移植前）
 
   if (etD > today) {
-    if (opuD > today) {
+    if (opu && floor0(opu) > today) {
+      const opuD = floor0(opu);
       const d = diffDays(opuD, today);
       return { bg:'linear-gradient(135deg,#dbeafe,#ede9fe)', color:'#1e40af',
         ey:`採卵周期`, ttl:`採卵まであと ${d} 日`, body:'卵巣を刺激して卵子を育てている時期です' };
