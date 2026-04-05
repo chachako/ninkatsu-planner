@@ -88,7 +88,44 @@
     }
     input[type="date"]:focus { border-color: var(--pink); box-shadow: 0 0 0 4px rgba(236,72,153,.1); }
     input[type="date"].filled { border-color: var(--pink); }
-
+    select.input-select {
+      width: 100%;
+      padding: 13px 15px;
+      border: 2px solid var(--pink-mid);
+      border-radius: 12px;
+      font-size: 15px;
+      color: var(--text);
+      background: #fdf9fb;
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+    select.input-select:focus {
+      border-color: var(--pink);
+      box-shadow: 0 0 0 4px rgba(236,72,153,.1);
+    }
+    .build-btn {
+      width: 100%;
+      margin-top: 14px;
+      border: 0;
+      border-radius: 14px;
+      padding: 14px 16px;
+      background: linear-gradient(135deg, var(--pink) 0%, #fb7185 100%);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: .02em;
+      cursor: pointer;
+      box-shadow: 0 14px 28px rgba(236,72,153,.18);
+      transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+    }
+    .build-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 30px rgba(236,72,153,.22);
+      filter: saturate(1.03);
+    }
+    .hidden-inputs { display: none; }
     .divider { height: 1px; background: #f3f4f6; margin: 16px 0; }
 
     /* ── Embryo toggle ── */
@@ -279,6 +316,28 @@
     .cal-event.phase-fet { background: #fdf2f8; border-left-color: #ec4899; color: #be185d; }
     .cal-event.phase-pregnancy { background: #fff1f6; border-left-color: #be185d; color: #9d174d; }
     .cal-event.est { opacity: .78; }
+    .cal-event.is-medication {
+      cursor: pointer;
+      position: relative;
+      padding-right: 22px;
+    }
+    .cal-event.is-medication::after {
+      content: '?';
+      position: absolute;
+      right: 6px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 800;
+      color: #fff;
+      background: rgba(17, 24, 39, .3);
+    }
     .cal-more {
       font-size: 10px;
       font-weight: 700;
@@ -310,6 +369,7 @@
       white-space: nowrap;
       text-overflow: ellipsis;
     }
+    .cal-bar.is-medication { cursor: pointer; pointer-events: auto; }
     .cal-bar.edge-start { margin-left: 0; }
     .cal-bar.edge-end   { margin-right: 0; }
     .cal-bar.continue-start {
@@ -380,6 +440,25 @@
     .tl-date { font-size: 11px; font-weight: 600; color: var(--pink); margin-top: 2px; }
     .tl-date.past { color: #d1d5db; }
     .tl-date.est  { color: #d97706; }
+    .med-trigger {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 8px;
+      border: 0;
+      background: #fff1f6;
+      color: var(--pink-dark);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: background .18s, transform .18s;
+    }
+    .med-trigger:hover {
+      background: #fce7f3;
+      transform: translateY(-1px);
+    }
 
     /* Badges */
     .badge {
@@ -427,6 +506,126 @@
       transition: transform .3s, opacity .3s; opacity: 0; z-index: 999;
     }
     .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 1200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(15, 23, 42, .42);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .22s ease;
+    }
+    .modal.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .modal-panel {
+      width: min(100%, 560px);
+      max-height: min(88vh, 820px);
+      overflow: auto;
+      border-radius: 24px;
+      background: linear-gradient(180deg, #fff 0%, #fff8fb 100%);
+      box-shadow: 0 24px 70px rgba(15, 23, 42, .22);
+      padding: 22px 20px 18px;
+    }
+    .modal-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+    .modal-eyebrow {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      color: var(--text-sub);
+      margin-bottom: 6px;
+    }
+    .modal-title {
+      font-size: 22px;
+      line-height: 1.2;
+      color: var(--pink-dark);
+      font-weight: 800;
+    }
+    .modal-subtitle {
+      margin-top: 6px;
+      font-size: 13px;
+      color: var(--text-sub);
+    }
+    .modal-close {
+      width: 40px;
+      height: 40px;
+      border: 0;
+      border-radius: 50%;
+      background: #fdf2f8;
+      color: var(--pink-dark);
+      font-size: 22px;
+      line-height: 1;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .modal-note {
+      font-size: 12px;
+      color: var(--text-sub);
+      background: #fff;
+      border: 1px solid #f3e8f0;
+      border-radius: 14px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+    }
+    .med-section {
+      background: #fff;
+      border: 1px solid #f3e8f0;
+      border-radius: 16px;
+      padding: 14px;
+      margin-bottom: 10px;
+    }
+    .med-section h3 {
+      font-size: 13px;
+      color: var(--pink-dark);
+      margin-bottom: 8px;
+    }
+    .med-section ul {
+      padding-left: 18px;
+      color: var(--text);
+    }
+    .med-section li {
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+    .med-section li:last-child { margin-bottom: 0; }
+    .med-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .med-tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: #fdf2f8;
+      color: var(--pink-dark);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    a.med-tag {
+      text-decoration: none;
+      transition: background .18s, transform .18s, border-color .18s;
+      border: 1px solid #f3d9e7;
+    }
+    a.med-tag:hover {
+      background: #fce7f3;
+      border-color: var(--pink);
+      transform: translateY(-1px);
+    }
 
     footer { text-align: center; font-size: 11px; color: #c4b5fd; margin-top: 20px; line-height: 1.9; }
     footer a { color: #be185d; text-decoration: none; font-weight: 700; }
@@ -490,6 +689,7 @@
       <input type="date" id="etDate">
       <div class="fg-hint">未定でも大丈夫です。移植周期の生理開始日があれば目安を自動計算します</div>
     </div>
+    <div id="singleDateInputMount"></div>
     <div class="divider"></div>
     <div class="fg" style="margin-bottom:0">
       <div class="et-label">移植する胚のステージ</div>
@@ -512,6 +712,13 @@
     <div class="guide-title">移植日から出産までの流れを、週ごとにまとめた記事も読めます</div>
     <div class="guide-body">妊娠判定、胎嚢確認、心拍確認、安定期、出産までの目安を、スマホで読みやすく整理しています。</div>
     <a class="guide-link" href="./articles/embryo-transfer-schedule/index.html">記事を読む</a>
+  </div>
+
+  <div class="card guide-card">
+    <div class="guide-eyebrow">MEDICATION ARTICLE</div>
+    <div class="guide-title">不妊治療で使う薬一覧と、用途・注意事項をまとめた記事も読めます</div>
+    <div class="guide-body">排卵誘発剤、トリガー、エストロゲン製剤、プロゲステロン製剤などの役割と、よくある副作用を一覧で整理しました。</div>
+    <a class="guide-link" href="./articles/fertility-medication-guide/index.html">薬の記事を読む</a>
   </div>
 
   <div id="results" class="hidden">
@@ -570,6 +777,20 @@
 </div>
 
 <div class="toast" id="toast"></div>
+<div class="modal" id="medicationModal" aria-hidden="true">
+  <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="medicationTitle">
+    <div class="modal-head">
+      <div>
+        <div class="modal-eyebrow">MEDICATION GUIDE</div>
+        <div class="modal-title" id="medicationTitle"></div>
+        <div class="modal-subtitle" id="medicationSubtitle"></div>
+      </div>
+      <button class="modal-close" type="button" id="medicationClose" aria-label="閉じる">×</button>
+    </div>
+    <div class="modal-note" id="medicationNote"></div>
+    <div id="medicationBody"></div>
+  </div>
+</div>
 
 <script>
 // ── 状態 ────────────────────────────────────────────────────
@@ -579,6 +800,353 @@ let initialized = false;
 let userInteracted = false;
 let currentCalendarMonth = null;
 const STORE_KEY = 'ivf-sch-v3';
+let lastModalTrigger = null;
+const DATE_FIELD_META = {
+  stimDate: {
+    label: '今回の治療を開始した日（生理1日目）',
+    hint: '採卵に向けて治療を始める周期の生理1日目です'
+  },
+  opuDate: {
+    label: '採卵日（OPU）',
+    hint: '採卵日が決まっていれば、その日付を入れてください'
+  },
+  fetStartDate: {
+    label: '移植周期の生理開始日',
+    hint: 'ホルモン補充周期で移植準備を始める周期の生理1日目です。エストロゲン開始は生理2日目を目安にし、施設により生理1-3日目開始です'
+  },
+  etDate: {
+    label: '移植日（ET）',
+    hint: '移植日が決まっていれば入力してください。未定なら生理開始日から逆算できます'
+  }
+};
+const MEDICATION_INFO = {
+  stim: {
+    title: '排卵誘発剤',
+    subtitle: '卵胞を育てて採卵の準備を進めるための薬',
+    note: '一般的な説明です。実際の薬剤名、注射量、通院間隔はクリニックごとに調整されます。',
+    purpose: [
+      '卵胞を複数育て、採卵できる卵子の数を増やすために使います。',
+      'ホルモン値や卵胞の大きさを見ながら量や日数が細かく変わることがあります。'
+    ],
+    caution: [
+      '自己判断で中止や増減をせず、指定された時間帯で続けることが大切です。',
+      'お腹の張り、急な体重増加、息苦しさ、強い吐き気があるときは卵巣過剰刺激症候群の確認が必要です。',
+      '採卵前は性交や激しい運動を控えるよう案内されることがあります。'
+    ],
+    effects: [
+      '下腹部の張り、卵巣が大きくなる感じ、眠気、だるさ、気分の波などが出ることがあります。',
+      '注射部位の赤みや痛みが出ることがあります。'
+    ],
+    contact: [
+      '急な腹痛、強い張り、息苦しさ、尿量低下、短期間の体重増加があるときは早めに連絡します。'
+    ],
+    examples: ['ゴナールエフ', 'フォリルモン']
+  },
+  hcg: {
+    title: 'HCG注射',
+    subtitle: '採卵前の最終成熟をうながすトリガー注射',
+    note: '打つ時間が採卵時刻に直結しやすい薬です。指定時刻を外さないことがとても大切です。',
+    purpose: [
+      '卵子の最終成熟を進めて、採卵のタイミングを合わせるために使います。'
+    ],
+    caution: [
+      'クリニックから指定された時刻に正確に使用します。',
+      '打ち忘れや時刻ずれは採卵計画に影響することがあるため、気づいたらすぐ連絡します。',
+      '妊娠判定前後の市販検査薬に影響し、偽陽性の原因になることがあります。'
+    ],
+    effects: [
+      '注射部位の痛み、軽いむくみ、下腹部痛、胸の張りなどが起こることがあります。',
+      '排卵を促す作用が強いため、卵巣の張りが強く感じられることがあります。'
+    ],
+    contact: [
+      '強い腹痛や出血、注射時刻を守れなかった場合は早めに相談します。'
+    ],
+    examples: ['HCG', 'オビドレル']
+  },
+  estrogen: {
+    title: 'エストロゲン製剤',
+    subtitle: '子宮内膜を厚くして移植に備えるための薬',
+    note: '飲み薬、貼り薬、腟剤など形が異なることがありますが、目的は子宮内膜の準備です。',
+    purpose: [
+      '胚移植に向けて子宮内膜を育て、着床しやすい状態を整えます。'
+    ],
+    caution: [
+      '飲み忘れや貼り替え忘れが続くと内膜の育ちに影響することがあります。',
+      '喫煙、長時間の脱水、強い頭痛やふくらはぎの痛みがあるときは血栓症の確認が必要です。',
+      '自己判断で中断せず、診察日の指示に合わせて継続します。'
+    ],
+    effects: [
+      '胸の張り、むくみ、眠気、頭痛、軽い吐き気、不正出血がみられることがあります。',
+      '貼り薬の場合はかぶれ、腟剤の場合はおりものの変化を感じることがあります。'
+    ],
+    contact: [
+      '激しい頭痛、息苦しさ、胸痛、片脚の腫れや痛みがあるときは受診を急ぎます。'
+    ],
+    examples: ['ジュリナ', 'エストラーナテープ']
+  },
+  prog: {
+    title: 'プロゲステロン製剤',
+    subtitle: '移植後の黄体補充をして着床を支えるための薬',
+    note: '服用、注射、腟剤など使い方が複数あります。移植日から判定日以降まで続くことが多いです。',
+    purpose: [
+      '排卵後の黄体ホルモンを補い、着床と妊娠初期の維持を助けます。'
+    ],
+    caution: [
+      '開始日が胚の日齢と合っていることが重要なので、指示された日から正確に始めます。',
+      '腟剤は使用後に薬が出てくることがありますが、すぐ効かなくなるわけではありません。',
+      '眠気が出る場合は車の運転や集中作業に注意します。'
+    ],
+    effects: [
+      '眠気、だるさ、便秘、胸の張り、お腹の重さ、基礎体温が高い感じが出ることがあります。',
+      '腟剤ではおりものの増加や違和感、注射では痛みやしこりが出ることがあります。'
+    ],
+    contact: [
+      '強い出血、腹痛、発熱、アレルギー症状がある場合は相談します。'
+    ],
+    examples: ['デュファストン', 'ルトラール', 'ルティナス', 'ワンクリノン']
+  }
+};
+
+const MEDICATION_NAME_DATABASE = {
+  stim: {
+    'ゴナールエフ': {
+      title: 'ゴナールエフ',
+      subtitle: 'FSH製剤として卵胞を育てる注射薬',
+      note: '自己注射で使われることが多く、毎日ほぼ同じ時間に続けることが大切です。',
+      purpose: [
+        '卵胞を複数育て、採卵できる卵子の数を確保しやすくするために使います。'
+      ],
+      caution: [
+        '自己注射の時間が大きくずれないようにします。',
+        'お腹の張りや体重増加が急なときは卵巣の反応が強すぎないか確認が必要です。'
+      ],
+      effects: [
+        '下腹部の張り、卵巣が大きくなる感じ、注射部位の赤みや痛みが出ることがあります。'
+      ],
+      contact: [
+        '強い腹痛、息苦しさ、吐き気、急な体重増加があれば早めに連絡します。'
+      ]
+    },
+    'レコベル': {
+      title: 'レコベル',
+      subtitle: '体重やAMHに合わせて量を調整しやすい排卵誘発注射',
+      note: '毎日同じ時間帯の自己注射が基本です。',
+      purpose: [
+        '卵胞発育をそろえながら採卵数を確保するために使います。'
+      ],
+      caution: [
+        '指示量を自己判断で変えないことが大切です。',
+        '卵巣が腫れている時期は激しい運動を控えます。'
+      ],
+      effects: [
+        '下腹部の張り、注射部位の痛み、だるさなどが出ることがあります。'
+      ],
+      contact: [
+        'お腹の張りが急に強くなる、息苦しい、体重増加が急なときは相談します。'
+      ]
+    },
+    'クロミッド': {
+      title: 'クロミッド',
+      subtitle: '内服で排卵誘発を行う代表的な薬',
+      note: '内服日数が決まっていることが多く、飲み忘れに注意します。',
+      purpose: [
+        '脳からのホルモン分泌を促し、卵胞の発育を助けるために使います。'
+      ],
+      caution: [
+        '飲みすぎても効果が強くなるわけではないので、指示通りに内服します。',
+        '長期反復では内膜が薄くなることがあるため、診察結果と合わせて使われます。'
+      ],
+      effects: [
+        'のぼせ、頭痛、気分の波、見え方の違和感などが出ることがあります。'
+      ],
+      contact: [
+        '視覚異常や強い頭痛があれば受診先へ相談します。'
+      ]
+    },
+    'フェマーラ': {
+      title: 'フェマーラ',
+      subtitle: 'レトロゾール製剤として排卵誘発に使われる内服薬',
+      note: 'クロミッドより内膜への影響を抑えたいときに使われることがあります。',
+      purpose: [
+        '卵胞発育を促しながら、内膜とのバランスをみて排卵誘発するために使います。'
+      ],
+      caution: [
+        '飲む日数が決まっているので、開始日と終了日を守ります。'
+      ],
+      effects: [
+        'だるさ、頭痛、ほてり、軽い吐き気などが出ることがあります。'
+      ],
+      contact: [
+        '症状が強いときや飲み忘れたときはクリニックへ確認します。'
+      ]
+    }
+  },
+  hcg: {
+    'オビドレル': {
+      title: 'オビドレル',
+      subtitle: '採卵前の最終成熟を促す自己注射トリガー',
+      note: '打つ時刻が採卵時刻に直結するため、時間厳守が重要です。',
+      purpose: [
+        '卵子の最終成熟を進め、採卵のタイミングを合わせます。'
+      ],
+      caution: [
+        '指定された時刻ちょうどを目安に自己注射します。',
+        '妊娠検査薬に数日影響することがあります。'
+      ],
+      effects: [
+        '注射部位の痛み、下腹部の張り、胸の張りが出ることがあります。'
+      ],
+      contact: [
+        '打ち忘れ、時刻ずれ、強い腹痛があればすぐ連絡します。'
+      ]
+    },
+    'HCG': {
+      title: 'HCG注射',
+      subtitle: '採卵前の成熟を仕上げるトリガー注射',
+      note: '筋注や皮下注の形で案内されることがあります。',
+      purpose: [
+        '卵子の最終成熟を促して採卵準備を整えます。'
+      ],
+      caution: [
+        '時刻がずれると採卵計画に影響するため、案内どおりに使用します。'
+      ],
+      effects: [
+        '下腹部痛、胸の張り、注射部位の痛みが起こることがあります。'
+      ],
+      contact: [
+        '強い腹痛、出血、打ち忘れ時は早めに相談します。'
+      ]
+    },
+    'スプレキュア': {
+      title: 'スプレキュア',
+      subtitle: '点鼻で排卵をうながすトリガー薬',
+      note: '鼻へ使うタイプなので、案内された回数と時刻を守ることが大切です。',
+      purpose: [
+        '排卵のスイッチを入れて採卵のタイミングを合わせるために使います。'
+      ],
+      caution: [
+        '点鼻回数や時刻を自己判断でずらさないようにします。',
+        '鼻炎が強いときは吸収に影響することがあるため相談します。'
+      ],
+      effects: [
+        '鼻の刺激感、頭痛、ほてり、軽い吐き気が出ることがあります。'
+      ],
+      contact: [
+        '使い忘れ、吐き気が強い、強い腹痛があるときは連絡します。'
+      ]
+    }
+  },
+  estrogen: {
+    'ジュリナ': {
+      title: 'ジュリナ',
+      subtitle: '内服で子宮内膜を整えるエストロゲン製剤',
+      note: '毎日飲む回数が決まっていることが多く、飲み忘れに注意します。',
+      purpose: [
+        '子宮内膜を厚くして胚移植の準備を整えるために使います。'
+      ],
+      caution: [
+        '飲み忘れが続くと内膜の育ちに影響することがあります。',
+        '血栓症が心配な症状があれば早めに相談します。'
+      ],
+      effects: [
+        '胸の張り、むくみ、頭痛、眠気、軽い吐き気などが起こることがあります。'
+      ],
+      contact: [
+        '激しい頭痛、胸痛、片脚の腫れや痛みがあれば受診を急ぎます。'
+      ]
+    },
+    'エストラーナテープ': {
+      title: 'エストラーナテープ',
+      subtitle: '貼り薬でエストロゲンを補充する内膜調整薬',
+      note: '貼り替え日と貼る枚数の管理が大切です。',
+      purpose: [
+        '皮膚からエストロゲンを補い、子宮内膜を育てます。'
+      ],
+      caution: [
+        '貼り替え忘れやはがれに注意し、貼付場所を少しずつずらします。',
+        'かぶれが強い場合は貼付部位や薬の変更が必要になることがあります。'
+      ],
+      effects: [
+        '皮膚のかゆみや赤み、胸の張り、むくみ、頭痛が出ることがあります。'
+      ],
+      contact: [
+        '強い皮膚症状や血栓症を疑う症状があれば相談します。'
+      ]
+    }
+  },
+  prog: {
+    'デュファストン': {
+      title: 'デュファストン',
+      subtitle: '内服で黄体補充を行うプロゲステロン製剤',
+      note: '飲み始める日が重要なので、開始日を守って内服します。',
+      purpose: [
+        '移植後の黄体ホルモンを補い、着床と妊娠初期を支えるために使います。'
+      ],
+      caution: [
+        '飲み忘れが続くと補充が不安定になるため、時間を決めて続けます。'
+      ],
+      effects: [
+        '眠気、だるさ、胸の張り、便秘、お腹の重さなどが出ることがあります。'
+      ],
+      contact: [
+        '強い出血や腹痛があるときは早めに相談します。'
+      ]
+    },
+    'ルトラール': {
+      title: 'ルトラール',
+      subtitle: '内服で黄体補充をする代表的なホルモン薬',
+      note: '眠気やだるさが出やすい人もいます。',
+      purpose: [
+        '黄体ホルモンを補って子宮内膜を維持しやすくします。'
+      ],
+      caution: [
+        '自己判断で中断せず、判定日以降の指示まで継続します。'
+      ],
+      effects: [
+        '眠気、胸の張り、便秘、むくみ、気分の波が出ることがあります。'
+      ],
+      contact: [
+        '症状が強いときや出血が多いときは相談します。'
+      ]
+    },
+    'ルティナス': {
+      title: 'ルティナス',
+      subtitle: '腟錠で黄体補充をするプロゲステロン製剤',
+      note: '使用後に薬が外へ出てくるように見えても、一定量は吸収されています。',
+      purpose: [
+        '子宮近くで黄体ホルモンを補い、移植後の内膜環境を支えます。'
+      ],
+      caution: [
+        '決められた回数を守り、入れ忘れに注意します。',
+        'おりものシートを使うと日常生活で過ごしやすいことがあります。'
+      ],
+      effects: [
+        'おりものの増加、腟内の違和感、眠気、だるさが出ることがあります。'
+      ],
+      contact: [
+        '強いかゆみ、痛み、出血、発熱がある場合は相談します。'
+      ]
+    },
+    'ワンクリノン': {
+      title: 'ワンクリノン',
+      subtitle: 'ゲル状の腟剤で黄体補充を行う薬',
+      note: '白い塊のような残りが出ることがありますが、すぐに効かなくなるわけではありません。',
+      purpose: [
+        '黄体ホルモンを補い、着床後の環境を支えるために使います。'
+      ],
+      caution: [
+        '案内された回数とタイミングを守ります。',
+        '残渣が気になっても自己判断で洗い流したり中止したりしないようにします。'
+      ],
+      effects: [
+        '腟内違和感、おりもの増加、眠気、胸の張りなどが出ることがあります。'
+      ],
+      contact: [
+        '強い痛み、発熱、強い出血があれば相談します。'
+      ]
+    }
+  }
+};
 
 // ── ユーティリティ ───────────────────────────────────────────
 const addDays  = (d, n) => { const r = new Date(d); r.setDate(r.getDate() + n); return r; };
@@ -586,6 +1154,10 @@ const today0   = ()     => { const t = new Date(); t.setHours(0,0,0,0); return t
 const parseD   = v      => v ? new Date(v + 'T00:00:00') : null;
 const floor0   = d      => { const x = new Date(d); x.setHours(0,0,0,0); return x; };
 const diffDays = (a, b) => Math.round((floor0(a) - floor0(b)) / 86400000);
+const todayISO = ()     => {
+  const t = today0();
+  return `${t.getFullYear()}-${String(t.getMonth()+1).padStart(2,'0')}-${String(t.getDate()).padStart(2,'0')}`;
+};
 const startOfMonth = d => new Date(d.getFullYear(), d.getMonth(), 1);
 const endOfMonth   = d => new Date(d.getFullYear(), d.getMonth() + 1, 0);
 const startOfWeek  = d => addDays(floor0(d), -floor0(d).getDay());
@@ -598,18 +1170,206 @@ const icsDate  = d      => {
   const x = new Date(d);
   return `${x.getFullYear()}${String(x.getMonth()+1).padStart(2,'0')}${String(x.getDate()).padStart(2,'0')}`;
 };
+const normalizeMedicationName = name => (name || '').replace(/\s+/g, '').replace(/[（）()]/g, '').trim();
+
+function resolveMedicationInfo(medicationId, selectedName = '') {
+  const base = MEDICATION_INFO[medicationId];
+  const db = MEDICATION_NAME_DATABASE[medicationId] || {};
+  const normalized = normalizeMedicationName(selectedName);
+  const matchedKey = Object.keys(db).find(key => {
+    const keyNorm = normalizeMedicationName(key);
+    return normalized === keyNorm || normalized.includes(keyNorm) || keyNorm.includes(normalized);
+  });
+  const specific = matchedKey ? db[matchedKey] : null;
+  const displayName = selectedName || base.title;
+
+  return {
+    ...base,
+    ...(specific || {}),
+    title: displayName,
+    actualName: selectedName || '',
+    canonicalName: matchedKey || '',
+    isSpecific: !!specific
+  };
+}
+
+function getMedicationEventName(medicationId, profile) {
+  if (!profile.actualName) {
+    return medicationId === 'hcg' ? 'HCG注射（トリガー）' :
+      medicationId === 'stim' ? '排卵誘発剤の注射開始' :
+      `${profile.title}開始`;
+  }
+  return medicationId === 'hcg' ? `${profile.title}（トリガー）` : `${profile.title}開始`;
+}
+
+function getMedicationArticleAnchor(name) {
+  const normalized = normalizeMedicationName(name);
+  const anchorMap = {
+    'ゴナールエフ': 'gonal-f',
+    'フォリルモン': 'folyrmon',
+    'レコベル': 'recovel',
+    'HMG製剤': 'hmg',
+    'クロミッド': 'clomid',
+    'フェマーラ': 'femara',
+    'HCG': 'hcg-trigger',
+    'HCG注射': 'hcg-trigger',
+    'オビドレル': 'ovidrel',
+    'スプレキュア': 'suprecur',
+    'ジュリナ': 'julina',
+    'エストラーナテープ': 'estrana-tape',
+    '内膜調整のホルモン薬': 'estrogen',
+    'デュファストン': 'duphaston',
+    'ルトラール': 'luteal',
+    'ルティナス': 'lutinus',
+    'ワンクリノン': 'onecrinone'
+  };
+
+  const matched = Object.entries(anchorMap).find(([key]) => {
+    const keyNorm = normalizeMedicationName(key);
+    return normalized === keyNorm || normalized.includes(keyNorm) || keyNorm.includes(normalized);
+  });
+  return matched ? `./articles/fertility-medication-guide/index.html#${matched[1]}` : './articles/fertility-medication-guide/index.html';
+}
 
 // ── 初期化 ──────────────────────────────────────────────────
+function createSingleDateInputUI() {
+  const mount = document.getElementById('singleDateInputMount');
+  if (!mount) return;
+
+  mount.innerHTML = `
+    <div class="fg">
+      <div class="fg-label">入力したい日付を選んでください</div>
+      <select class="input-select" id="activeDateField"></select>
+      <input type="date" id="activeDateValue">
+      <div class="fg-hint" id="activeDateHint"></div>
+      <button class="build-btn" type="button" id="buildScheduleButton">スケジュールを作成</button>
+    </div>
+  `;
+
+  const select = document.getElementById('activeDateField');
+  Object.entries(DATE_FIELD_META).forEach(([id, meta]) => {
+    const option = document.createElement('option');
+    option.value = id;
+    option.textContent = meta.label;
+    select.appendChild(option);
+  });
+}
+
+function hideLegacyDateFields() {
+  ['stimDate', 'opuDate', 'fetStartDate', 'etDate'].forEach(id => {
+    const input = document.getElementById(id);
+    if (!input) return;
+    const field = input.closest('.fg');
+    if (field) field.style.display = 'none';
+    const divider = field?.nextElementSibling?.classList.contains('divider') ? field.nextElementSibling : null;
+    if (divider) divider.style.display = 'none';
+  });
+}
+
+function getActiveDateFieldId() {
+  return document.getElementById('activeDateField')?.value || 'stimDate';
+}
+
+function getInitialDateFieldId() {
+  return ['stimDate', 'opuDate', 'fetStartDate', 'etDate'].find(id => document.getElementById(id)?.value) || 'stimDate';
+}
+
+function syncActiveDateEditor() {
+  const fieldId = getActiveDateFieldId();
+  const meta = DATE_FIELD_META[fieldId];
+  const hiddenInput = document.getElementById(fieldId);
+  const activeInput = document.getElementById('activeDateValue');
+  const hint = document.getElementById('activeDateHint');
+  if (!hiddenInput || !activeInput || !hint || !meta) return;
+
+  activeInput.value = hiddenInput.value || todayISO();
+  activeInput.classList.toggle('filled', !!activeInput.value);
+  hint.textContent = meta.hint;
+}
+
+function setExclusiveDateValue(fieldId, value) {
+  ['stimDate', 'opuDate', 'fetStartDate', 'etDate'].forEach(id => {
+    const input = document.getElementById(id);
+    if (!input) return;
+    input.value = id === fieldId ? value : '';
+    input.classList.toggle('filled', !!input.value);
+  });
+}
+
+function renderDateQuickList() {
+  const list = document.getElementById('dateQuickList');
+  if (!list) return;
+
+  list.innerHTML = '';
+  Object.entries(DATE_FIELD_META).forEach(([id, meta]) => {
+    const row = document.createElement('div');
+    row.className = 'quick-item';
+    row.innerHTML = `
+      <button type="button" data-date-field="${id}">${meta.label}</button>
+      <div class="quick-date">${document.getElementById(id).value || '未入力'}</div>
+    `;
+    list.appendChild(row);
+  });
+
+  list.querySelectorAll('button[data-date-field]').forEach(button => {
+    button.addEventListener('click', () => {
+      document.getElementById('activeDateField').value = button.dataset.dateField;
+      syncActiveDateEditor();
+    });
+  });
+}
+
+function applyActiveDateValue() {
+  const activeInput = document.getElementById('activeDateValue');
+  if (!activeInput) return;
+
+  const value = activeInput.value || todayISO();
+  activeInput.value = value;
+  activeInput.classList.toggle('filled', !!value);
+}
+
+function applySelectedDateField() {
+  syncActiveDateEditor();
+}
+
+function buildScheduleFromActiveInput() {
+  const fieldId = getActiveDateFieldId();
+  const activeInput = document.getElementById('activeDateValue');
+  const hiddenInput = document.getElementById(fieldId);
+  if (!activeInput || !hiddenInput) return;
+
+  const value = activeInput.value || todayISO();
+  activeInput.value = value;
+  activeInput.classList.toggle('filled', !!value);
+  setExclusiveDateValue(fieldId, value);
+  onInput({ target: hiddenInput });
+}
+
 window.addEventListener('DOMContentLoaded', () => {
   const fromURL = restoreFromURL();
   if (!fromURL) restoreFromStorage();
+  const hasSavedDate = ['stimDate','opuDate','fetStartDate','etDate'].some(id => document.getElementById(id).value);
+  if (!hasSavedDate) {
+    document.getElementById('stimDate').value = todayISO();
+  }
+  setupMedicationModal();
+  createSingleDateInputUI();
+  hideLegacyDateFields();
 
   // 入力ハイライト
   ['stimDate','opuDate','fetStartDate','etDate'].forEach(id => {
     const el = document.getElementById(id);
     el.classList.toggle('filled', !!el.value);
-    el.addEventListener('change', onInput);
   });
+
+  const activeDateField = document.getElementById('activeDateField');
+  const activeDateValue = document.getElementById('activeDateValue');
+  const buildScheduleButton = document.getElementById('buildScheduleButton');
+  activeDateField.value = getInitialDateFieldId();
+  activeDateField.addEventListener('change', applySelectedDateField);
+  activeDateValue.addEventListener('change', applyActiveDateValue);
+  buildScheduleButton.addEventListener('click', buildScheduleFromActiveInput);
+  syncActiveDateEditor();
 
   initialized = true;
   const hasAny = ['stimDate','opuDate','fetStartDate','etDate'].some(id => document.getElementById(id).value);
@@ -623,6 +1383,7 @@ function onInput(e) {
   saveToURL();
   saveToStorage();
   runCalc();
+  syncActiveDateEditor();
 }
 
 function setEmbryo(n) {
@@ -695,6 +1456,12 @@ function runCalc() {
   const opuIn  = parseD(document.getElementById('opuDate').value);
   const fetIn  = parseD(document.getElementById('fetStartDate').value);
   const etIn   = parseD(document.getElementById('etDate').value);
+  const medicationProfiles = {
+    stim: resolveMedicationInfo('stim'),
+    hcg: resolveMedicationInfo('hcg'),
+    estrogen: resolveMedicationInfo('estrogen'),
+    prog: resolveMedicationInfo('prog')
+  };
 
   if (!stimIn && !opuIn && !fetIn && !etIn) {
     document.getElementById('results').classList.add('hidden');
@@ -746,10 +1513,10 @@ function runCalc() {
   const events = [
     // 採卵周期
     { id:'stim',     phase:'stim',      name:'治療開始（生理1日目）',   sub:'採卵に向けた治療周期スタート',              date:stim,                   est:stimEst, key:true  },
-    { id:'inj',      phase:'stim',      name:'排卵誘発剤の注射開始',    sub:'D3頃から毎日注射・卵胞を育てる',            date:addDays(stim,2),        est:stimEst, key:false },
+    { id:'inj',      phase:'stim',      name:getMedicationEventName('stim', medicationProfiles.stim),    sub:'D3頃から毎日注射・卵胞を育てる',            date:addDays(stim,2),        est:stimEst, key:false, medicationId:'stim' },
     { id:'fcheck1',  phase:'stim',      name:'受診①・卵胞確認',        sub:'D6頃・経腟エコーで卵胞数・サイズを確認',    date:addDays(stim,5),        est:stimEst, key:false },
     { id:'fcheck2',  phase:'stim',      name:'受診②・卵胞発育確認',    sub:'D10頃・エコー＋採血（E2値確認）',           date:addDays(stim,9),        est:stimEst, key:false },
-    { id:'hcg',      phase:'stim',      name:'HCG注射（トリガー）',    sub:'採卵36〜40時間前・卵子の最終成熟を促す',     date:addDays(opu,-2),        est:opuEst,  key:true  },
+    { id:'hcg',      phase:'stim',      name:getMedicationEventName('hcg', medicationProfiles.hcg),    sub:'採卵36〜40時間前・卵子の最終成熟を促す',     date:addDays(opu,-2),        est:opuEst,  key:true,  medicationId:'hcg'  },
     // 採卵・受精・凍結
     { id:'opu',      phase:'retrieval', name:'採卵日（OPU）',           sub:'麻酔下で採卵・当日は安静に',                date:opu,                    est:opuEst,  key:true  },
     { id:'fert',     phase:'retrieval', name:'受精確認',                sub:'翌日・IVF / ICSIの結果が報告されます',      date:addDays(opu,1),         est:opuEst,  key:false },
@@ -761,9 +1528,9 @@ function runCalc() {
     { id:'consult',  phase:'rest',      name:'移植周期の方針を相談',    sub:'担当医と移植スケジュールを確認',             date:addDays(fetPeriod,-7),  est:etEst,   key:false },
     // 移植周期
     { id:'fetst',    phase:'fet',       name:'移植周期スタート（生理）', sub:'移植に向けた新しい周期の開始',              date:fetPeriod,              est:etEst,   key:false },
-    { id:'estrogen', phase:'fet',       name:'エストロゲン製剤開始',    sub:'D2頃〜子宮内膜を厚くする薬の服用開始',      date:addDays(fetPeriod,1),   est:etEst,   key:false },
+    { id:'estrogen', phase:'fet',       name:getMedicationEventName('estrogen', medicationProfiles.estrogen),    sub:'D2頃〜子宮内膜を厚くする薬の服用開始（施設により生理1-3日目開始）',      date:addDays(fetPeriod,1),   est:etEst,   key:false, medicationId:'estrogen' },
     { id:'ucheck',   phase:'fet',       name:'受診・子宮内膜確認',      sub:'D12頃・内診エコー＋採血',                   date:addDays(fetPeriod,11),  est:etEst,   key:true  },
-    { id:'prog',     phase:'fet',       name:'プロゲステロン製剤開始',  sub:`D13頃・黄体ホルモン補充（移植${embryoDay}日前）`, date:addDays(fetPeriod,12), est:etEst, key:false },
+    { id:'prog',     phase:'fet',       name:getMedicationEventName('prog', medicationProfiles.prog),  sub:`D13頃・黄体ホルモン補充（移植${embryoDay}日前）`, date:addDays(fetPeriod,12), est:etEst, key:false, medicationId:'prog' },
     { id:'etprev',   phase:'fet',       name:'移植前日',                sub:'安静にする・激しい運動・飲酒を避ける',       date:addDays(et,-1),         est:etEst,   key:false },
     // 妊娠〜出産
     { id:'et',       phase:'pregnancy', name:'胚移植（ET）',            sub:'当日は安静に・無理をしない',                date:et,                     est:etEst,   key:true  },
@@ -781,24 +1548,27 @@ function runCalc() {
   const medicationBars = [
     {
       id: 'stim-med',
-      title: '排卵誘発剤',
+      title: medicationProfiles.stim.title,
       start: addDays(stim, 2),
       end: addDays(opu, -2),
-      colorClass: 'stim-med'
+      colorClass: 'stim-med',
+      medicationId: 'stim'
     },
     {
       id: 'estrogen-med',
-      title: 'エストロゲン製剤',
+      title: medicationProfiles.estrogen.title,
       start: addDays(fetPeriod, 1),
       end: addDays(et, -1),
-      colorClass: 'estrogen-med'
+      colorClass: 'estrogen-med',
+      medicationId: 'estrogen'
     },
     {
       id: 'prog-med',
-      title: 'プロゲステロン製剤',
+      title: medicationProfiles.prog.title,
       start: addDays(fetPeriod, 12),
       end: addDays(et, 9),
-      colorClass: 'prog-med'
+      colorClass: 'prog-med',
+      medicationId: 'prog'
     }
   ].filter(bar => bar.start <= bar.end);
 
@@ -822,7 +1592,7 @@ function runCalc() {
     currentCalendarMonth = startOfMonth(defaultMonthBase);
   }
 
-  computed = { stim, stimEst, opu, opuEst, fetPeriod, fetEst, et, etEst, due, gestAtET, events, medicationBars, today };
+  computed = { stim, stimEst, opu, opuEst, fetPeriod, fetEst, et, etEst, due, gestAtET, events, medicationBars, today, medicationProfiles };
 
   render();
 
@@ -951,7 +1721,7 @@ function renderCalendar(events, medicationBars, today) {
 
   const body = document.getElementById('calendar');
   body.innerHTML = '';
-  const hiddenEventIds = new Set(['inj', 'estrogen', 'prog']);
+  const hiddenEventIds = new Set(['estrogen', 'prog']);
   const barLabelRemainders = new Map();
 
   const monthStart = startOfMonth(month);
@@ -988,9 +1758,21 @@ function renderCalendar(events, medicationBars, today) {
 
       dayEvents.slice(0, 3).forEach(ev => {
         const item = document.createElement('div');
-        item.className = `cal-event phase-${ev.phase}${ev.est ? ' est' : ''}`;
+        item.className = `cal-event phase-${ev.phase}${ev.est ? ' est' : ''}${ev.medicationId ? ' is-medication' : ''}`;
         item.textContent = ev.name;
-        item.title = `${ev.name}｜${fmtFull(ev.date)}${ev.est ? '（推定）' : ''}`;
+        if (ev.medicationId) {
+          item.tabIndex = 0;
+          item.setAttribute('role', 'button');
+          item.setAttribute('aria-label', `${ev.name} の薬の説明を開く`);
+          item.addEventListener('click', () => openMedicationModal(ev.medicationId, ev.name, item));
+          item.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              openMedicationModal(ev.medicationId, ev.name, item);
+            }
+          });
+        }
+        item.title = `${ev.name}・${fmtFull(ev.date)}${ev.est ? '（目安）' : ''}${ev.medicationId ? '・薬の説明あり' : ''}`;
         cellContent.appendChild(item);
       });
       if (dayEvents.length > 3) {
@@ -1034,7 +1816,7 @@ function renderCalendar(events, medicationBars, today) {
 
     weekBars.forEach(bar => {
       const barEl = document.createElement('div');
-      barEl.className = `cal-bar ${bar.colorClass}`;
+      barEl.className = `cal-bar ${bar.colorClass}${bar.medicationId ? ' is-medication' : ''}`;
       if (bar.startCol === 0) barEl.classList.add('edge-start');
       if (bar.endCol === 6) barEl.classList.add('edge-end');
       if (floor0(bar.start) < floor0(weekStart)) barEl.classList.add('continue-start');
@@ -1061,6 +1843,18 @@ function renderCalendar(events, medicationBars, today) {
       barEl.title = `${bar.title}｜${fmtFull(bar.start)}〜${fmtFull(bar.end)}`;
       barEl.style.gridColumn = `${bar.startCol + 1} / ${bar.endCol + 2}`;
       barEl.style.gridRow = `${bar.rowIndex + 1}`;
+      if (bar.medicationId) {
+        barEl.tabIndex = 0;
+        barEl.setAttribute('role', 'button');
+        barEl.setAttribute('aria-label', `${bar.title} の薬の説明を開く`);
+        barEl.addEventListener('click', () => openMedicationModal(bar.medicationId, bar.title, barEl));
+        barEl.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openMedicationModal(bar.medicationId, bar.title, barEl);
+          }
+        });
+      }
       barsLayer.appendChild(barEl);
     });
 
@@ -1142,11 +1936,85 @@ function renderTimeline(events, today) {
         <div class="tl-sub${isPast?' past':''}">${ev.sub}</div>
         <div class="tl-date${isPast?' past':(ev.est?' est':'')}">${fmtShort(ev.date)}${ev.est?' （推定）':''}</div>
       </div>`;
+    if (ev.medicationId) {
+      const bodyEl = item.querySelector('.tl-body');
+      const medBtn = document.createElement('button');
+      medBtn.type = 'button';
+      medBtn.className = 'med-trigger';
+      medBtn.textContent = '薬の説明を見る';
+      medBtn.addEventListener('click', () => openMedicationModal(ev.medicationId, ev.name, medBtn));
+      bodyEl.appendChild(medBtn);
+    }
     tl.appendChild(item);
   });
 }
 
 // ── ICS ─────────────────────────────────────────────────────
+function setupMedicationModal() {
+  const modal = document.getElementById('medicationModal');
+  const close = document.getElementById('medicationClose');
+  if (!modal || !close) return;
+
+  close.addEventListener('click', closeMedicationModal);
+  modal.addEventListener('click', e => {
+    if (e.target === modal) closeMedicationModal();
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && modal.classList.contains('show')) closeMedicationModal();
+  });
+}
+
+function openMedicationModal(medicationId, scheduleLabel, triggerEl) {
+  const info = resolveMedicationInfo(medicationId);
+  const modal = document.getElementById('medicationModal');
+  if (!info || !modal) return;
+
+  lastModalTrigger = triggerEl || null;
+  document.getElementById('medicationTitle').textContent = info.title;
+  document.getElementById('medicationSubtitle').textContent = scheduleLabel ? `${scheduleLabel} に関する説明` : info.subtitle;
+  document.getElementById('medicationNote').textContent = `${info.subtitle}。${info.note}`;
+  document.getElementById('medicationBody').innerHTML = buildMedicationSections(info);
+  modal.classList.add('show');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  document.getElementById('medicationClose').focus();
+}
+
+function closeMedicationModal() {
+  const modal = document.getElementById('medicationModal');
+  if (!modal) return;
+  modal.classList.remove('show');
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+  if (lastModalTrigger && typeof lastModalTrigger.focus === 'function') lastModalTrigger.focus();
+}
+
+function buildMedicationSections(info) {
+  const sections = [
+    ['何のために使うのか', info.purpose],
+    ['使っている期間の注意', info.caution],
+    ['使うと起こりやすいこと', info.effects],
+    ['こんな時は病院へ相談', info.contact],
+  ];
+
+  const sectionHtml = sections.map(([title, items]) => `
+    <section class="med-section">
+      <h3>${title}</h3>
+      <ul>${items.map(item => `<li>${item}</li>`).join('')}</ul>
+    </section>
+  `).join('');
+
+  const tags = (info.examples || []).map(name => `<a class="med-tag" href="${getMedicationArticleAnchor(name)}">${name}</a>`).join('');
+  const examplesHtml = tags ? `
+    <section class="med-section">
+      <h3>よくある薬名の例</h3>
+      <div class="med-tags">${tags}</div>
+    </section>
+  ` : '';
+
+  return sectionHtml + examplesHtml;
+}
+
 function downloadICS() {
   if (!computed) return;
   const lines = [
