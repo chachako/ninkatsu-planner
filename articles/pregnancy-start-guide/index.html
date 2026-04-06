@@ -62,6 +62,19 @@
     .related-links { display:grid; gap:10px; }
     .related-links a { display:block; padding:14px 16px; border-radius:14px; border:1px solid #f3d9e7; background:#fff; color:var(--pink-dark); font-weight:800; }
     .related-links a:hover { text-decoration:none; background:var(--pink-light); }
+    .affiliate-card { background:linear-gradient(135deg,#fff8fb 0%,#f8fbff 100%); border:1px solid #f3d9e7; }
+    .affiliate-eyebrow { font-size:10px; font-weight:800; letter-spacing:.12em; color:var(--text-sub); margin-bottom:10px; }
+    .affiliate-grid { display:grid; gap:16px; align-items:center; }
+    .affiliate-media { display:block; border-radius:18px; background:#fff; border:1px solid #f3e8f0; padding:12px; text-align:center; }
+    .affiliate-media img { width:100%; max-width:220px; height:auto; display:inline-block; }
+    .affiliate-title { font-size:16px; line-height:1.5; font-weight:800; color:var(--pink-dark); margin-bottom:8px; }
+    .affiliate-copy { font-size:13px; color:var(--text-sub); margin-bottom:10px; }
+    .affiliate-price { font-size:13px; color:var(--text); font-weight:700; margin-bottom:14px; }
+    .affiliate-actions { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    .affiliate-btn { display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:0 16px; border-radius:999px; background:#bf0000; color:#fff; font-size:13px; font-weight:800; text-decoration:none; box-shadow:0 10px 20px rgba(191,0,0,.18); }
+    .affiliate-btn:hover { text-decoration:none; filter:brightness(1.03); }
+    .affiliate-brand img { height:24px; width:auto; display:block; }
+    .affiliate-note { margin-top:10px; font-size:11px; color:var(--text-sub); }
     .cta { background:linear-gradient(135deg,#fff7fb,#f7f3ff); border:1px solid #f4d8e6; text-align:center; }
     .cta-copy,.cta-sub { color:var(--text-sub); font-size:14px; } .cta-copy { margin-bottom:14px; } .cta-sub { margin-top:12px; }
     .cta-button { display:inline-flex; width:100%; min-height:48px; align-items:center; justify-content:center; border-radius:12px; background:var(--pink-dark); color:#fff; font-weight:800; }
@@ -69,6 +82,7 @@
     .sticky-toolbar { position:fixed; left:16px; right:16px; bottom:14px; z-index:1200; display:flex; justify-content:center; pointer-events:none; }
     .sticky-toolbar a { pointer-events:auto; display:inline-flex; align-items:center; justify-content:center; min-height:48px; width:min(100%,420px); padding:0 18px; border-radius:999px; background:#be185d; color:#fff; font-size:14px; font-weight:800; box-shadow:0 16px 32px rgba(190,24,93,.24); }
     footer { margin-top:18px; text-align:center; font-size:12px; color:#9ca3af; line-height:1.8; } footer a { color:var(--pink-dark); font-weight:700; }
+    @media (min-width: 641px) { .affiliate-grid { grid-template-columns: 220px minmax(0, 1fr); } }
   </style>
 </head>
 <body>
@@ -83,6 +97,26 @@
     <main><article>
       <section><h2>妊活で最初にやること</h2><div class="grid"><div class="card"><h3>周期を把握する</h3><p>生理開始日を記録すると、周期や受診の目安を振り返りやすくなります。</p></div><div class="card"><h3>生活習慣を整える</h3><p>睡眠、食事、冷え対策、喫煙習慣の見直しなど、土台になる部分を無理なく整えます。</p></div><div class="card"><h3>必要なら受診を考える</h3><p>年齢や気になる症状がある場合は、早めに相談先を持っておくと安心です。</p></div></div></section>
       <section><h2>一緒に考えやすいこと</h2><p>基礎体温の記録、タイミングの取り方、葉酸サプリの選び方などは、最初の段階で一緒に気になりやすいテーマです。全部を一度に完璧にしようとせず、少しずつ整理するのがおすすめです。</p></section>
+      <section class="affiliate-card">
+        <div class="affiliate-eyebrow">RECOMMENDED ITEM</div>
+        <div class="affiliate-grid">
+          <a class="affiliate-media" href="https://hb.afl.rakuten.co.jp/ichiba/5295e0a9.37d20d07.5295e0aa.d4d53f65/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fkyunyuki%2Fmc-652lc%2F&link_type=picttext&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJwaWN0dGV4dCIsInNpemUiOiIyNDB4MjQwIiwibmFtIjoxLCJuYW1wIjoicmlnaHQiLCJjb20iOjEsImNvbXAiOiJkb3duIiwicHJpY2UiOjEsImJvciI6MSwiY29sIjoxLCJiYnRuIjoxLCJwcm9kIjowLCJhbXAiOmZhbHNlfQ%3D%3D" target="_blank" rel="nofollow sponsored noopener" aria-label="オムロン 婦人用電子体温計 MC-652LC の商品ページを開く">
+            <img src="https://hbb.afl.rakuten.co.jp/hgb/5295e0a9.37d20d07.5295e0aa.d4d53f65/?me_id=1283380&item_id=10000582&pc=https%3A%2F%2Fthumbnail.image.rakuten.co.jp%2F%400_mall%2Fkyunyuki%2Fcabinet%2Fkenkokiki%2Fimgrc0094869358.jpg%3F_ex%3D240x240&s=240x240&t=picttext" alt="オムロン 婦人用電子体温計 MC-652LC">
+          </a>
+          <div>
+            <div class="affiliate-title">オムロン 婦人用電子体温計 MC-652LC</div>
+            <div class="affiliate-copy">基礎体温を無理なく記録したい方向けの選択肢です。妊活を始めたばかりの時期に、記録習慣を作りやすいアイテムとして紹介しています。</div>
+            <div class="affiliate-price">価格: 3,500円（税込、送料無料）<span style="color:#9ca3af;font-weight:600;">（2026/4/6時点）</span></div>
+            <div class="affiliate-actions">
+              <a class="affiliate-brand" href="https://hb.afl.rakuten.co.jp/ichiba/5295e0a9.37d20d07.5295e0aa.d4d53f65/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fkyunyuki%2Fmc-652lc%2F&link_type=picttext&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJwaWN0dGV4dCIsInNpemUiOiIyNDB4MjQwIiwibmFtIjoxLCJuYW1wIjoicmlnaHQiLCJjb20iOjEsImNvbXAiOiJkb3duIiwicHJpY2UiOjEsImJvciI6MSwiY29sIjoxLCJiYnRuIjoxLCJwcm9kIjowLCJhbXAiOmZhbHNlfQ%3D%3D" target="_blank" rel="nofollow sponsored noopener" aria-label="楽天アフィリエイトの商品詳細を開く">
+                <img src="https://static.affiliate.rakuten.co.jp/makelink/rl.svg" alt="Rakuten">
+              </a>
+              <a class="affiliate-btn" href="https://hb.afl.rakuten.co.jp/ichiba/5295e0a9.37d20d07.5295e0aa.d4d53f65/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fkyunyuki%2Fmc-652lc%2F%3Fscid%3Daf_pc_bbtn&link_type=picttext&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJwaWN0dGV4dCIsInNpemUiOiIyNDB4MjQwIiwibmFtIjoxLCJuYW1wIjoicmlnaHQiLCJjb20iOjEsImNvbXAiOiJkb3duIiwicHJpY2UiOjEsImJvciI6MSwiY29sIjoxLCJiYnRuIjoxLCJwcm9kIjowLCJhbXAiOmZhbHNlfQ==" target="_blank" rel="nofollow sponsored noopener">楽天で購入</a>
+            </div>
+            <div class="affiliate-note">広告リンクを含みます。価格や在庫は遷移先で最新情報をご確認ください。</div>
+          </div>
+        </div>
+      </section>
       <section class="cta"><h2>予定を見える化したい方へ</h2><p class="cta-copy">採卵日や移植日が決まった段階では、トップのスケジュールツールで今の位置を確認できます。</p><a class="cta-button" href="../../index.html">スケジュールを確認する</a><p class="cta-sub">妊活初期の情報収集から、体外受精の予定管理へつなげやすい構成です。</p></section>
       <section><h2>よくある質問</h2><div class="grid"><div class="card"><h3>妊活は何から始めるのがいいですか？</h3><p>まずは生理周期の把握、生活習慣の見直し、必要に応じた受診先の確認から始めると整理しやすいです。</p></div><div class="card"><h3>妊活を始めるときに記録したほうがいいものは？</h3><p>生理開始日、基礎体温、体調の変化などを無理のない範囲で記録すると、あとから振り返りやすくなります。</p></div><div class="card"><h3>妊活初心者でも最初から全部やる必要がありますか？</h3><p>最初から全部を完璧にする必要はありません。生活習慣や記録など、続けやすいところから少しずつ整えるのが現実的です。</p></div></div></section>
       <section><h2>関連記事</h2><div class="related-links"><a href="../ovulation-date-calculation/index.html">排卵日を計算する方法｜妊活での見方とズレやすいポイント</a><a href="../folic-acid-supplement-guide/index.html">葉酸サプリおすすめの選び方｜妊活中に見るポイント</a><a href="../pregnancy-schedule-auto/index.html">妊活スケジュールを自動作成する方法【無料ツールあり】</a></div></section>
