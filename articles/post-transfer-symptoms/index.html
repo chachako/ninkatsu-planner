@@ -38,11 +38,25 @@
     .cta-sub { margin-top:12px; }
     .cta-button { display:inline-flex; width:100%; min-height:48px; align-items:center; justify-content:center; border-radius:12px; background:var(--pink-dark); color:#fff; font-weight:800; }
     .cta-button:hover { text-decoration:none; }
+    .affiliate-card { background:linear-gradient(135deg,#fff8fb 0%,#f8fbff 100%); border:1px solid #f3d9e7; }
+    .affiliate-eyebrow { font-size:10px; font-weight:800; letter-spacing:.12em; color:var(--text-sub); margin-bottom:10px; }
+    .affiliate-grid { display:grid; gap:16px; align-items:center; }
+    .affiliate-media { display:block; border-radius:18px; background:#fff; border:1px solid #f3e8f0; padding:12px; text-align:center; }
+    .affiliate-media img { width:100%; max-width:220px; height:auto; display:inline-block; }
+    .affiliate-title { font-size:16px; line-height:1.5; font-weight:800; color:var(--pink-dark); margin-bottom:8px; }
+    .affiliate-copy { font-size:13px; color:var(--text-sub); margin-bottom:10px; }
+    .affiliate-price { font-size:13px; color:var(--text); font-weight:700; margin-bottom:14px; }
+    .affiliate-actions { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    .affiliate-btn { display:inline-flex; align-items:center; justify-content:center; min-height:44px; padding:0 16px; border-radius:999px; background:#bf0000; color:#fff; font-size:13px; font-weight:800; text-decoration:none; box-shadow:0 10px 20px rgba(191,0,0,.18); }
+    .affiliate-btn:hover { text-decoration:none; filter:brightness(1.03); }
+    .affiliate-brand img { height:24px; width:auto; display:block; }
+    .affiliate-note { margin-top:10px; font-size:11px; color:var(--text-sub); }
     .sticky-toolbar { position:fixed; left:16px; right:16px; bottom:14px; z-index:1200; display:flex; justify-content:center; pointer-events:none; }
     .sticky-toolbar a { pointer-events:auto; display:inline-flex; align-items:center; justify-content:center; min-height:48px; width:min(100%,420px); padding:0 18px; border-radius:999px; background:#be185d; color:#fff; font-size:14px; font-weight:800; box-shadow:0 16px 32px rgba(190,24,93,.24); }
     .sticky-toolbar a:hover { text-decoration:none; filter:brightness(1.03); }
     footer { margin-top:18px; text-align:center; font-size:12px; color:#9ca3af; line-height:1.8; }
     footer a { color:var(--pink-dark); font-weight:700; }
+    @media (min-width: 641px) { .affiliate-grid { grid-template-columns: 220px minmax(0, 1fr); } }
   </style>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2221405400823928" crossorigin="anonymous"></script>
 </head>
