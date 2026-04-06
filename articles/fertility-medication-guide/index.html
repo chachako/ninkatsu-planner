@@ -3,63 +3,166 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>不妊治療で使う薬一覧 | 用途・副作用・注意事項まとめ | 体外受精スケジュールツール</title>
-  <meta name="description" content="不妊治療や体外受精でよく使う薬を一覧で解説。排卵誘発剤、トリガー注射、エストロゲン製剤、プロゲステロン製剤などの用途や注意点をわかりやすくまとめました。">
+  <title>不妊治療で使う薬一覧 | 用途・違い・注意事項まとめ | 体外受精スケジュールツール</title>
+  <meta name="description" content="不妊治療や体外受精でよく使う薬を一覧で解説。ゴナールエフ、フォリルモン、オビドレル、ジュリナ、デュファストンなどの役割や違いをわかりやすくまとめました。">
   <meta name="robots" content="index,follow">
   <style>
     *, *::before, *::after { box-sizing: border-box; }
     :root {
-      --pink:#ec4899; --pink-dark:#be185d; --pink-light:#fce7f3; --line:#f0e7ed;
-      --text:#1f2937; --text-sub:#6b7280; --radius:18px;
+      --pink:#ec4899;
+      --pink-dark:#be185d;
+      --pink-light:#fce7f3;
+      --line:#f0e7ed;
+      --text:#1f2937;
+      --text-sub:#6b7280;
+      --radius:18px;
       --shadow:0 8px 28px rgba(190,24,93,.08), 0 2px 8px rgba(15,23,42,.04);
     }
-    body { margin:0; font-family:-apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", sans-serif; color:var(--text); background:linear-gradient(180deg,#fff8fb 0%,#fff 22%,#fff 100%); line-height:1.8; }
+    html { scroll-behavior:smooth; }
+    body {
+      margin:0;
+      font-family:-apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", sans-serif;
+      color:var(--text);
+      background:linear-gradient(180deg,#fff8fb 0%,#fff 22%,#fff 100%);
+      line-height:1.8;
+    }
     a { color:var(--pink-dark); text-decoration:none; }
     a:hover { text-decoration:underline; }
-    .page { width:min(100%,760px); margin:0 auto; padding:20px 16px 56px; }
-    .crumbs { display:flex; flex-wrap:wrap; gap:8px; align-items:center; font-size:12px; color:var(--text-sub); }
-    .crumbs { margin-bottom:18px; }
+    .page { width:min(100%,860px); margin:0 auto; padding:20px 16px 64px; }
+    .crumbs { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:18px; font-size:12px; color:var(--text-sub); }
     .crumbs span { color:#c4b5fd; }
     .page-actions { display:flex; gap:8px; flex-wrap:wrap; margin:-4px 0 18px; }
-    .page-actions a { display:inline-flex; align-items:center; justify-content:center; min-height:38px; padding:0 12px; border-radius:999px; border:1px solid #f3d9e7; background:#fff; color:var(--pink-dark); font-size:12px; font-weight:800; }
-    .page-actions a:hover { text-decoration:none; background:var(--pink-light); }
+    .page-actions a,
+    .toc a {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:38px;
+      padding:0 12px;
+      border-radius:999px;
+      border:1px solid #f3d9e7;
+      background:#fff;
+      color:var(--pink-dark);
+      font-size:12px;
+      font-weight:800;
+    }
+    .page-actions a:hover,
+    .toc a:hover { text-decoration:none; background:var(--pink-light); }
     .hero, section { background:#fff; border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); }
-    .hero { background:linear-gradient(135deg, rgba(252,231,243,.95), rgba(245,243,255,.98)); border-color:#f4d8e6; border-radius:26px; padding:24px 18px; margin-bottom:18px; }
-    .eyebrow { display:inline-flex; padding:6px 12px; border-radius:999px; background:rgba(255,255,255,.82); color:var(--pink-dark); font-size:12px; font-weight:700; margin-bottom:14px; }
-    h1 { margin:0 0 12px; font-size:clamp(28px, 6.6vw, 40px); line-height:1.25; color:var(--pink-dark); }
-    .lead { margin:0; font-size:15px; color:#4b5563; }
-    main article { display:grid; gap:18px; }
-    section { padding:22px 18px; }
-    h2 { margin:0 0 14px; font-size:23px; line-height:1.4; }
-    h3 { margin:0 0 8px; font-size:18px; color:var(--pink-dark); }
+    .hero {
+      background:linear-gradient(135deg, rgba(252,231,243,.95), rgba(245,243,255,.98));
+      border-color:#f4d8e6;
+      border-radius:26px;
+      padding:24px 18px;
+      margin-bottom:18px;
+    }
+    .eyebrow {
+      display:inline-flex;
+      padding:6px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,.82);
+      color:var(--pink-dark);
+      font-size:12px;
+      font-weight:700;
+      margin-bottom:14px;
+    }
+    h1 { margin:0 0 12px; font-size:clamp(28px, 6vw, 40px); line-height:1.25; color:var(--pink-dark); }
+    h2 { margin:0 0 14px; font-size:24px; line-height:1.4; }
+    h3 { margin:0 0 8px; font-size:19px; color:var(--pink-dark); }
     p { margin:0 0 12px; font-size:15px; }
     p:last-child { margin-bottom:0; }
     ul { margin:12px 0 0; padding-left:1.2em; }
     li { margin-bottom:8px; }
-    .toc, .med-grid { display:grid; gap:12px; }
-    .toc a, .med-card { display:block; border-radius:16px; border:1px solid #f4d8e6; background:linear-gradient(180deg, #fff, #fff8fb); padding:14px; }
-    .toc a { font-weight:800; color:var(--pink-dark); }
-    .toc a:hover { text-decoration:none; background:var(--pink-light); }
-    .med-card:nth-child(4n+2) { background:linear-gradient(180deg, #fff, #f8f7ff); }
-    .med-card:nth-child(4n+3) { background:linear-gradient(180deg, #fff, #fffaf2); }
-    .med-card:nth-child(4n+4) { background:linear-gradient(180deg, #fff, #f7fcfb); }
-    .badge { display:inline-flex; align-items:center; min-height:30px; padding:0 10px; border-radius:999px; font-size:11px; font-weight:800; margin-bottom:10px; }
+    .lead { margin:0; font-size:15px; color:#4b5563; }
+    main article { display:grid; gap:18px; }
+    section { padding:22px 18px; }
+    .toc { display:flex; flex-wrap:wrap; gap:10px; }
+    .summary-grid,
+    .drug-list { display:grid; gap:12px; }
+    .summary-card,
+    .drug-card {
+      border:1px solid #f4d8e6;
+      border-radius:16px;
+      padding:16px;
+      background:linear-gradient(180deg, #fff, #fff8fb);
+    }
+    .summary-card:nth-child(4n+2),
+    .drug-card:nth-child(4n+2) { background:linear-gradient(180deg, #fff, #f8f7ff); }
+    .summary-card:nth-child(4n+3),
+    .drug-card:nth-child(4n+3) { background:linear-gradient(180deg, #fff, #fffaf2); }
+    .summary-card:nth-child(4n+4),
+    .drug-card:nth-child(4n+4) { background:linear-gradient(180deg, #fff, #f7fcfb); }
+    .badge {
+      display:inline-flex;
+      align-items:center;
+      min-height:30px;
+      padding:0 10px;
+      border-radius:999px;
+      font-size:11px;
+      font-weight:800;
+      margin-bottom:10px;
+    }
     .b-stim { background:#eff6ff; color:#1d4ed8; }
     .b-trigger { background:#fffbeb; color:#b45309; }
     .b-estrogen { background:#fce7f3; color:#be185d; }
     .b-prog { background:#f5f3ff; color:#7c3aed; }
-    .b-other { background:#ecfdf5; color:#047857; }
-    .cta { background:linear-gradient(135deg, #fff7fb, #f7f3ff); border:1px solid #f4d8e6; text-align:center; }
+    .drug-card { scroll-margin-top:24px; }
+    .drug-meta { color:var(--text-sub); font-size:14px; margin-bottom:10px; }
+    .compare {
+      border-radius:14px;
+      padding:12px 14px;
+      background:#fff;
+      border:1px dashed #f1c7da;
+      margin-top:12px;
+    }
+    .cta {
+      background:linear-gradient(135deg, #fff7fb, #f7f3ff);
+      border:1px solid #f4d8e6;
+      text-align:center;
+    }
     .cta-copy, .cta-sub { color:var(--text-sub); font-size:14px; }
     .cta-copy { margin-bottom:14px; }
     .cta-sub { margin-top:12px; }
-    .cta-button { display:inline-flex; width:100%; min-height:48px; align-items:center; justify-content:center; border-radius:12px; background:var(--pink-dark); color:#fff; font-weight:800; }
+    .cta-button {
+      display:inline-flex;
+      width:100%;
+      min-height:48px;
+      align-items:center;
+      justify-content:center;
+      border-radius:12px;
+      background:var(--pink-dark);
+      color:#fff;
+      font-weight:800;
+    }
     .cta-button:hover { text-decoration:none; }
-    .sticky-toolbar { position:fixed; left:16px; right:16px; bottom:14px; z-index:1200; display:flex; justify-content:center; pointer-events:none; }
-    .sticky-toolbar a { pointer-events:auto; display:inline-flex; align-items:center; justify-content:center; min-height:48px; width:min(100%,420px); padding:0 18px; border-radius:999px; background:#be185d; color:#fff; font-size:14px; font-weight:800; box-shadow:0 16px 32px rgba(190,24,93,.24); }
-    .sticky-toolbar a:hover { text-decoration:none; filter:brightness(1.03); }
     footer { margin-top:18px; text-align:center; font-size:12px; color:#9ca3af; line-height:1.8; }
     footer a { color:var(--pink-dark); font-weight:700; }
+    .sticky-toolbar {
+      position:fixed;
+      left:16px;
+      right:16px;
+      bottom:14px;
+      z-index:1200;
+      display:flex;
+      justify-content:center;
+      pointer-events:none;
+    }
+    .sticky-toolbar a {
+      pointer-events:auto;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:48px;
+      width:min(100%,420px);
+      padding:0 18px;
+      border-radius:999px;
+      background:#be185d;
+      color:#fff;
+      font-size:14px;
+      font-weight:800;
+      box-shadow:0 16px 32px rgba(190,24,93,.24);
+    }
+    .sticky-toolbar a:hover { text-decoration:none; filter:brightness(1.03); }
   </style>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2221405400823928" crossorigin="anonymous"></script>
 </head>
@@ -68,90 +171,220 @@
     <nav class="crumbs" aria-label="パンくず">
       <a href="../../index.html">ホーム</a><span>›</span><a href="../index.html">記事一覧</a><span>›</span><span>不妊治療で使う薬一覧</span>
     </nav>
-    <div class="page-actions"><a href="../index.html">記事一覧へ</a><a href="../../index.html">ツールを開く</a></div>
+    <div class="page-actions">
+      <a href="../index.html">記事一覧へ</a>
+      <a href="../../index.html">ツールを開く</a>
+    </div>
+
     <header class="hero">
-      <div class="eyebrow">治療でよく出てくる薬を整理</div>
-      <h1>不妊治療で使う薬一覧 | 用途・副作用・注意事項まとめ</h1>
-      <p class="lead">不妊治療や体外受精では、時期ごとにさまざまな薬が使われます。このページでは、代表的な薬の役割と気をつけたいポイントをまとめています。</p>
+      <div class="eyebrow">薬の役割と違いをまとめて確認</div>
+      <h1>不妊治療で使う薬一覧 | 用途・違い・注意事項まとめ</h1>
+      <p class="lead">不妊治療や体外受精では、周期ごとにいくつかの薬を使い分けます。ここでは、薬の役割に加えて、ゴナールエフとフォリルモンのような似た薬の違いも迷いにくい形で整理しています。</p>
     </header>
+
     <main>
       <article>
         <section>
-          <h2>目次</h2>
+          <h2>すぐ見たい薬へ</h2>
           <div class="toc">
-            <a href="#stim">排卵誘発剤</a>
-            <a href="#trigger">トリガー注射・点鼻薬</a>
-            <a href="#estrogen">エストロゲン製剤</a>
-            <a href="#progesterone">プロゲステロン製剤</a>
-            <a href="#other">その他によく使う薬</a>
-            <a href="#attention">受診を急ぎたい症状</a>
+            <a href="#gonal-f">ゴナールエフ</a>
+            <a href="#folyrmon">フォリルモン</a>
+            <a href="#recovel">レコベル</a>
+            <a href="#ovidrel">オビドレル</a>
+            <a href="#julina">ジュリナ</a>
+            <a href="#duphaston">デュファストン</a>
+          </div>
+        </section>
+
+        <section id="overview">
+          <h2>薬のグループを先に整理</h2>
+          <div class="summary-grid">
+            <div class="summary-card">
+              <span class="badge b-stim">排卵誘発剤</span>
+              <h3>卵胞を育てる薬</h3>
+              <p>採卵に向けて卵胞の発育を促します。注射薬ではゴナールエフ、フォリルモン、レコベル、HMG製剤などが代表です。</p>
+            </div>
+            <div class="summary-card">
+              <span class="badge b-trigger">トリガー</span>
+              <h3>採卵前の最終成熟を進める薬</h3>
+              <p>オビドレル、HCG注射、スプレキュアなどがあり、採卵前の決められた時刻に使うのが重要です。</p>
+            </div>
+            <div class="summary-card">
+              <span class="badge b-estrogen">エストロゲン製剤</span>
+              <h3>子宮内膜を整える薬</h3>
+              <p>移植周期で使われやすく、ジュリナやエストラーナテープが代表です。内膜の厚さを整える役割があります。</p>
+            </div>
+            <div class="summary-card">
+              <span class="badge b-prog">プロゲステロン製剤</span>
+              <h3>黄体補充をする薬</h3>
+              <p>移植後の着床環境を支えるために使われ、デュファストン、ルトラール、ルティナス、ワンクリノンなどがあります。</p>
+            </div>
           </div>
         </section>
 
         <section id="stim">
-          <h2>主な薬の種類</h2>
-          <div class="med-grid">
-            <div class="med-card">
+          <h2>排卵誘発剤</h2>
+          <div class="drug-list">
+            <article class="drug-card" id="gonal-f">
               <span class="badge b-stim">排卵誘発剤</span>
-              <h3>卵胞を育てるための薬</h3>
-              <p>採卵に向けて複数の卵胞を育てるために使われます。注射薬や内服薬があり、周期や方針によって種類が異なります。</p>
+              <h3>ゴナールエフ</h3>
+              <div class="drug-meta">FSH製剤 / 自己注射で使われることが多い</div>
+              <p>卵胞を複数育てるために使う注射薬です。ペン型で自己注射しやすい案内になっていることが多く、毎日ほぼ同じ時間に続けます。</p>
               <ul>
-                <li>目的: 卵胞発育のサポート</li>
-                <li>気をつけたい点: 張り感や違和感、通院間隔の変化</li>
+                <li>向いている場面: 採卵周期で卵胞発育をコントロールしたいとき</li>
+                <li>注意点: お腹の張りや急な体重増加があれば卵巣が反応しすぎていないか確認が必要です</li>
               </ul>
-            </div>
-            <div class="med-card" id="trigger">
-              <span class="badge b-trigger">トリガー</span>
-              <h3>採卵前の最終調整に使う薬</h3>
-              <p>採卵前に使う注射や点鼻薬で、採卵のタイミングを合わせるために重要です。指示された時間を守ることが大切です。</p>
+              <div class="compare">フォリルモンとの違い: どちらもFSH製剤として使われますが、案内される製剤の形やクリニックでの採用状況が異なります。役割はかなり近く、「卵胞を育てる主役の注射」という理解で大丈夫です。</div>
+            </article>
+
+            <article class="drug-card" id="folyrmon">
+              <span class="badge b-stim">排卵誘発剤</span>
+              <h3>フォリルモン</h3>
+              <div class="drug-meta">FSH製剤 / 卵胞発育を促す注射薬</div>
+              <p>フォリルモンも卵胞を育てるためのFSH系の注射薬です。ゴナールエフと同じく、採卵数を確保したい周期で使われることがあります。</p>
               <ul>
-                <li>目的: 排卵の最終調整</li>
-                <li>気をつけたい点: 投与時間の厳守</li>
+                <li>向いている場面: ゴナールエフと同様に卵胞発育を促したいとき</li>
+                <li>注意点: 注射部位の痛み、張り感、卵巣過剰刺激のサインに注意します</li>
               </ul>
-            </div>
-            <div class="med-card" id="estrogen">
-              <span class="badge b-estrogen">エストロゲン製剤</span>
-              <h3>内膜を整えるための薬</h3>
-              <p>主に移植周期で使われ、子宮内膜を整える目的があります。飲み薬、貼り薬、塗り薬などが選ばれることがあります。</p>
-              <ul>
-                <li>目的: 移植に向けた内膜調整</li>
-                <li>気をつけたい点: 飲み忘れや貼り替え忘れ</li>
-              </ul>
-            </div>
-            <div class="med-card" id="progesterone">
-              <span class="badge b-prog">プロゲステロン製剤</span>
-              <h3>黄体補充に使う薬</h3>
-              <p>移植後から判定日前後まで継続することが多く、内服・腟剤・注射などがあります。胸の張りや眠気を感じることもあります。</p>
-              <ul>
-                <li>目的: 黄体補充</li>
-                <li>気をつけたい点: 自己判断で中止しない</li>
-              </ul>
-            </div>
-            <div class="med-card" id="other">
-              <span class="badge b-other">その他</span>
-              <h3>併用されることがある薬</h3>
-              <p>抗生剤、痛み止め、着床環境を整える目的の薬などが使われることがあります。内容はクリニックごとに異なります。</p>
-            </div>
+              <div class="compare">ゴナールエフとの違い: 働きの方向性はかなり似ています。実際の使い分けは、施設の方針、費用感、在庫、注射の扱いやすさなどで決まることが多いです。</div>
+            </article>
+
+            <article class="drug-card" id="recovel">
+              <span class="badge b-stim">排卵誘発剤</span>
+              <h3>レコベル</h3>
+              <div class="drug-meta">FSH製剤 / 体重やAMHをもとに量を調整しやすい</div>
+              <p>レコベルは、体重やAMHを参考に投与量を考えることがある排卵誘発注射です。卵巣の反応を見ながら使われます。</p>
+            </article>
+
+            <article class="drug-card" id="hmg">
+              <span class="badge b-stim">排卵誘発剤</span>
+              <h3>HMG製剤</h3>
+              <div class="drug-meta">FSH + LH 活性 / 卵胞発育を後押し</div>
+              <p>HMG製剤はFSHに加えてLH活性を含み、反応を見ながら使い分けられることがあります。FSH単独製剤と方針が異なるケースがあります。</p>
+            </article>
+
+            <article class="drug-card" id="clomid">
+              <span class="badge b-stim">排卵誘発剤</span>
+              <h3>クロミッド</h3>
+              <div class="drug-meta">内服薬 / 軽い刺激で使われることがある</div>
+              <p>脳からのホルモン分泌を促して排卵を助ける内服薬です。注射ほど強くない刺激で始める周期に使われることがあります。</p>
+            </article>
+
+            <article class="drug-card" id="femara">
+              <span class="badge b-stim">排卵誘発剤</span>
+              <h3>フェマーラ</h3>
+              <div class="drug-meta">レトロゾール製剤 / 内膜とのバランスを見て使うことがある</div>
+              <p>クロミッドと並んで使われることがある内服の排卵誘発薬です。クリニックによって選び方が変わります。</p>
+            </article>
           </div>
+        </section>
+
+        <section id="trigger">
+          <h2>トリガー注射・点鼻薬</h2>
+          <div class="drug-list">
+            <article class="drug-card" id="ovidrel">
+              <span class="badge b-trigger">トリガー</span>
+              <h3>オビドレル</h3>
+              <div class="drug-meta">hCG製剤 / 自己注射で使われることが多い</div>
+              <p>採卵前の最終成熟を進めるための自己注射です。採卵時刻から逆算して打つため、時間厳守がとても大切です。</p>
+            </article>
+
+            <article class="drug-card" id="hcg-trigger">
+              <span class="badge b-trigger">トリガー</span>
+              <h3>HCG注射</h3>
+              <div class="drug-meta">トリガー注射 / 採卵前の仕上げ</div>
+              <p>卵子の最終成熟を促すために使います。オビドレルも広い意味では同じ役割の仲間で、製剤の形や使い方に違いがあります。</p>
+            </article>
+
+            <article class="drug-card" id="suprecur">
+              <span class="badge b-trigger">トリガー</span>
+              <h3>スプレキュア</h3>
+              <div class="drug-meta">点鼻薬 / 指示された回数と時刻が大切</div>
+              <p>鼻に使うタイプのトリガー薬です。自己注射ではなく点鼻で案内されることがあり、鼻炎が強いときは相談が必要な場合があります。</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="estrogen-group">
+          <h2>エストロゲン製剤</h2>
+          <div class="drug-list">
+            <article class="drug-card" id="julina">
+              <span class="badge b-estrogen">エストロゲン製剤</span>
+              <h3>ジュリナ</h3>
+              <div class="drug-meta">内服薬 / 子宮内膜を整える</div>
+              <p>移植周期で内膜を厚くしたいときに使われる内服薬です。飲み忘れが続くと内膜の育ちに影響することがあります。</p>
+            </article>
+
+            <article class="drug-card" id="estrana-tape">
+              <span class="badge b-estrogen">エストロゲン製剤</span>
+              <h3>エストラーナテープ</h3>
+              <div class="drug-meta">貼り薬 / 貼り替えスケジュール管理が大切</div>
+              <p>皮膚からエストロゲンを補う薬です。貼り替え忘れやかぶれに注意します。</p>
+            </article>
+
+            <article class="drug-card" id="estrogen">
+              <span class="badge b-estrogen">エストロゲン製剤</span>
+              <h3>内膜調整のホルモン薬</h3>
+              <div class="drug-meta">総称ページ</div>
+              <p>ジュリナやエストラーナテープのように、移植に向けて子宮内膜の厚さやタイミングを整える薬の総称です。</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="progesterone">
+          <h2>プロゲステロン製剤</h2>
+          <div class="drug-list">
+            <article class="drug-card" id="duphaston">
+              <span class="badge b-prog">プロゲステロン製剤</span>
+              <h3>デュファストン</h3>
+              <div class="drug-meta">内服薬 / 黄体補充</div>
+              <p>移植後の黄体ホルモン補充に使われる内服薬です。開始日が大切なので、指示通りに始めます。</p>
+            </article>
+
+            <article class="drug-card" id="luteal">
+              <span class="badge b-prog">プロゲステロン製剤</span>
+              <h3>ルトラール</h3>
+              <div class="drug-meta">内服薬 / 眠気やだるさに注意</div>
+              <p>黄体補充の代表的な薬のひとつです。判定日前後まで継続することが多く、自己判断で中止しないことが大切です。</p>
+            </article>
+
+            <article class="drug-card" id="lutinus">
+              <span class="badge b-prog">プロゲステロン製剤</span>
+              <h3>ルティナス</h3>
+              <div class="drug-meta">腟錠 / 局所で補充</div>
+              <p>腟剤として黄体補充を行う薬です。使用後に外へ出てくるように見えても、一定量は吸収されています。</p>
+            </article>
+
+            <article class="drug-card" id="onecrinone">
+              <span class="badge b-prog">プロゲステロン製剤</span>
+              <h3>ワンクリノン</h3>
+              <div class="drug-meta">ゲル状の腟剤 / 残渣が出ることがある</div>
+              <p>ゲル状の黄体補充薬で、白い塊のような残りが出ることがあります。自己判断で洗い流したり中止したりしないようにします。</p>
+            </article>
+          </div>
+        </section>
+
+        <section id="attention">
+          <h2>受診を急ぎたい症状</h2>
+          <p>強い腹痛、息苦しさ、急な体重増加、片脚の腫れ、激しい頭痛、発熱、強い出血などがあるときは、自己判断で様子を見すぎず通院先へ連絡してください。</p>
         </section>
 
         <section class="cta">
           <h2>薬の予定も含めて流れを確認する</h2>
           <p class="cta-copy">生理開始日や採卵日、移植日を入れると、治療の流れを日付ベースで確認できます。</p>
           <a class="cta-button" href="../../index.html">スケジュールを確認する</a>
-          <p class="cta-sub">いまどのフェーズかが分かると、薬の意味も理解しやすくなります。</p>
-        </section>
-
-        <section id="attention">
-          <h2>受診を急ぎたい症状</h2>
-          <p>強い腹痛、息苦しさ、むくみの急な悪化、出血量の増加、発熱など、いつもと違う症状が強いときは、自己判断せず医療機関へ相談してください。</p>
+          <p class="cta-sub">どの薬がどの時期に出やすいかも合わせて見やすくなります。</p>
         </section>
       </article>
     </main>
+
     <footer>
       この記事は一般的な説明をまとめたものです。服薬や治療方針は、必ず通院先の案内をご確認ください。<br>
-      <a href="../../privacy-policy/index.html">プライバシーポリシー</a> / <a href="../../operator-info/index.html">運営者情報</a> / <a href="../../contact/index.html">お問い合わせ</a>
+      <a href="../../privacy-policy/index.html">プライバシーポリシー</a> /
+      <a href="../../operator-info/index.html">運営者情報</a> /
+      <a href="../../contact/index.html">お問い合わせ</a>
     </footer>
+
     <div class="sticky-toolbar"><a href="../../index.html">今すぐスケジュールを開く</a></div>
   </div>
 </body>
