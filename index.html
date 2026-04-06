@@ -31,6 +31,7 @@
       --shadow:      0 4px 24px rgba(190,24,93,.08), 0 1px 4px rgba(0,0,0,.04);
     }
 
+    html { scroll-behavior: smooth; }
     body {
       font-family: -apple-system, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic', sans-serif;
       background: linear-gradient(160deg, #fff1f6 0%, #fce7f3 35%, #f0ebfe 100%);
@@ -46,6 +47,136 @@
     .hd-icon { font-size: 38px; margin-bottom: 6px; }
     .hd h1 { font-size: 21px; font-weight: 800; color: var(--pink-dark); }
     .hd p  { font-size: 13px; color: var(--text-sub); margin-top: 4px; }
+    .hero-panel {
+      background: linear-gradient(135deg, rgba(255,255,255,.96), rgba(252,231,243,.9));
+      border: 1px solid #f3d9e7;
+      border-radius: 24px;
+      padding: 20px;
+      margin-bottom: 12px;
+      box-shadow: var(--shadow);
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 0 12px;
+      border-radius: 999px;
+      background: #fff;
+      color: var(--pink-dark);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      margin-bottom: 12px;
+    }
+    .hero-panel h2 {
+      font-size: 26px;
+      line-height: 1.25;
+      color: var(--pink-dark);
+      margin-bottom: 10px;
+    }
+    .hero-copy {
+      font-size: 14px;
+      color: var(--text-sub);
+      margin-bottom: 14px;
+    }
+    .hero-points {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .hero-point {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      font-size: 13px;
+      color: var(--text);
+    }
+    .hero-point strong {
+      min-width: 20px;
+      color: var(--pink-dark);
+    }
+    .hero-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .hero-primary, .hero-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 0 16px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 800;
+      text-decoration: none;
+      transition: transform .18s ease, filter .18s ease, background .18s ease;
+    }
+    .hero-primary {
+      background: linear-gradient(135deg, var(--pink) 0%, #fb7185 100%);
+      color: #fff;
+      box-shadow: 0 14px 28px rgba(236,72,153,.18);
+    }
+    .hero-secondary {
+      background: #fff;
+      color: var(--pink-dark);
+      border: 1px solid #f3d9e7;
+    }
+    .hero-primary:hover, .hero-secondary:hover {
+      text-decoration: none;
+      transform: translateY(-1px);
+    }
+    .input-card { border: 1px solid #f3d9e7; }
+    .section-kicker {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      color: var(--text-sub);
+      margin-bottom: 8px;
+    }
+    .section-title {
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--pink-dark);
+      margin-bottom: 6px;
+    }
+    .section-copy {
+      font-size: 13px;
+      color: var(--text-sub);
+      margin-bottom: 16px;
+    }
+    .search-links-card {
+      border: 1px solid #f3d9e7;
+      background: linear-gradient(135deg, #fff8fb, #fff);
+    }
+    .search-link-list {
+      display: grid;
+      gap: 10px;
+    }
+    .search-link-item {
+      display: block;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid #f3d9e7;
+      background: #fff;
+      text-decoration: none;
+    }
+    .search-link-item:hover {
+      background: var(--pink-light);
+      text-decoration: none;
+    }
+    .search-link-label {
+      display: block;
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--pink-dark);
+      margin-bottom: 4px;
+    }
+    .search-link-copy {
+      display: block;
+      font-size: 12px;
+      color: var(--text-sub);
+    }
 
     /* ── Card ── */
     .card {
@@ -77,6 +208,89 @@
     .guide-link:hover {
       background: var(--pink-light); border-color: var(--pink);
       transform: translateY(-1px); text-decoration: none;
+    }
+    .affiliate-card {
+      background: linear-gradient(135deg, #fff8fb 0%, #f8fbff 100%);
+      border: 1px solid #f3d9e7;
+      overflow: hidden;
+    }
+    .affiliate-eyebrow {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      color: var(--text-sub);
+      margin-bottom: 10px;
+    }
+    .affiliate-grid {
+      display: grid;
+      gap: 16px;
+      align-items: center;
+    }
+    .affiliate-media {
+      display: block;
+      border-radius: 18px;
+      background: #fff;
+      border: 1px solid #f3e8f0;
+      padding: 12px;
+      text-align: center;
+    }
+    .affiliate-media img {
+      width: 100%;
+      max-width: 220px;
+      height: auto;
+      display: inline-block;
+    }
+    .affiliate-title {
+      font-size: 16px;
+      line-height: 1.5;
+      font-weight: 800;
+      color: var(--pink-dark);
+      margin-bottom: 8px;
+    }
+    .affiliate-copy {
+      font-size: 13px;
+      color: var(--text-sub);
+      margin-bottom: 10px;
+    }
+    .affiliate-price {
+      font-size: 13px;
+      color: var(--text);
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+    .affiliate-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .affiliate-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 16px;
+      border-radius: 999px;
+      background: #bf0000;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: 0 10px 20px rgba(191, 0, 0, .18);
+    }
+    .affiliate-btn:hover {
+      text-decoration: none;
+      filter: brightness(1.03);
+    }
+    .affiliate-brand img {
+      height: 24px;
+      width: auto;
+      display: block;
+    }
+    .affiliate-note {
+      margin-top: 10px;
+      font-size: 11px;
+      color: var(--text-sub);
     }
 
     /* ── Form ── */
@@ -133,6 +347,12 @@
       transform: translateY(-1px);
       box-shadow: 0 18px 30px rgba(236,72,153,.22);
       filter: saturate(1.03);
+    }
+    .build-note {
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--text-sub);
+      text-align: center;
     }
     .hidden-inputs { display: none; }
     .divider { height: 1px; background: #f3f4f6; margin: 16px 0; }
@@ -642,6 +862,9 @@
     .hidden { display: none !important; }
 
     @media (max-width: 640px) {
+      .hero-panel h2 { font-size: 23px; }
+      .hero-actions { display: grid; }
+      .hero-primary, .hero-secondary { width: 100%; }
       .cal-head {
         flex-direction: column;
         align-items: flex-start;
@@ -661,6 +884,12 @@
         font-size: 10px;
       }
       .cal-bars { top: 36px; }
+      .affiliate-grid { grid-template-columns: 1fr; }
+    }
+    @media (min-width: 641px) {
+      .affiliate-grid {
+        grid-template-columns: 220px minmax(0, 1fr);
+      }
     }
   </style>
 </head>
@@ -673,8 +902,42 @@
     <p>入力するだけで、あなたのスケジュールが見えてくる</p>
   </div>
 
+  <div class="hero-panel">
+    <div class="hero-badge">START HERE</div>
+    <h2>まずは日付を入れて、今どの時期かをすぐ確認できます</h2>
+    <div class="hero-copy">記事を読む前にスケジュールを出しておくと、判定日までの位置や次の予定が迷いにくくなります。</div>
+    <div class="hero-points">
+      <div class="hero-point"><strong>1.</strong><span>生理開始日、採卵日、移植日を分かる範囲で入力</span></div>
+      <div class="hero-point"><strong>2.</strong><span>D5かD3かを選ぶだけで、結果が自動で更新</span></div>
+      <div class="hero-point"><strong>3.</strong><span>予定を確認したあとで、必要な記事だけ読む流れがおすすめ</span></div>
+    </div>
+    <div class="hero-actions">
+      <a class="hero-primary" href="#tool-form">入力からはじめる</a>
+      <a class="hero-secondary" href="./articles/index.html">記事一覧を見る</a>
+    </div>
+  </div>
+
+  <div class="card search-links-card">
+    <div class="section-kicker">SEARCH TOPICS</div>
+    <div class="section-title">検索されやすいテーマから読みたい方へ</div>
+    <div class="section-copy">ツール優先の方はこのまま下へ。情報収集から入りたい方は、よく検索されやすい記事を先に読めます。</div>
+    <div class="search-link-list">
+      <a class="search-link-item" href="./articles/pregnancy-schedule-auto/index.html">
+        <span class="search-link-label">妊活スケジュールを自動作成する方法【無料ツールあり】</span>
+        <span class="search-link-copy">ツールに近い検索意図を拾いやすい記事です。</span>
+      </a>
+      <a class="search-link-item" href="./articles/pregnancy-start-guide/index.html">
+        <span class="search-link-label">妊活は何から始める？初心者向け完全ガイド【最初の一歩】</span>
+        <span class="search-link-copy">妊活を始めたばかりの読者向けの入口記事です。</span>
+      </a>
+    </div>
+  </div>
+
   <!-- ── 入力 ── -->
-  <div class="card">
+  <div class="card input-card" id="tool-form">
+    <div class="section-kicker">SCHEDULE INPUT</div>
+    <div class="section-title">日付を入力してスケジュールを作成</div>
+    <div class="section-copy">未定の項目があっても大丈夫です。分かる日付だけでも、今の位置や次の目安を出せます。</div>
     <div class="fg">
       <div class="fg-label">今回の治療を開始した日（生理1日目）</div>
       <input type="date" id="stimDate">
@@ -713,23 +976,10 @@
         </button>
       </div>
     </div>
+    <div class="build-note">入力後に下の「スケジュールを作成」を押すと、結果がこのページ内に表示されます。</div>
   </div>
 
   <!-- ── 結果 ── -->
-  <div class="card guide-card">
-    <div class="guide-eyebrow">GUIDE ARTICLE</div>
-    <div class="guide-title">移植日から出産までの流れを、週ごとにまとめた記事も読めます</div>
-    <div class="guide-body">妊娠判定、胎嚢確認、心拍確認、安定期、出産までの目安を、スマホで読みやすく整理しています。</div>
-    <a class="guide-link" href="./articles/embryo-transfer-schedule/index.html">記事を読む</a>
-  </div>
-
-  <div class="card guide-card">
-    <div class="guide-eyebrow">MEDICATION ARTICLE</div>
-    <div class="guide-title">不妊治療で使う薬一覧と、用途・注意事項をまとめた記事も読めます</div>
-    <div class="guide-body">排卵誘発剤、トリガー、エストロゲン製剤、プロゲステロン製剤などの役割と、よくある副作用を一覧で整理しました。</div>
-    <a class="guide-link" href="./articles/fertility-medication-guide/index.html">薬の記事を読む</a>
-  </div>
-
   <div id="results" class="hidden">
 
     <!-- 現在のステータス -->
@@ -775,13 +1025,45 @@
       <button class="exp-btn" onclick="copyURL()">🔗<br>このURLを<br>コピー</button>
     </div>
 
+    <div class="card guide-card">
+      <div class="guide-eyebrow">READ NEXT</div>
+      <div class="guide-title">スケジュールを確認したあとに、必要な記事だけ読めるようにしました</div>
+      <div class="guide-body">まずは日付を確認して、気になるテーマだけ後から開けます。ツールのあとに読みやすい3本をまとめています。</div>
+      <div class="affiliate-actions">
+        <a class="guide-link" href="./articles/embryo-transfer-schedule/index.html">移植後の流れを見る</a>
+        <a class="guide-link" href="./articles/fertility-medication-guide/index.html">薬の記事を見る</a>
+        <a class="guide-link" href="./articles/timing-method-guide/index.html">妊活初期の記事を見る</a>
+      </div>
+    </div>
+
+    <div class="card affiliate-card">
+      <div class="affiliate-eyebrow">RECOMMENDED ITEM</div>
+      <div class="affiliate-grid">
+        <a class="affiliate-media" href="https://hb.afl.rakuten.co.jp/ichiba/529561b9.90d57810.529561ba.024e8bb9/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fgirls-web%2Fbelta_maca_1%2F&link_type=picttext&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJwaWN0dGV4dCIsInNpemUiOiIyNDB4MjQwIiwibmFtIjoxLCJuYW1wIjoicmlnaHQiLCJjb20iOjEsImNvbXAiOiJkb3duIiwicHJpY2UiOjEsImJvciI6MSwiY29sIjoxLCJiYnRuIjoxLCJwcm9kIjowLCJhbXAiOmZhbHNlfQ%3D%3D" target="_blank" rel="nofollow sponsored noopener" aria-label="ベルタプレリズム 妊活サプリの商品ページを開く">
+          <img src="https://hbb.afl.rakuten.co.jp/hgb/529561b9.90d57810.529561ba.024e8bb9/?me_id=1292753&item_id=10000279&pc=https%3A%2F%2Fthumbnail.image.rakuten.co.jp%2F%400_mall%2Fgirls-web%2Fcabinet%2F06861876%2Fimgrc0118546374.jpg%3F_ex%3D240x240&s=240x240&t=picttext" alt="ベルタプレリズム 妊活サプリ">
+        </a>
+        <div>
+          <div class="affiliate-title">ベルタプレリズム 妊活×葉酸 妊活サプリ</div>
+          <div class="affiliate-copy">スケジュールを確認したあとに、採卵前から移植準備中までのセルフケアとして見返しやすい位置へ移しました。</div>
+          <div class="affiliate-price">価格: 5,980円〜（税込、送料無料）<span style="color:#9ca3af;font-weight:600;">（2026/4/6時点）</span></div>
+          <div class="affiliate-actions">
+            <a class="affiliate-brand" href="https://hb.afl.rakuten.co.jp/ichiba/529561b9.90d57810.529561ba.024e8bb9/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fgirls-web%2Fbelta_maca_1%2F&link_type=picttext&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJwaWN0dGV4dCIsInNpemUiOiIyNDB4MjQwIiwibmFtIjoxLCJuYW1wIjoicmlnaHQiLCJjb20iOjEsImNvbXAiOiJkb3duIiwicHJpY2UiOjEsImJvciI6MSwiY29sIjoxLCJiYnRuIjoxLCJwcm9kIjowLCJhbXAiOmZhbHNlfQ%3D%3D" target="_blank" rel="nofollow sponsored noopener" aria-label="楽天アフィリエイトの商品詳細を開く">
+              <img src="https://static.affiliate.rakuten.co.jp/makelink/rl.svg" alt="Rakuten">
+            </a>
+            <a class="affiliate-btn" href="https://hb.afl.rakuten.co.jp/ichiba/529561b9.90d57810.529561ba.024e8bb9/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fgirls-web%2Fbelta_maca_1%2F%3Fscid%3Daf_pc_bbtn&link_type=picttext&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJwaWN0dGV4dCIsInNpemUiOiIyNDB4MjQwIiwibmFtIjoxLCJuYW1wIjoicmlnaHQiLCJjb20iOjEsImNvbXAiOiJkb3duIiwicHJpY2UiOjEsImJvciI6MSwiY29sIjoxLCJiYnRuIjoxLCJwcm9kIjowLCJhbXAiOmZhbHNlfQ==" target="_blank" rel="nofollow sponsored noopener">楽天で購入</a>
+          </div>
+          <div class="affiliate-note">広告リンクを含みます。商品価格や在庫は遷移先で最新情報をご確認ください。</div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <footer>
     ※ スケジュールはホルモン補充周期（HRT）の標準的な目安です。<br>
     ※ 実際の日程はクリニックの方針・体の状態により異なります。<br>
     ※ データはブラウザ外に送信されません。<br>
-    <a href="./privacy-policy/index.html">プライバシーポリシー</a> / <a href="./operator-info/index.html">運営者情報</a> / <a href="./contact/index.html">お問い合わせ</a>
+    <a href="./articles/index.html">記事一覧</a> / <a href="./privacy-policy/index.html">プライバシーポリシー</a> / <a href="./operator-info/index.html">運営者情報</a> / <a href="./contact/index.html">お問い合わせ</a>
   </footer>
 </div>
 

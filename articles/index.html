@@ -1,0 +1,209 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>記事一覧 | 体外受精スケジューラー</title>
+  <meta name="description" content="体外受精、移植後、薬、採卵後の過ごし方などの記事を一覧で確認できます。">
+  <meta name="robots" content="index,follow">
+  <style>
+    *, *::before, *::after { box-sizing:border-box; }
+    :root {
+      --pink:#ec4899;
+      --pink-dark:#be185d;
+      --pink-light:#fce7f3;
+      --line:#f0e7ed;
+      --text:#1f2937;
+      --text-sub:#6b7280;
+      --radius:18px;
+      --shadow:0 8px 28px rgba(190,24,93,.08), 0 2px 8px rgba(15,23,42,.04);
+    }
+    body {
+      margin:0;
+      font-family:-apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", sans-serif;
+      color:var(--text);
+      background:linear-gradient(180deg,#fff7fb 0%,#fff 22%,#fff 100%);
+      line-height:1.7;
+    }
+    a { color:var(--pink-dark); text-decoration:none; }
+    a:hover { text-decoration:underline; }
+    .page { width:min(100%,880px); margin:0 auto; padding:20px 16px 56px; }
+    .crumbs { display:flex; flex-wrap:wrap; gap:8px; align-items:center; font-size:12px; color:var(--text-sub); margin-bottom:18px; }
+    .crumbs span { color:#c4b5fd; }
+    .hero, .list-card, .cta { background:#fff; border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); }
+    .hero {
+      background:linear-gradient(135deg, rgba(252,231,243,.95), rgba(245,243,255,.98));
+      border-color:#f4d8e6;
+      border-radius:26px;
+      padding:24px 18px;
+      margin-bottom:18px;
+    }
+    .eyebrow {
+      display:inline-flex;
+      padding:6px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,.82);
+      color:var(--pink-dark);
+      font-size:12px;
+      font-weight:700;
+      margin-bottom:14px;
+    }
+    h1 { margin:0 0 12px; font-size:clamp(28px, 6.4vw, 40px); line-height:1.25; color:var(--pink-dark); }
+    .lead { margin:0; font-size:15px; color:#4b5563; }
+    .list { display:grid; gap:14px; }
+    .quick-nav {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin:0 0 16px;
+    }
+    .quick-nav a {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:36px;
+      padding:0 12px;
+      border-radius:999px;
+      background:#fff;
+      border:1px solid #f3d9e7;
+      color:var(--pink-dark);
+      font-size:12px;
+      font-weight:800;
+    }
+    .quick-nav a:hover { text-decoration:none; background:var(--pink-light); }
+    .list-card { padding:18px; }
+    .list-card.featured {
+      background:linear-gradient(135deg,#fff8fb,#f7f3ff);
+      border-color:#f4d8e6;
+    }
+    .meta { display:inline-flex; padding:6px 10px; border-radius:999px; background:var(--pink-light); color:var(--pink-dark); font-size:11px; font-weight:800; margin-bottom:10px; }
+    .title { display:block; font-size:20px; font-weight:800; color:var(--pink-dark); margin-bottom:8px; }
+    .desc { margin:0 0 12px; font-size:14px; color:var(--text-sub); }
+    .more { display:inline-flex; align-items:center; justify-content:center; min-height:40px; padding:0 14px; border-radius:999px; border:1px solid #f3d9e7; background:#fff8fb; font-size:13px; font-weight:800; }
+    .more:hover { text-decoration:none; background:var(--pink-light); }
+    .cta { margin-top:18px; padding:20px 18px; text-align:center; background:linear-gradient(135deg,#fff7fb,#f7f3ff); border-color:#f4d8e6; }
+    .cta p { margin:0 0 12px; color:var(--text-sub); }
+    .cta-btn { display:inline-flex; width:100%; max-width:420px; min-height:48px; align-items:center; justify-content:center; border-radius:12px; background:var(--pink-dark); color:#fff; font-weight:800; }
+    .cta-btn:hover { text-decoration:none; }
+    footer { margin-top:18px; text-align:center; font-size:12px; color:#9ca3af; line-height:1.8; }
+    footer a { color:var(--pink-dark); font-weight:700; }
+    @media (min-width: 760px) {
+      .list { grid-template-columns: 1fr 1fr; }
+      .list-card.featured { grid-column: span 2; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <nav class="crumbs" aria-label="パンくず"><a href="../index.html">ホーム</a><span>›</span><span>記事一覧</span></nav>
+
+    <header class="hero">
+      <div class="eyebrow">ARTICLE INDEX</div>
+      <h1>記事一覧</h1>
+      <p class="lead">移植後の症状、フライング検査、採卵後の過ごし方、薬一覧などをまとめて確認できます。</p>
+    </header>
+
+    <nav class="quick-nav" aria-label="記事カテゴリ">
+      <a href="./pregnancy-schedule-auto/index.html">妊活スケジュール自動</a>
+      <a href="./pregnancy-start-guide/index.html">妊活は何から始める</a>
+      <a href="./ovulation-date-calculation/index.html">排卵日を計算する方法</a>
+      <a href="./folic-acid-supplement-guide/index.html">葉酸サプリ</a>
+      <a href="./fertility-nutrients-guide/index.html">妊活におすすめ栄養素</a>
+      <a href="./post-transfer-symptoms/index.html">移植後の症状</a>
+      <a href="./flying-test-guide/index.html">フライング検査</a>
+      <a href="./fertility-medication-guide/index.html">薬一覧</a>
+      <a href="./egg-retrieval-aftercare/index.html">採卵後</a>
+      <a href="./ivf-process/index.html">体外受精の流れ</a>
+      <a href="../index.html">ツールへ戻る</a>
+    </nav>
+
+    <main class="list">
+      <section class="list-card featured">
+        <div class="meta">検索流入を狙う記事</div>
+        <a class="title" href="./pregnancy-schedule-auto/index.html">妊活スケジュールを自動作成する方法【無料ツールあり】</a>
+        <p class="desc">検索されやすいキーワードをそのまま含めた記事です。ツールへの送客と相性がよく、まず育てたい導線にしています。</p>
+        <a class="more" href="./pregnancy-schedule-auto/index.html">記事を読む</a>
+      </section>
+      <section class="list-card">
+        <div class="meta">初心者向け</div>
+        <a class="title" href="./pregnancy-start-guide/index.html">妊活は何から始める？初心者向け完全ガイド【最初の一歩】</a>
+        <p class="desc">妊活を始めたばかりの人が検索しやすいテーマを、最初の一歩にしぼって整理した記事です。</p>
+        <a class="more" href="./pregnancy-start-guide/index.html">記事を読む</a>
+      </section>
+      <section class="list-card">
+        <div class="meta">妊活初期</div>
+        <a class="title" href="./ovulation-date-calculation/index.html">排卵日を計算する方法｜妊活での見方とズレやすいポイント</a>
+        <p class="desc">排卵日 計算 方法 の検索意図を拾いやすいように、周期・基礎体温・検査薬の見方をまとめています。</p>
+        <a class="more" href="./ovulation-date-calculation/index.html">記事を読む</a>
+      </section>
+      <section class="list-card">
+        <div class="meta">栄養</div>
+        <a class="title" href="./fertility-nutrients-guide/index.html">妊活におすすめの栄養素は？葉酸以外でよく話題になる成分まとめ</a>
+        <p class="desc">ビタミンD、EPA・DHA、CoQ10 など、妊活で話題になりやすい栄養素を断定しすぎずに整理した記事です。</p>
+        <a class="more" href="./fertility-nutrients-guide/index.html">記事を読む</a>
+      </section>
+      <section class="list-card">
+        <div class="meta">サプリ</div>
+        <a class="title" href="./folic-acid-supplement-guide/index.html">葉酸サプリおすすめの選び方｜妊活中に見るポイント</a>
+        <p class="desc">葉酸サプリ おすすめ の検索ニーズに合わせて、比較時に見やすいポイントをしぼって整理した記事です。</p>
+        <a class="more" href="./folic-acid-supplement-guide/index.html">記事を読む</a>
+      </section>
+      <section class="list-card featured">
+        <div class="meta">移植後</div>
+        <a class="title" href="./post-transfer-symptoms/index.html">移植後の症状まとめ</a>
+        <p class="desc">下腹部の違和感、胸の張り、眠気、少量の出血など、移植後に気になりやすい変化を整理した記事です。</p>
+        <a class="more" href="./post-transfer-symptoms/index.html">記事を読む</a>
+      </section>
+      <section class="list-card">
+        <div class="meta">判定日前</div>
+        <a class="title" href="./flying-test-guide/index.html">移植後のフライング検査</a>
+        <p class="desc">BT別の見え方の目安や、早い時期の陰性結果をどう受け止めるかをまとめています。</p>
+        <a class="more" href="./flying-test-guide/index.html">記事を読む</a>
+      </section>
+      <section class="list-card">
+        <div class="meta">体外受精の基本</div>
+        <a class="title" href="./ivf-process/index.html">体外受精の流れ完全ガイド</a>
+        <p class="desc">生理開始から採卵、受精、凍結、移植までの全体像をざっくりつかみたい方向けです。</p>
+        <a class="more" href="./ivf-process/index.html">記事を読む</a>
+      </section>
+      <section class="list-card">
+        <div class="meta">週ごとの流れ</div>
+        <a class="title" href="./embryo-transfer-schedule/index.html">移植日から出産までのスケジュール</a>
+        <p class="desc">判定日、胎嚢確認、心拍確認、安定期までの流れを週ごとに整理しています。</p>
+        <a class="more" href="./embryo-transfer-schedule/index.html">記事を読む</a>
+      </section>
+      <section class="list-card">
+        <div class="meta">採卵後</div>
+        <a class="title" href="./egg-retrieval-aftercare/index.html">採卵後の過ごし方ガイド</a>
+        <p class="desc">痛み、出血、お腹の張り、仕事復帰の目安など、採卵後に気になる点を確認できます。</p>
+        <a class="more" href="./egg-retrieval-aftercare/index.html">記事を読む</a>
+      </section>
+      <section class="list-card">
+        <div class="meta">薬</div>
+        <a class="title" href="./fertility-medication-guide/index.html">不妊治療で使う薬一覧</a>
+        <p class="desc">排卵誘発剤、トリガー注射、エストロゲン製剤、プロゲステロン製剤の役割と注意点をまとめています。</p>
+        <a class="more" href="./fertility-medication-guide/index.html">記事を読む</a>
+      </section>
+      <section class="list-card">
+        <div class="meta">胚盤胞</div>
+        <a class="title" href="./blastocyst-grade-guide/index.html">胚盤胞グレードの見方</a>
+        <p class="desc">AA、4BB、3BCなどの表記の意味と、グレードだけで決めつけすぎない見方を解説しています。</p>
+        <a class="more" href="./blastocyst-grade-guide/index.html">記事を読む</a>
+      </section>
+      <section class="list-card">
+        <div class="meta">妊活初期</div>
+        <a class="title" href="./timing-method-guide/index.html">妊活タイミング法ガイド</a>
+        <p class="desc">おりものの見方、タイミングの取り方、妊活初期向けセルフチェック用品の導線をまとめた記事です。</p>
+        <a class="more" href="./timing-method-guide/index.html">記事を読む</a>
+      </section>
+    </main>
+
+    <section class="cta">
+      <p>記事を確認したあと、日付ベースで予定を見たいときはトップのツールが最短です。</p>
+      <a class="cta-btn" href="../index.html">スケジュールツールへ戻る</a>
+    </section>
+
+    <footer><a href="../privacy-policy/index.html">プライバシーポリシー</a> / <a href="../operator-info/index.html">運営者情報</a> / <a href="../contact/index.html">お問い合わせ</a></footer>
+  </div>
+</body>
+</html>

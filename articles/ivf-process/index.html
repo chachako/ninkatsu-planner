@@ -13,14 +13,12 @@
     a { color:var(--pink-dark); text-decoration:none; }
     a:hover { text-decoration:underline; }
     .page { width:min(100%,760px); margin:0 auto; padding:20px 16px 56px; }
-    .crumbs,.article-nav { display:flex; flex-wrap:wrap; gap:8px; align-items:center; font-size:12px; color:var(--text-sub); }
+    .crumbs { display:flex; flex-wrap:wrap; gap:8px; align-items:center; font-size:12px; color:var(--text-sub); }
     .crumbs { margin-bottom:18px; }
     .crumbs span { color:#c4b5fd; }
-    .article-nav { margin:-4px 0 18px; }
-    .article-pill,.article-pill-current { display:inline-flex; align-items:center; min-height:38px; padding:0 14px; border-radius:999px; font-size:13px; font-weight:700; }
-    .article-pill { background:#fff; border:1px solid #f4d8e6; color:var(--pink-dark); box-shadow:var(--shadow); }
-    .article-pill:hover { text-decoration:none; background:var(--pink-light); }
-    .article-pill-current { background:var(--pink-light); border:1px solid #fbcfe8; color:var(--pink-dark); }
+    .page-actions { display:flex; gap:8px; flex-wrap:wrap; margin:-4px 0 18px; }
+    .page-actions a { display:inline-flex; align-items:center; justify-content:center; min-height:38px; padding:0 12px; border-radius:999px; border:1px solid #f3d9e7; background:#fff; color:var(--pink-dark); font-size:12px; font-weight:800; }
+    .page-actions a:hover { text-decoration:none; background:var(--pink-light); }
     .hero,section { background:#fff; border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); }
     .hero { background:linear-gradient(135deg,rgba(252,231,243,.95),rgba(245,243,255,.98)); border-color:#f4d8e6; border-radius:26px; padding:24px 18px; margin-bottom:18px; }
     .eyebrow { display:inline-flex; padding:6px 12px; border-radius:999px; background:rgba(255,255,255,.8); color:var(--pink-dark); font-size:12px; font-weight:700; margin-bottom:14px; }
@@ -41,22 +39,17 @@
     .cta-sub { margin-top:12px; }
     .cta-button { display:inline-flex; width:100%; min-height:48px; align-items:center; justify-content:center; border-radius:12px; background:var(--pink-dark); color:#fff; font-weight:800; }
     .cta-button:hover { text-decoration:none; }
+    .sticky-toolbar { position:fixed; left:16px; right:16px; bottom:14px; z-index:1200; display:flex; justify-content:center; pointer-events:none; }
+    .sticky-toolbar a { pointer-events:auto; display:inline-flex; align-items:center; justify-content:center; min-height:48px; width:min(100%,420px); padding:0 18px; border-radius:999px; background:#be185d; color:#fff; font-size:14px; font-weight:800; box-shadow:0 16px 32px rgba(190,24,93,.24); }
+    .sticky-toolbar a:hover { text-decoration:none; filter:brightness(1.03); }
     footer { margin-top:18px; text-align:center; font-size:12px; color:#9ca3af; line-height:1.8; }
     footer a { color:var(--pink-dark); font-weight:700; }
   </style>
 </head>
 <body>
   <div class="page">
-    <nav class="crumbs" aria-label="パンくず"><a href="../../index.html">ホーム</a><span>›</span><span>記事</span><span>›</span><span>体外受精のスケジュールガイド</span></nav>
-    <nav class="article-nav" aria-label="関連記事">
-      <span class="article-pill-current">この記事: 体外受精の流れ</span>
-      <a class="article-pill" href="../embryo-transfer-schedule/index.html">移植日から出産まで</a>
-      <a class="article-pill" href="../post-transfer-symptoms/index.html">移植後の症状まとめ</a>
-      <a class="article-pill" href="../egg-retrieval-aftercare/index.html">採卵後の過ごし方</a>
-      <a class="article-pill" href="../blastocyst-grade-guide/index.html">胚盤胞グレード</a>
-      <a class="article-pill" href="../flying-test-guide/index.html">フライング検査</a>
-      <a class="article-pill" href="../fertility-medication-guide/index.html">薬一覧</a>
-    </nav>
+    <nav class="crumbs" aria-label="パンくず"><a href="../../index.html">ホーム</a><span>›</span><a href="../index.html">記事一覧</a><span>›</span><span>体外受精のスケジュールガイド</span></nav>
+    <div class="page-actions"><a href="../index.html">記事一覧へ</a><a href="../../index.html">ツールを開く</a></div>
     <header class="hero">
       <div class="eyebrow">これから体外受精を始める方向け</div>
       <h1>体外受精の流れ完全ガイド｜採卵から移植までの流れ</h1>
@@ -69,6 +62,7 @@
       <section class="cta"><h2>ここまで読んだら予定を日別に確認</h2><p class="cta-copy">採卵から移植までの流れを理解したあとなら、次の予定もイメージしやすくなります。</p><a class="cta-button" href="../../index.html">スケジュールを作成する</a><p class="cta-sub">途中で気になる記事があれば、関連ガイドとあわせて読むのもおすすめです。</p></section>
     </article></main>
     <footer>この記事は一般的な流れの目安をまとめたものです。実際の予定は、通院先の案内をご確認ください。<br><a href="../../privacy-policy/index.html">プライバシーポリシー</a> / <a href="../../operator-info/index.html">運営者情報</a> / <a href="../../contact/index.html">お問い合わせ</a></footer>
+    <div class="sticky-toolbar"><a href="../../index.html">今すぐスケジュールを開く</a></div>
   </div>
 </body>
 </html>
