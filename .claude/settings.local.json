@@ -1,7 +1,11 @@
 {
   "permissions": {
     "allow": [
-      "Bash(python3 -c ':*)"
+      "Bash(python3 -c ':*)",
+      "Bash(python -c ':*)",
+      "Bash(powershell -Command ':*)",
+      "Bash(powershell -Command \"[System.IO.File]::ReadAllText\\('C:\\\\Users\\\\kbknm_\\\\OneDrive\\\\ドキュメント\\\\ninkatsu-site\\\\articles\\\\pregnancy-test-guide\\\\index.html', [System.Text.Encoding]::UTF8\\)\")",
+      "Bash(powershell -Command 'Get-ChildItem '\\\\''C:\\\\Users\\\\kbknm_\\\\OneDrive\\\\ドキュメント\\\\ninkatsu-site'\\\\'' -Recurse -Filter '\\\\''*.html'\\\\'' | Where-Object { $_.Name -ne '\\\\''googlec662668f9767619f.html'\\\\'' } | ForEach-Object { $c = [IO.File]::ReadAllText\\($_.FullName,[Text.Encoding]::UTF8\\); if \\($c -notmatch '\\\\''pagead2'\\\\''\\) { $tag = '\\\\''  <script async src=https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2221405400823928 crossorigin=anonymous></script>'\\\\''; $new = $c -replace '\\\\''</head>'\\\\'',\"$tag`n</head>\"; [IO.File]::WriteAllText\\($_.FullName,$new,[Text.UTF8Encoding]::new\\($false\\)\\); Write-Host $_.Name } }; Write-Host done')"
     ]
   }
 }

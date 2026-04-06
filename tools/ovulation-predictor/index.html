@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>排卵日予測ツール | 体外受精スケジュールツール</title>
+  <meta name="description" content="前回の生理開始日と平均周期日数から、排卵予測日と妊娠しやすい時期の目安をやさしく整理するツールです。">
+  <meta name="robots" content="index,follow">
+  <style>
+    *, *::before, *::after { box-sizing:border-box; }
+    :root { --pink:#ec4899; --pink-dark:#be185d; --pink-light:#fce7f3; --line:#f0e7ed; --text:#1f2937; --text-sub:#6b7280; --radius:18px; --shadow:0 8px 28px rgba(190,24,93,.08), 0 2px 8px rgba(15,23,42,.04); --green:#166534; --green-bg:#ecfdf5; --amber:#b45309; --amber-bg:#fff7ed; --sky:#0369a1; --sky-bg:#f0f9ff; --rose:#be123c; --rose-bg:#fff1f2; }
+    body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif; color:var(--text); background:linear-gradient(180deg,#fff7fb 0%,#fff 22%,#fff 100%); line-height:1.8; }
+    a { color:var(--pink-dark); text-decoration:none; }
+    a:hover { text-decoration:underline; }
+    .page { width:min(100%,920px); margin:0 auto; padding:20px 16px 56px; }
+    .crumbs { display:flex; flex-wrap:wrap; gap:8px; align-items:center; font-size:12px; color:var(--text-sub); margin-bottom:18px; }
+    .crumbs span { color:#c4b5fd; }
+    .hero,.card,.result-card,.helper-card { background:#fff; border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); }
+    .hero { background:linear-gradient(135deg,rgba(252,231,243,.95),rgba(245,243,255,.98)); border-color:#f4d8e6; border-radius:26px; padding:24px 18px; margin-bottom:18px; }
+    .eyebrow { display:inline-flex; padding:6px 12px; border-radius:999px; background:rgba(255,255,255,.82); color:var(--pink-dark); font-size:12px; font-weight:700; margin-bottom:14px; }
+    h1 { margin:0 0 12px; font-size:clamp(30px,7vw,42px); line-height:1.2; color:var(--pink-dark); }
+    .lead { margin:0; font-size:15px; color:#4b5563; }
+    .layout { display:grid; gap:18px; }
+    .card,.result-card,.helper-card { padding:20px; }
+    .section-kicker { font-size:11px; font-weight:800; letter-spacing:.12em; color:var(--text-sub); margin-bottom:8px; }
+    .section-title { font-size:22px; font-weight:900; color:var(--pink-dark); margin-bottom:8px; line-height:1.35; }
+    .section-copy { font-size:14px; color:var(--text-sub); margin-bottom:14px; }
+    .field-group { margin-bottom:14px; }
+    .field-label { display:block; font-size:13px; font-weight:800; margin-bottom:8px; }
+    input[type="date"],input[type="number"],select { width:100%; min-height:48px; border:1px solid #f3d9e7; border-radius:14px; padding:0 14px; font:inherit; background:#fff; }
+    .inline-grid { display:grid; gap:12px; }
+    .primary-btn { display:inline-flex; align-items:center; justify-content:center; width:100%; min-height:50px; border:0; border-radius:14px; background:var(--pink-dark); color:#fff; font-size:15px; font-weight:800; cursor:pointer; }
+    .mini-note,.result-note { font-size:13px; color:var(--text-sub); }
+    .helper-card ul { margin:0; padding-left:1.2em; }
+    .helper-card li { margin-bottom:8px; }
+    .status-row { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-bottom:12px; }
+    .status-chip { display:inline-flex; align-items:center; justify-content:center; min-height:34px; padding:0 12px; border-radius:999px; font-size:12px; font-weight:900; letter-spacing:.08em; }
+    .status-chip.before { background:var(--amber-bg); color:var(--amber); }
+    .status-chip.window { background:var(--green-bg); color:var(--green); }
+    .status-chip.today { background:var(--sky-bg); color:var(--sky); }
+    .status-chip.past { background:var(--rose-bg); color:var(--rose); }
+    .status-chip.caution { background:#f3f4f6; color:#374151; }
+    .result-title { font-size:24px; line-height:1.35; color:var(--pink-dark); font-weight:900; margin:0 0 10px; }
+    .result-copy { font-size:15px; color:#4b5563; margin:0 0 12px; }
+    .summary-grid { display:grid; gap:12px; margin:16px 0; }
+    .summary-card { background:#fff8fb; border:1px solid #f3d9e7; border-radius:14px; padding:14px; }
+    .summary-label { font-size:11px; font-weight:800; color:var(--text-sub); letter-spacing:.08em; margin-bottom:6px; }
+    .summary-value { font-size:18px; font-weight:900; color:var(--pink-dark); }
+    .link-grid { display:grid; gap:10px; margin-top:14px; }
+    .link-card { display:block; padding:14px 16px; border-radius:14px; border:1px solid #f3d9e7; background:#fff; color:var(--pink-dark); font-weight:800; }
+    .link-card small { display:block; color:var(--text-sub); font-size:12px; font-weight:600; margin-top:4px; }
+    .hidden { display:none; }
+    @media (min-width:760px) { .layout { grid-template-columns:minmax(0,1.06fr) minmax(280px,.94fr); } .inline-grid { grid-template-columns:1fr 1fr; } .summary-grid { grid-template-columns:repeat(3,1fr); } }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2221405400823928" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="page">
+    <nav class="crumbs" aria-label="パンくず"><a href="../../index.html">ホーム</a><span>›</span><a href="../index.html">ツール一覧</a><span>›</span><span>排卵日予測ツール</span></nav>
+    <header class="hero"><div class="eyebrow">排卵日予測</div><h1>排卵日予測ツール</h1><p class="lead">前回の生理開始日と平均周期日数から、排卵予測日と妊娠しやすい時期の目安を整理します。あくまで目安表示として、検査薬や基礎体温とあわせて見返す前提のツールです。</p></header>
+    <div class="layout">
+      <section class="card"><div class="section-kicker">入力</div><div class="section-title">周期の目安を入力する</div><div class="section-copy">排卵日は毎回ぴったり同じにならないことがあるので、数字は見返し用の目安として使うのがおすすめです。</div><div class="field-group"><label class="field-label" for="lastPeriodDate">前回の生理開始日</label><input type="date" id="lastPeriodDate"></div><div class="inline-grid"><div class="field-group"><label class="field-label" for="cycleLength">平均周期日数</label><input type="number" id="cycleLength" min="21" max="45" step="1" value="28" inputmode="numeric"></div><div class="field-group"><label class="field-label" for="cyclePattern">周期の安定度</label><select id="cyclePattern"><option value="regular">比較的安定している</option><option value="variable">ばらつきがある</option></select></div></div><button class="primary-btn" type="button" id="predictBtn">排卵日の目安を表示する</button><p class="mini-note">周期にばらつきが大きいときは、実際の排卵が前後することがあります。検査薬や基礎体温もあわせて見ると整理しやすくなります。</p></section>
+      <aside class="helper-card"><div class="section-kicker">見方</div><div class="section-title">このツールの見方</div><ul><li>`排卵予測日` は、次の生理予定日から約14日前を目安にした日付です。</li><li>`妊娠しやすい時期` は、排卵予測日の前後に幅を持たせた目安です。</li><li>周期にばらつきがある人は、表示より前後にずれることもあります。</li></ul><div class="link-grid"><a class="link-card" href="../../articles/ovulation-date-calculation/index.html">排卵日の見方の記事を読む<small>周期・おりもの・基礎体温をあわせて見る基本を整理できます。</small></a><a class="link-card" href="../../articles/ovulation-test-guide/index.html">排卵検査薬の選び方を見る<small>検査薬も使って確認したいときはこちらです。</small></a><a class="link-card" href="../../articles/timing-method-guide/index.html">タイミング法ガイドを見る<small>妊活初期の進め方をまとめて見返したい人向けです。</small></a></div></aside>
+    </div>
+    <section class="result-card hidden" id="resultCard" aria-live="polite"><div class="status-row"><span class="status-chip" id="statusChip">確認</span><span class="mini-note" id="statusBase"></span></div><h2 class="result-title" id="resultTitle">入力すると結果が表示されます</h2><p class="result-copy" id="resultCopy">前回の生理開始日と平均周期日数から、排卵予測日と妊娠しやすい時期の目安を表示します。</p><div class="summary-grid"><div class="summary-card"><div class="summary-label">排卵予測日</div><div class="summary-value" id="summaryOvulation">-</div></div><div class="summary-card"><div class="summary-label">妊娠しやすい時期</div><div class="summary-value" id="summaryWindow">-</div></div><div class="summary-card"><div class="summary-label">次の生理予定日</div><div class="summary-value" id="summaryNextPeriod">-</div></div></div><p class="result-note" id="resultNote"></p></section>
+  </div>
+  <script>
+    const resultCard = document.getElementById('resultCard'); const statusChip = document.getElementById('statusChip'); const statusBase = document.getElementById('statusBase'); const resultTitle = document.getElementById('resultTitle'); const resultCopy = document.getElementById('resultCopy'); const resultNote = document.getElementById('resultNote'); const summaryOvulation = document.getElementById('summaryOvulation'); const summaryWindow = document.getElementById('summaryWindow'); const summaryNextPeriod = document.getElementById('summaryNextPeriod');
+    function parseDate(value){ if(!value) return null; const date = new Date(`${value}T00:00:00`); return Number.isNaN(date.getTime()) ? null : date; }
+    function startOfToday(){ const now = new Date(); return new Date(now.getFullYear(), now.getMonth(), now.getDate()); }
+    function addDays(date,days){ const next = new Date(date); next.setDate(next.getDate()+days); return next; }
+    function diffDays(from,to){ return Math.round((to.getTime()-from.getTime())/86400000); }
+    function formatDate(date){ return `${date.getMonth()+1}/${date.getDate()}`; }
+    function render(kind,title,copy,note,base,ovulationDate,fertileStart,fertileEnd,nextPeriodDate){ statusChip.className = `status-chip ${kind}`; statusChip.textContent = kind === 'before' ? 'まだ少し前' : kind === 'window' ? '近い時期' : kind === 'today' ? '近づいています' : kind === 'past' ? '過ぎた目安' : '入力確認'; statusBase.textContent = base; resultTitle.textContent = title; resultCopy.textContent = copy; resultNote.textContent = note; summaryOvulation.textContent = formatDate(ovulationDate); summaryWindow.textContent = `${formatDate(fertileStart)} - ${formatDate(fertileEnd)}`; summaryNextPeriod.textContent = formatDate(nextPeriodDate); resultCard.classList.remove('hidden'); resultCard.scrollIntoView({behavior:'smooth',block:'start'}); }
+    function runPrediction(){ const lastPeriodDate = parseDate(document.getElementById('lastPeriodDate').value); const cycleLength = Number(document.getElementById('cycleLength').value); const cyclePattern = document.getElementById('cyclePattern').value; if(!lastPeriodDate || !Number.isFinite(cycleLength) || cycleLength < 21 || cycleLength > 45){ render('caution','前回の生理開始日と周期日数を確認してください','日付が空欄か、周期日数が極端な値になっていると目安を出せません。','周期日数は一般的な目安として 21〜45 日の範囲で入力してください。','入力内容を見直してください',new Date(),new Date(),new Date(),new Date()); summaryOvulation.textContent='-'; summaryWindow.textContent='-'; summaryNextPeriod.textContent='-'; return; } const today = startOfToday(); const nextPeriodDate = addDays(lastPeriodDate, cycleLength); const ovulationDate = addDays(nextPeriodDate, -14); const fertileStart = addDays(ovulationDate, cyclePattern === 'variable' ? -7 : -5); const fertileEnd = addDays(ovulationDate, cyclePattern === 'variable' ? 2 : 1); const daysToWindow = diffDays(today, fertileStart); const daysToOvulation = diffDays(today, ovulationDate); const daysPast = diffDays(fertileEnd, today); const base = cyclePattern === 'variable' ? 'ばらつきありの前提で広めに見ています' : `平均周期 ${cycleLength} 日をもとに見ています`; if(today < fertileStart) return render('before','排卵の目安まではまだ少し前です','今日の時点では、妊娠しやすい時期の目安より少し前です。',`排卵予測日まではあと ${daysToOvulation} 日、妊娠しやすい時期の目安まではあと ${daysToWindow} 日です。`,base,ovulationDate,fertileStart,fertileEnd,nextPeriodDate); if(today > fertileEnd) return render('past','今回の排卵目安は過ぎた可能性があります','今日の時点では、表示している妊娠しやすい時期の目安を過ぎています。',`表示上は、妊娠しやすい時期の目安を ${daysPast} 日ほど過ぎています。`,base,ovulationDate,fertileStart,fertileEnd,nextPeriodDate); if(Math.abs(daysToOvulation) <= 1) return render('today','排卵に近い目安の時期です','今日の位置は、排卵予測日の前後に近い目です。',`排卵予測日は ${formatDate(ovulationDate)}、妊娠しやすい時期の目安は ${formatDate(fertileStart)} から ${formatDate(fertileEnd)} です。`,base,ovulationDate,fertileStart,fertileEnd,nextPeriodDate); return render('window','妊娠しやすい時期の目安に入っています','今日の位置は、妊娠しやすい時期の目安に入っています。',`排卵予測日は ${formatDate(ovulationDate)} で、前後の日数も含めて見る前提です。`,base,ovulationDate,fertileStart,fertileEnd,nextPeriodDate); }
+    document.getElementById('predictBtn').addEventListener('click', runPrediction);
+  </script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>妊娠検査薬フライング判定ツール | 体外受精スケジュールツール</title>
+  <meta name="description" content="排卵日、生理予定日、胚移植日のいずれかをもとに、今日の妊娠検査薬が早いか、見やすい時期かを目安で整理するツールです。">
+  <meta name="robots" content="index,follow">
+  <style>
+    *, *::before, *::after { box-sizing:border-box; }
+    :root { --pink:#ec4899; --pink-dark:#be185d; --pink-light:#fce7f3; --line:#f0e7ed; --text:#1f2937; --text-sub:#6b7280; --radius:18px; --shadow:0 8px 28px rgba(190,24,93,.08), 0 2px 8px rgba(15,23,42,.04); --amber:#b45309; --amber-bg:#fff7ed; --green:#166534; --green-bg:#ecfdf5; --sky:#0369a1; --sky-bg:#f0f9ff; --rose:#be123c; --rose-bg:#fff1f2; }
+    body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif; color:var(--text); background:linear-gradient(180deg,#fff7fb 0%,#fff 22%,#fff 100%); line-height:1.8; }
+    a { color:var(--pink-dark); text-decoration:none; }
+    a:hover { text-decoration:underline; }
+    .page { width:min(100%,900px); margin:0 auto; padding:20px 16px 56px; }
+    .crumbs { display:flex; flex-wrap:wrap; gap:8px; align-items:center; font-size:12px; color:var(--text-sub); margin-bottom:18px; }
+    .crumbs span { color:#c4b5fd; }
+    .hero,.card,.result-card,.helper-card { background:#fff; border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); }
+    .hero { background:linear-gradient(135deg,rgba(252,231,243,.95),rgba(245,243,255,.98)); border-color:#f4d8e6; border-radius:26px; padding:24px 18px; margin-bottom:18px; }
+    .eyebrow { display:inline-flex; padding:6px 12px; border-radius:999px; background:rgba(255,255,255,.82); color:var(--pink-dark); font-size:12px; font-weight:700; margin-bottom:14px; }
+    h1 { margin:0 0 12px; font-size:clamp(30px,7vw,42px); line-height:1.2; color:var(--pink-dark); }
+    .lead { margin:0; font-size:15px; color:#4b5563; }
+    .layout { display:grid; gap:18px; }
+    .card,.result-card,.helper-card { padding:20px; }
+    .section-kicker { font-size:11px; font-weight:800; letter-spacing:.12em; color:var(--text-sub); margin-bottom:8px; }
+    .section-title { font-size:22px; font-weight:900; color:var(--pink-dark); margin-bottom:8px; line-height:1.35; }
+    .section-copy { font-size:14px; color:var(--text-sub); margin-bottom:14px; }
+    .mode-grid { display:grid; gap:10px; margin-bottom:16px; }
+    .mode-btn { width:100%; border:1px solid #f3d9e7; background:#fff; border-radius:16px; padding:14px; text-align:left; cursor:pointer; }
+    .mode-btn strong { display:block; color:var(--pink-dark); font-size:15px; margin-bottom:4px; }
+    .mode-btn span { display:block; color:var(--text-sub); font-size:12px; }
+    .mode-btn.active { background:var(--pink-light); border-color:#f2b7d2; }
+    .field-group { margin-bottom:14px; }
+    .field-label { display:block; font-size:13px; font-weight:800; margin-bottom:8px; }
+    input[type="date"],select { width:100%; min-height:48px; border:1px solid #f3d9e7; border-radius:14px; padding:0 14px; font:inherit; background:#fff; }
+    .primary-btn { display:inline-flex; align-items:center; justify-content:center; width:100%; min-height:50px; border:0; border-radius:14px; background:var(--pink-dark); color:#fff; font-size:15px; font-weight:800; cursor:pointer; }
+    .mini-note,.result-note { font-size:13px; color:var(--text-sub); }
+    .helper-card ul { margin:0; padding-left:1.2em; }
+    .helper-card li { margin-bottom:8px; }
+    .status-row { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin-bottom:12px; }
+    .status-chip { display:inline-flex; align-items:center; justify-content:center; min-height:34px; padding:0 12px; border-radius:999px; font-size:12px; font-weight:900; letter-spacing:.08em; }
+    .status-chip.early { background:var(--amber-bg); color:var(--amber); }
+    .status-chip.window { background:var(--sky-bg); color:var(--sky); }
+    .status-chip.ready { background:var(--green-bg); color:var(--green); }
+    .status-chip.caution { background:var(--rose-bg); color:var(--rose); }
+    .result-title { font-size:24px; line-height:1.35; color:var(--pink-dark); font-weight:900; margin:0 0 10px; }
+    .result-copy { font-size:15px; color:#4b5563; margin:0 0 12px; }
+    .summary-grid { display:grid; gap:12px; margin:16px 0; }
+    .summary-card { background:#fff8fb; border:1px solid #f3d9e7; border-radius:14px; padding:14px; }
+    .summary-label { font-size:11px; font-weight:800; color:var(--text-sub); letter-spacing:.08em; margin-bottom:6px; }
+    .summary-value { font-size:18px; font-weight:900; color:var(--pink-dark); }
+    .link-grid { display:grid; gap:10px; margin-top:14px; }
+    .link-card { display:block; padding:14px 16px; border-radius:14px; border:1px solid #f3d9e7; background:#fff; color:var(--pink-dark); font-weight:800; }
+    .link-card small { display:block; color:var(--text-sub); font-size:12px; font-weight:600; margin-top:4px; }
+    .hidden { display:none; }
+    @media (min-width:760px) { .layout { grid-template-columns:minmax(0,1.05fr) minmax(280px,.95fr); } .mode-grid { grid-template-columns:repeat(3,1fr); } .summary-grid { grid-template-columns:repeat(2,1fr); } }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2221405400823928" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="page">
+    <nav class="crumbs" aria-label="パンくず"><a href="../../index.html">ホーム</a><span>›</span><a href="../index.html">ツール一覧</a><span>›</span><span>妊娠検査薬フライング判定ツール</span></nav>
+    <header class="hero"><div class="eyebrow">フライング判定</div><h1>妊娠検査薬フライング判定ツール</h1><p class="lead">排卵日、生理予定日、胚移植日のいずれかをもとに、今日の検査が早いか、見やすい時期かを目安で整理します。医療的な断定ではなく、気持ちを整えるための見返し用ツールです。</p></header>
+    <div class="layout">
+      <section class="card">
+        <div class="section-kicker">入力</div><div class="section-title">基準にする日付を選ぶ</div><div class="section-copy">どれか一つ分かれば使えます。迷うときは、いちばん確からしい日付で大丈夫です。</div>
+        <div class="mode-grid">
+          <button class="mode-btn active" type="button" data-mode="ovulation"><strong>排卵日ベース</strong><span>排卵日からの経過で見る</span></button>
+          <button class="mode-btn" type="button" data-mode="period"><strong>生理予定日ベース</strong><span>予定日まで・予定日後で見る</span></button>
+          <button class="mode-btn" type="button" data-mode="transfer"><strong>胚移植日ベース</strong><span>BTの目安で見る</span></button>
+        </div>
+        <div class="field-group" id="ovulationFields"><label class="field-label" for="ovulationDate">排卵日</label><input type="date" id="ovulationDate"></div>
+        <div class="field-group hidden" id="periodFields"><label class="field-label" for="periodDate">生理予定日</label><input type="date" id="periodDate"></div>
+        <div class="hidden" id="transferFields">
+          <div class="field-group"><label class="field-label" for="transferDate">胚移植日</label><input type="date" id="transferDate"></div>
+          <div class="field-group"><label class="field-label" for="embryoStage">胚のステージ</label><select id="embryoStage"><option value="5">D5胚盤胞</option><option value="3">D3初期胚</option></select></div>
+        </div>
+        <button class="primary-btn" type="button" id="judgeBtn">今日の目安を表示する</button>
+        <p class="mini-note">早い時期の陰性は、そのまま最終結果とは言い切れないことがあります。結果だけで思い詰めすぎないための参考表示です。</p>
+      </section>
+      <aside class="helper-card"><div class="section-kicker">見方</div><div class="section-title">このツールの使い方</div><ul><li>`まだ早い` は、検査しても反応が出にくい時期の目安です。</li><li>`見やすい時期` は、結果が出る人が増える目安で、確定ではありません。</li><li>BTや排卵日の前提がずれると、見え方の印象も変わります。</li></ul><div class="link-grid"><a class="link-card" href="../../articles/flying-test-guide/index.html">フライング検査の記事を見る<small>BT別の見方と注意点を詳しく確認できます。</small></a><a class="link-card" href="../../articles/pregnancy-test-guide/index.html">妊娠検査薬の比較記事を見る<small>検査薬の選び方を先に整理したい方向けです。</small></a><a class="link-card" href="../../index.html#tool-form">体外受精スケジュールへ戻る<small>移植後の全体スケジュールも一緒に見返せます。</small></a></div></aside>
+    </div>
+    <section class="result-card hidden" id="resultCard" aria-live="polite"><div class="status-row"><span class="status-chip" id="statusChip">確認</span><span class="mini-note" id="basisLabel"></span></div><h2 class="result-title" id="resultTitle">入力すると結果が表示されます</h2><p class="result-copy" id="resultCopy">基準日を入れると、今日の検査が早いか、見やすい時期かを目安で表示します。</p><div class="summary-grid"><div class="summary-card"><div class="summary-label">今日の目安</div><div class="summary-value" id="summaryTiming">-</div></div><div class="summary-card"><div class="summary-label">次に見る目安</div><div class="summary-value" id="summaryNext">-</div></div></div><p class="result-note" id="resultNote"></p></section>
+  </div>
+  <script>
+    const modeButtons = Array.from(document.querySelectorAll('.mode-btn')); const resultCard = document.getElementById('resultCard'); const statusChip = document.getElementById('statusChip'); const basisLabel = document.getElementById('basisLabel'); const resultTitle = document.getElementById('resultTitle'); const resultCopy = document.getElementById('resultCopy'); const resultNote = document.getElementById('resultNote'); const summaryTiming = document.getElementById('summaryTiming'); const summaryNext = document.getElementById('summaryNext'); const fieldGroups = { ovulation: document.getElementById('ovulationFields'), period: document.getElementById('periodFields'), transfer: document.getElementById('transferFields') }; let currentMode = 'ovulation';
+    function parseDate(value){ if(!value) return null; const date = new Date(`${value}T00:00:00`); return Number.isNaN(date.getTime()) ? null : date; }
+    function startOfToday(){ const now = new Date(); return new Date(now.getFullYear(), now.getMonth(), now.getDate()); }
+    function diffDays(from,to){ return Math.round((to.getTime()-from.getTime())/86400000); }
+    function setMode(mode){ currentMode = mode; modeButtons.forEach((button)=>button.classList.toggle('active', button.dataset.mode === mode)); Object.entries(fieldGroups).forEach(([key,el])=>el.classList.toggle('hidden', key !== mode)); }
+    function applyStatus(kind,title,copy,note,timing,next,basis){ statusChip.className = `status-chip ${kind}`; statusChip.textContent = timing; basisLabel.textContent = basis; resultTitle.textContent = title; resultCopy.textContent = copy; resultNote.textContent = note; summaryTiming.textContent = timing; summaryNext.textContent = next; resultCard.classList.remove('hidden'); resultCard.scrollIntoView({behavior:'smooth',block:'start'}); }
+    function judgeOvulation(){ const date = parseDate(document.getElementById('ovulationDate').value); if(!date) return applyStatus('caution','排卵日を入力してください','排卵日ベースで見るには、まず基準日が必要です。','分からないときは、生理予定日ベースや胚移植日ベースも使えます。','入力待ち','-','排卵日ベース'); const dpo = diffDays(date, startOfToday()); if(dpo < 0) return applyStatus('caution','排卵日が未来になっています','入力した日付はまだ来ていないようです。','日付を見直してからもう一度確認してください。','入力見直し','日付を確認','排卵日が未来日です'); if(dpo <= 7) return applyStatus('early','今日はまだ早めの時期です','排卵日から見てまだ早い段階なので、今日の検査は判定が出にくい時期です。','陰性でもそのまま最終結果とは考えにくい時期です。','まだ早い',`DPO${Math.max(10-dpo,1)}日後めど`,`排卵日から見て DPO${dpo}`); if(dpo <= 9) return applyStatus('window','少し早めですが気になりやすい時期です','うっすら反応が見える人もいますが、まだ個人差が大きい時期です。','今日だけで決めつけない前提で見るのがおすすめです。','少し早い','あと1〜4日で見やすくなる目安',`排卵日から見て DPO${dpo}`); if(dpo <= 14) return applyStatus('ready','判定が出やすい時期に入りやすい日です','排卵日から見て、検査薬の反応を確認しやすくなる人が増える時期です。','濃さや出方には個人差があります。','見やすい時期','生理予定日前後の確認',`排卵日から見て DPO${dpo}`); return applyStatus('ready','目安の時期はかなり過ぎています','排卵日から十分日数がたっているため、今日の検査は目安として見やすい時期です。','排卵日がずれていた可能性もあるため、必要に応じて再確認してください。','目安を超えている','必要に応じて再確認',`排卵日から見て DPO${dpo}`); }
+    function judgePeriod(){ const date = parseDate(document.getElementById('periodDate').value); if(!date) return applyStatus('caution','生理予定日を入力してください','生理予定日ベースで見るには、基準日が必要です。','排卵日ベースでも確認できます。','入力待ち','-','生理予定日ベース'); const today = startOfToday(); const daysUntil = diffDays(today, date); const daysAfter = -daysUntil; if(daysAfter >= 8) return applyStatus('ready','生理予定日をかなり過ぎた目安です','生理予定日をかなり過ぎているので、今日の検査は目安として見やすい時期です。','予定日自体のずれはあり得るため、そこだけは頭に置いておくと安心です。','見やすい時期','必要に応じて再確認','生理予定日をかなり過ぎています'); if(daysAfter >= 0) return applyStatus('ready','生理予定日前後の目安です','生理予定日ベースでは、今日の検査は目安として見やすくなってくる時期です。','早めの陰性は、そのまま結論にしないほうが安心です。','見やすい時期','1〜2日後の再確認',daysAfter === 0 ? '生理予定日当日です' : `生理予定日を${daysAfter}日過ぎています`); if(daysUntil <= 2) return applyStatus('window','少し早めのタイミングです','予定日の2日前くらいまでは気になって検査する人もいますが、まだ早めです。','予定日前後のほうが、もう少し見やすくなります。','少し早い',`${daysUntil}〜${daysUntil+2}日後めど`, `生理予定日まで${daysUntil}日`); return applyStatus('early','今日はまだ早めです','生理予定日までまだ日数があるので、今日の検査は判定が出にくい時期です。','気持ちが揺れやすい方は、予定日に近づいてからのほうが見やすくなります。','まだ早い','予定日の1〜2日前以降めど', `生理予定日まで${daysUntil}日`); }
+    function judgeTransfer(){ const date = parseDate(document.getElementById('transferDate').value); const stage = Number(document.getElementById('embryoStage').value || 5); if(!date) return applyStatus('caution','胚移植日を入力してください','胚移植日ベースで見るには、基準日が必要です。','分からないときは、排卵日ベースや生理予定日ベースも使えます。','入力待ち','-','胚移植日ベース'); const bt = diffDays(date, startOfToday()); const label = stage === 3 ? `BT${bt}（D3）` : `BT${bt}（D5）`; const earlyEnd = stage === 3 ? 6 : 4; const windowEnd = stage === 3 ? 8 : 6; const readyEnd = stage === 3 ? 10 : 8; if(bt < 0) return applyStatus('caution','移植日が未来になっています','入力した日付はまだ来ていないようです。','日付を見直してからもう一度確認してください。','入力見直し','日付を確認','移植日が未来日です'); if(bt <= earlyEnd) return applyStatus('early','今日はまだ早めのBTです','胚移植日ベースでは、まだかなり早い段階です。','陰性でもそのまま結果とは考えにくい時期です。','まだ早い',stage === 3 ? 'BT7以降めど' : 'BT5以降めど',label); if(bt <= windowEnd) return applyStatus('window','少し早めですが気になりやすい時期です','反応が見え始める人もいますが、まだ個人差が大きい時期です。','BTが1〜2日進むだけで見え方が変わることもあります。','少し早い',stage === 3 ? 'BT9以降めど' : 'BT7以降めど',label); if(bt <= readyEnd) return applyStatus('ready','判定が出やすい時期に入りやすいBTです','胚移植日ベースで見ると、検査薬の反応を確認しやすくなってくる時期です。','線の濃さだけで結論を急がず、全体の流れで見るのがおすすめです。','見やすい時期','判定日や受診予定を確認',label); return applyStatus('ready','目安としては見やすい時期を過ぎています','BTの目安としては、今日の検査は見やすい側に入りやすい時期です。','結果に迷うときは、判定日や受診予定も合わせて確認してください。','目安を超えている','必要に応じて再確認',label); }
+    function runJudge(){ if(currentMode === 'ovulation') return judgeOvulation(); if(currentMode === 'period') return judgePeriod(); return judgeTransfer(); }
+    modeButtons.forEach((button)=>button.addEventListener('click', ()=>setMode(button.dataset.mode))); document.getElementById('judgeBtn').addEventListener('click', runJudge);
+  </script>
+</body>
+</html>
