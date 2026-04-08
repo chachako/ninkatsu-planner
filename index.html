@@ -356,9 +356,10 @@
     .hidden-inputs { display: none; }
     .divider { height: 1px; background: #f3f4f6; margin: 16px 0; }
 
-    /* ── Embryo toggle ── */
+    /* ── Embryo / Protocol / OCP toggle ── */
     .et-label { font-size: 12px; font-weight: 700; color: var(--text-sub); margin-bottom: 8px; }
     .et-row { display: flex; gap: 8px; }
+    .et-row-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
     .et-btn {
       flex: 1; padding: 10px 8px; text-align: center;
       border: 2px solid #e9d5ff; border-radius: 10px;
@@ -538,6 +539,7 @@
       background: #f8fafc;
       color: var(--text);
     }
+    .cal-event.phase-pre { background: #f0fdf4; border-left-color: #22c55e; color: #15803d; }
     .cal-event.phase-stim { background: #eff6ff; border-left-color: #3b82f6; color: #1d4ed8; }
     .cal-event.phase-retrieval { background: #f5f3ff; border-left-color: #8b5cf6; color: #6d28d9; }
     .cal-event.phase-rest { background: #f3f4f6; border-left-color: #9ca3af; color: #4b5563; }
@@ -611,6 +613,7 @@
     .cal-bar.stim-med { background: linear-gradient(90deg, #60a5fa, #3b82f6); }
     .cal-bar.estrogen-med { background: linear-gradient(90deg, #f472b6, #ec4899); }
     .cal-bar.prog-med { background: linear-gradient(90deg, #c084fc, #8b5cf6); }
+    .cal-bar.ocp-med { background: linear-gradient(90deg, #4ade80, #22c55e); }
 
     /* ── Timeline card ── */
     .tlc { border-radius: var(--radius); padding: 20px 18px; background: #fff; box-shadow: var(--shadow); margin-bottom: 12px; }
@@ -930,6 +933,10 @@
         <span class="search-link-label">妊活は何から始める？初心者向け完全ガイド【最初の一歩】</span>
         <span class="search-link-copy">妊活を始めたばかりの読者向けの入口記事です。</span>
       </a>
+      <a class="search-link-item" href="./articles/advanced-fertility-treatment-guide/index.html">
+        <span class="search-link-label">不妊治療の先進医療とは？SEET法など自費になる項目の考え方を解説</span>
+        <span class="search-link-copy">保険と自己負担の違いを先に整理したい方向けの記事です。</span>
+      </a>
     </div>
   </div>
 
@@ -939,7 +946,7 @@
     <div class="section-title">日付を入力してスケジュールを作成</div>
     <div class="section-copy">未定の項目があっても大丈夫です。分かる日付だけでも、今の位置や次の目安を出せます。</div>
     <div class="fg">
-      <div class="fg-label">今回の治療を開始した日（生理1日目）</div>
+      <div class="fg-label">治療開始日（生理1日目）</div>
       <input type="date" id="stimDate">
       <div class="fg-hint">採卵に向けて治療を始める周期の生理1日目</div>
     </div>
@@ -976,7 +983,42 @@
         </button>
       </div>
     </div>
-    <div class="build-note">入力後に下の「スケジュールを作成」を押すと、結果がこのページ内に表示されます。</div>
+    <div id="protocolSection">
+      <div class="divider"></div>
+      <div class="fg">
+        <div class="et-label">採卵プロトコル</div>
+        <div class="et-row et-row-3">
+          <button class="et-btn active" id="btnAnt" onclick="setProtocol('antagonist')">
+            <span class="em">アンタゴニスト</span>
+            <span class="es">現在最も一般的</span>
+          </button>
+          <button class="et-btn" id="btnLong" onclick="setProtocol('long')">
+            <span class="em">ロング法</span>
+            <span class="es">前周期から点鼻</span>
+          </button>
+          <button class="et-btn" id="btnShort" onclick="setProtocol('short')">
+            <span class="em">ショート法</span>
+            <span class="es">D1〜注射開始</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <div class="fg" style="margin-bottom:0">
+      <div class="et-label">ピル調節（採卵前・移植前）</div>
+      <div class="et-row">
+        <button class="et-btn active" id="btnOcpNo" onclick="setFetOcp(false)">
+          <span class="em">なし</span>
+          <span class="es">ピル調節なし</span>
+        </button>
+        <button class="et-btn" id="btnOcpYes" onclick="setFetOcp(true)">
+          <span class="em">あり（ピル）</span>
+          <span class="es">約2週間服用後</span>
+        </button>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <button class="build-btn" type="button" id="buildScheduleButton">スケジュールを作成</button>
   </div>
 
   <!-- ── 結果 ── -->
@@ -1028,10 +1070,11 @@
     <div class="card guide-card">
       <div class="guide-eyebrow">次に読みたい記事</div>
       <div class="guide-title">スケジュールを確認したあとに、必要な記事だけ読めるようにしました</div>
-      <div class="guide-body">まずは日付を確認して、気になるテーマだけ後から開けます。ツールのあとに読みやすい3本をまとめています。</div>
+      <div class="guide-body">まずは日付を確認して、気になるテーマだけ後から開けます。ツールのあとに読みやすい4本をまとめています。</div>
       <div class="affiliate-actions">
         <a class="guide-link" href="./articles/embryo-transfer-schedule/index.html">移植後の流れを見る</a>
         <a class="guide-link" href="./articles/fertility-medication-guide/index.html">薬の記事を見る</a>
+        <a class="guide-link" href="./articles/advanced-fertility-treatment-guide/index.html">先進医療の記事を見る</a>
         <a class="guide-link" href="./articles/timing-method-guide/index.html">妊活初期の記事を見る</a>
       </div>
     </div>
@@ -1085,16 +1128,24 @@
 
 <script>
 // ── 状態 ────────────────────────────────────────────────────
-let embryoDay   = 5;
-let computed    = null;
-let initialized = false;
+let embryoDay    = 5;
+let stimProtocol = 'antagonist';
+let fetOcp       = false;
+let computed     = null;
+let initialized  = false;
 let userInteracted = false;
 let currentCalendarMonth = null;
 const STORE_KEY = 'ivf-sch-v3';
+// プロトコル別 刺激期間（D1→採卵日までの日数）
+const PROTOCOL = {
+  antagonist: { days: 11 },
+  long:       { days: 13 },
+  short:      { days: 10 }
+};
 let lastModalTrigger = null;
 const DATE_FIELD_META = {
   stimDate: {
-    label: '今回の治療を開始した日（生理1日目）',
+    label: '治療開始日（生理1日目）',
     hint: '採卵に向けて治療を始める周期の生理1日目です'
   },
   opuDate: {
@@ -1140,6 +1191,60 @@ const MEDICATION_INFO = {
       '採血や超音波でこまめに確認するのは、効いているかと効きすぎていないかを安全に見るためです。'
     ],
     examples: ['ゴナールエフ', 'フォリルモン']
+  },
+  agonist: {
+    title: 'GnRHアゴニスト（点鼻薬）',
+    subtitle: '卵巣を一時的に抑制してホルモンをリセットする薬',
+    note: '一般的な説明です。実際の薬剤名や使用期間はクリニックごとに異なります。',
+    reason: [
+      'ロング法では、採卵周期の前から卵巣をいったん抑制して内因性LHサージを防ぎ、採卵のタイミングをコントロールします。',
+      '卵巣の状態を均一にすることで、卵胞が一斉に育ちやすくなると考えられています。'
+    ],
+    purpose: [
+      '自然なLHサージ（排卵）を抑えて、採卵のタイミングを計画どおりに保つために使います。'
+    ],
+    caution: [
+      '使用開始後しばらくはホルモンが一時的に上がることがあります（フレアアップ）。',
+      '指定の時間帯・回数を守って使用し、自己判断で中止しないようにします。'
+    ],
+    effects: [
+      '更年期様症状（ほてり、気分の波）が出ることがあります。',
+      '点鼻薬のため、鼻炎があるときは吸収に影響することがあります。'
+    ],
+    contact: [
+      '強い頭痛、視覚異常、急な腹痛がある場合は早めに連絡します。'
+    ],
+    reassurance: [
+      '一時的に卵巣が抑制された状態になりますが、採卵周期が始まれば卵胞は育ちます。',
+      '使用中に生理が来ることがありますが、通常の経過です。'
+    ]
+  },
+  ocp: {
+    title: 'ピル（OCP）',
+    subtitle: '移植周期前の周期調節のための経口避妊薬',
+    note: '一般的な説明です。使用する薬剤名や服用日数はクリニックごとに異なります。',
+    reason: [
+      '移植のスケジュールを調整しやすくするため、前の周期からピルを使って次の生理のタイミングをコントロールします。',
+      'クリニックの予約状況や休診日に合わせて移植日を設定できるよう、周期を意図的にずらすために使われます。'
+    ],
+    purpose: [
+      'ホルモン補充周期での移植準備をスムーズに始められるよう、生理のタイミングを調整します。'
+    ],
+    caution: [
+      '飲み忘れに注意し、毎日できるだけ同じ時間に服用することが大切です。',
+      '指示された日数を守り、自己判断で中止しないようにします。'
+    ],
+    effects: [
+      '吐き気、頭痛、胸の張り、気分の波などが出ることがあります。',
+      '不正出血が起きることがありますが、服用を続けながらクリニックに確認します。'
+    ],
+    contact: [
+      '強い頭痛、視覚異常、足のむくみや痛みがある場合は早めに連絡します。'
+    ],
+    reassurance: [
+      'ピルを使って周期を調整することは、移植のスケジュール管理としてよく行われる方法です。',
+      '服用中に軽い出血があっても、次の生理ではなく「消退出血」と呼ばれる場合があります。'
+    ]
   },
   hcg: {
     title: 'HCG注射',
@@ -1671,7 +1776,6 @@ function createSingleDateInputUI() {
       <select class="input-select" id="activeDateField"></select>
       <input type="date" id="activeDateValue">
       <div class="fg-hint" id="activeDateHint"></div>
-      <button class="build-btn" type="button" id="buildScheduleButton">スケジュールを作成</button>
     </div>
   `;
 
@@ -1713,7 +1817,13 @@ function syncActiveDateEditor() {
 
   activeInput.value = hiddenInput.value || todayISO();
   activeInput.classList.toggle('filled', !!activeInput.value);
-  hint.textContent = meta.hint;
+
+  // ピル調節ありの場合、移植周期入力のラベル・ヒントを差し替え
+  if (fieldId === 'fetStartDate' && fetOcp) {
+    hint.textContent = 'ピル（OCP）を飲み始める周期の生理1日目を入力してください。そのD3からピル服用開始、翌周期が移植周期になります';
+  } else {
+    hint.textContent = meta.hint;
+  }
 }
 
 function setExclusiveDateValue(fieldId, value) {
@@ -1759,6 +1869,7 @@ function applyActiveDateValue() {
 
 function applySelectedDateField() {
   syncActiveDateEditor();
+  updateProtocolVisibility();
 }
 
 function buildScheduleFromActiveInput() {
@@ -1801,6 +1912,7 @@ window.addEventListener('DOMContentLoaded', () => {
   syncActiveDateEditor();
 
   initialized = true;
+  updateProtocolVisibility();
   const hasAny = ['stimDate','opuDate','fetStartDate','etDate'].some(id => document.getElementById(id).value);
   if (hasAny) runCalc();
 });
@@ -1809,6 +1921,7 @@ window.addEventListener('DOMContentLoaded', () => {
 function onInput(e) {
   userInteracted = true;
   e.target.classList.toggle('filled', !!e.target.value);
+  updateProtocolVisibility();
   saveToURL();
   saveToStorage();
   runCalc();
@@ -1824,6 +1937,40 @@ function setEmbryo(n) {
   saveToURL(); saveToStorage(); runCalc();
 }
 
+function updateProtocolVisibility() {
+  const hasOpu      = !!document.getElementById('opuDate').value;
+  const activeField = document.getElementById('activeDateField')?.value || '';
+  const hide = hasOpu || ['opuDate', 'fetStartDate', 'etDate'].includes(activeField);
+  const el = document.getElementById('protocolSection');
+  if (el) el.style.display = hide ? 'none' : '';
+}
+
+function setProtocol(p) {
+  userInteracted = true;
+  stimProtocol = p;
+  document.getElementById('btnAnt').classList.toggle('active',  p === 'antagonist');
+  document.getElementById('btnLong').classList.toggle('active', p === 'long');
+  document.getElementById('btnShort').classList.toggle('active',p === 'short');
+  if (!initialized) return;
+  saveToURL(); saveToStorage(); runCalc();
+}
+
+function setFetOcp(v) {
+  userInteracted = true;
+  fetOcp = v;
+  document.getElementById('btnOcpNo').classList.toggle('active',  !v);
+  document.getElementById('btnOcpYes').classList.toggle('active', v);
+  // selectのfetStartDateラベルを切り替え
+  const select = document.getElementById('activeDateField');
+  if (select) {
+    const opt = select.querySelector('option[value="fetStartDate"]');
+    if (opt) opt.textContent = v ? 'ピル服用を始める周期の生理1日目' : DATE_FIELD_META.fetStartDate.label;
+  }
+  if (!initialized) return;
+  syncActiveDateEditor(); // ヒント文を即時更新
+  saveToURL(); saveToStorage(); runCalc();
+}
+
 // ── URL 保存 / 復元 ─────────────────────────────────────────
 function saveToURL() {
   const p = new URLSearchParams();
@@ -1836,6 +1983,8 @@ function saveToURL() {
   if (f) p.set('fet',   f);
   if (e) p.set('et',    e);
   p.set('d', embryoDay);
+  p.set('proto', stimProtocol);
+  if (fetOcp) p.set('ocp', '1');
   history.replaceState(null, '', '?' + p.toString());
 }
 
@@ -1847,8 +1996,15 @@ function restoreFromURL() {
   if (p.has('fet'))   { document.getElementById('fetStartDate').value = p.get('fet'); found = true; }
   if (p.has('et'))    { document.getElementById('etDate').value   = p.get('et');    found = true; }
   if (p.has('d'))     embryoDay = parseInt(p.get('d')) || 5;
+  if (p.has('proto')) stimProtocol = p.get('proto');
+  fetOcp = p.get('ocp') === '1';
   document.getElementById('btn5').classList.toggle('active', embryoDay === 5);
   document.getElementById('btn3').classList.toggle('active', embryoDay === 3);
+  document.getElementById('btnAnt').classList.toggle('active',  stimProtocol === 'antagonist');
+  document.getElementById('btnLong').classList.toggle('active', stimProtocol === 'long');
+  document.getElementById('btnShort').classList.toggle('active',stimProtocol === 'short');
+  document.getElementById('btnOcpNo').classList.toggle('active',  !fetOcp);
+  document.getElementById('btnOcpYes').classList.toggle('active', fetOcp);
   return found;
 }
 
@@ -1860,7 +2016,9 @@ function saveToStorage() {
       opu:   document.getElementById('opuDate').value,
       fet:   document.getElementById('fetStartDate').value,
       et:    document.getElementById('etDate').value,
-      d:     embryoDay
+      d:     embryoDay,
+      proto: stimProtocol,
+      ocp:   fetOcp
     }));
   } catch (_) {}
 }
@@ -1874,8 +2032,15 @@ function restoreFromStorage() {
     if (data.fet)   document.getElementById('fetStartDate').value = data.fet;
     if (data.et)    document.getElementById('etDate').value   = data.et;
     if (data.d)     { embryoDay = data.d; }
+    if (data.proto) { stimProtocol = data.proto; }
+    if (data.ocp !== undefined) { fetOcp = !!data.ocp; }
     document.getElementById('btn5').classList.toggle('active', embryoDay === 5);
     document.getElementById('btn3').classList.toggle('active', embryoDay === 3);
+    document.getElementById('btnAnt').classList.toggle('active',  stimProtocol === 'antagonist');
+    document.getElementById('btnLong').classList.toggle('active', stimProtocol === 'long');
+    document.getElementById('btnShort').classList.toggle('active',stimProtocol === 'short');
+    document.getElementById('btnOcpNo').classList.toggle('active',  !fetOcp);
+    document.getElementById('btnOcpYes').classList.toggle('active', fetOcp);
   } catch (_) {}
 }
 
@@ -1900,35 +2065,58 @@ function runCalc() {
   const gestAtET = embryoDay === 5 ? 19 : 17;
 
   // ─ どの入力を起点にするか優先順位: ET > OPU > STIM ─
+  const stimDays   = (PROTOCOL[stimProtocol] || PROTOCOL.antagonist).days;
+  const stimOffset = fetOcp ? 18 : 0; // OCP使用時: ピル終了(D16)+3日後がFSH開始日
+  const ocpDays    = 0;
+
   let stim = null, stimEst = false, opu = null, opuEst = false;
   if (opuIn) {
     opu = opuIn;
     opuEst = false;
-    stim = stimIn || addDays(opu, -13);
+    stim = stimIn || addDays(opu, -(stimOffset + stimDays));
     stimEst = !stimIn;
   } else if (stimIn) {
     stim = stimIn;
     stimEst = false;
-    opu = addDays(stim, 13);
+    opu = addDays(stim, stimOffset + stimDays);
     opuEst = true;
   }
 
   let fetPeriod, fetEst, et, etEst;
+  let ocpPeriodStart = null; // ピル調節を開始する周期のD1
+
   if (etIn) {
+    // ET確定 → 逆算
     et = etIn;
     etEst = false;
-    fetPeriod = fetIn || addDays(et, -(12 + embryoDay));
-    fetEst = !fetIn;
-  } else if (fetIn) {
-    fetPeriod = fetIn;
+    fetPeriod = addDays(et, -(12 + embryoDay));
     fetEst = false;
-    et = addDays(fetPeriod, 12 + embryoDay);
-    etEst = true;
+    if (fetOcp) {
+      ocpPeriodStart = fetIn || addDays(fetPeriod, -18);
+    }
+  } else if (fetIn) {
+    if (fetOcp) {
+      // fetIn = ピル服用を始める周期のD1（移植周期のひとつ前）
+      ocpPeriodStart = fetIn;
+      fetPeriod = addDays(fetIn, 18); // ピル終了(D16)+3日後が移植周期D1
+      fetEst = true;
+      et = addDays(fetPeriod, 12 + embryoDay);
+      etEst = true;
+    } else {
+      // fetIn = 移植周期D1（従来どおり）
+      fetPeriod = fetIn;
+      fetEst = false;
+      et = addDays(fetPeriod, 12 + embryoDay);
+      etEst = true;
+    }
   } else if (opu) {
     et = addDays(opu, 14 + 28 + 12 + embryoDay);
     etEst = true;
     fetPeriod = addDays(et, -(12 + embryoDay));
     fetEst = true;
+    if (fetOcp) {
+      ocpPeriodStart = addDays(fetPeriod, -18);
+    }
   } else {
     document.getElementById('results').classList.add('hidden');
     return;
@@ -1940,11 +2128,16 @@ function runCalc() {
 
   // ─ イベント定義 ─
   const events = [
+    // ロング法の前処理（前周期からのGnRHアゴニスト）
+    ...(stimProtocol === 'long' && stim ? [{
+      id:'agonist', phase:'pre', name:'点鼻薬（GnRHアゴニスト）開始',
+      sub:'刺激開始21日前頃・卵巣をいったん抑制する', date:addDays(stim, stimOffset - 21), est:stimEst, key:false, medicationId:'agonist'
+    }] : []),
     // 採卵周期
-    { id:'stim',     phase:'stim',      name:'治療開始（生理1日目）',   sub:'採卵に向けた治療周期スタート',              date:stim,                   est:stimEst, key:true  },
-    { id:'inj',      phase:'stim',      name:getMedicationEventName('stim', medicationProfiles.stim),    sub:'D3頃から毎日注射・卵胞を育てる',            date:addDays(stim,2),        est:stimEst, key:false, medicationId:'stim' },
-    { id:'fcheck1',  phase:'stim',      name:'受診①・卵胞確認',        sub:'D6頃・経腟エコーで卵胞数・サイズを確認',    date:addDays(stim,5),        est:stimEst, key:false },
-    { id:'fcheck2',  phase:'stim',      name:'受診②・卵胞発育確認',    sub:'D10頃・エコー＋採血（E2値確認）',           date:addDays(stim,9),        est:stimEst, key:false },
+    { id:'stim',     phase:'stim',      name:'治療開始（生理1日目）',   sub: fetOcp ? 'OCP周期スタート・D3からピル服用開始' : '採卵に向けた治療周期スタート', date:stim, est:stimEst, key:true  },
+    { id:'inj',      phase:'stim',      name:getMedicationEventName('stim', medicationProfiles.stim),    sub:'D3頃から毎日注射・卵胞を育てる',            date:addDays(stim,stimOffset+2), est:stimEst, key:false, medicationId:'stim' },
+    { id:'fcheck1',  phase:'stim',      name:'受診①・卵胞確認',        sub:'D6頃・経腟エコーで卵胞数・サイズを確認',    date:addDays(stim,stimOffset+5), est:stimEst, key:false },
+    { id:'fcheck2',  phase:'stim',      name:'受診②・卵胞発育確認',    sub:'D10頃・エコー＋採血（E2値確認）',           date:addDays(stim,stimOffset+9), est:stimEst, key:false },
     { id:'hcg',      phase:'stim',      name:getMedicationEventName('hcg', medicationProfiles.hcg),    sub:'採卵36〜40時間前・卵子の最終成熟を促す',     date:addDays(opu,-2),        est:opuEst,  key:true,  medicationId:'hcg'  },
     // 採卵・受精・凍結
     { id:'opu',      phase:'retrieval', name:'採卵日（OPU）',           sub:'麻酔下で採卵・当日は安静に',                date:opu,                    est:opuEst,  key:true  },
@@ -1955,6 +2148,12 @@ function runCalc() {
     { id:'reststart',phase:'rest',      name:'採卵後の生理',            sub:'採卵約2週間後・卵巣のリセット',             date:addDays(opu,14),        est:true,    key:false },
     { id:'restmid',  phase:'rest',      name:'卵巣休憩期',              sub:'通常1〜2周期ほど待機（クリニックにより異なる）', date:addDays(opu,28),   est:true,    key:false },
     { id:'consult',  phase:'rest',      name:'移植周期の方針を相談',    sub:'担当医と移植スケジュールを確認',             date:addDays(fetPeriod,-7),  est:etEst,   key:false },
+    // ピル調節（OCP）— ピル周期の生理D1のみ点イベントで表示（期間はバーで表示）
+    ...(fetOcp && ocpPeriodStart ? [
+      { id:'ocpperiod', phase:'rest', name:'ピル調節を始める周期の生理',
+        sub:'D3からピル（OCP）を服用開始・約2週間服用',
+        date:ocpPeriodStart, est:fetEst || !fetIn, key:false, medicationId:'ocp' }
+    ] : []),
     // 移植周期
     { id:'fetst',    phase:'fet',       name:'移植周期スタート（生理）', sub:'移植に向けた新しい周期の開始',              date:fetPeriod,              est:etEst,   key:false },
     { id:'estrogen', phase:'fet',       name:getMedicationEventName('estrogen', medicationProfiles.estrogen),    sub:'D2頃〜子宮内膜を厚くする薬の服用開始（施設により生理1-3日目開始）',      date:addDays(fetPeriod,1),   est:etEst,   key:false, medicationId:'estrogen' },
@@ -1978,11 +2177,29 @@ function runCalc() {
     {
       id: 'stim-med',
       title: medicationProfiles.stim.title,
-      start: addDays(stim, 2),
+      start: addDays(stim, stimOffset + 2),
       end: addDays(opu, -2),
       colorClass: 'stim-med',
       medicationId: 'stim'
     },
+    // OCP（採卵前ピルプライミング）— 治療開始D3〜D16（14日間）
+    ...(fetOcp && stim ? [{
+      id: 'ocp-stim-med',
+      title: 'ピル（OCP・採卵前）',
+      start: addDays(stim, 2),
+      end: addDays(stim, 15),
+      colorClass: 'ocp-med',
+      medicationId: 'ocp'
+    }] : []),
+    // OCP（移植前ピル調節）— D3〜D16（14日間）
+    ...(fetOcp && ocpPeriodStart ? [{
+      id: 'ocp-med',
+      title: 'ピル（OCP・移植前）',
+      start: addDays(ocpPeriodStart, 2),
+      end: addDays(ocpPeriodStart, 15),
+      colorClass: 'ocp-med',
+      medicationId: 'ocp'
+    }] : []),
     {
       id: 'estrogen-med',
       title: medicationProfiles.estrogen.title,
@@ -2001,13 +2218,13 @@ function runCalc() {
     }
   ].filter(bar => bar.start <= bar.end);
 
-  const retrievalEventIds = new Set(['stim','inj','fcheck1','fcheck2','hcg','opu','fert','div','blast','reststart','restmid','consult']);
+  const retrievalEventIds = new Set(['agonist','stim','inj','fcheck1','fcheck2','hcg','opu','fert','div','blast','reststart','restmid','consult']);
   if (!stim || !opu) {
     for (let i = events.length - 1; i >= 0; i -= 1) {
       if (retrievalEventIds.has(events[i].id)) events.splice(i, 1);
     }
     for (let i = medicationBars.length - 1; i >= 0; i -= 1) {
-      if (medicationBars[i].id === 'stim-med') medicationBars.splice(i, 1);
+      if (medicationBars[i].id === 'stim-med' || medicationBars[i].id === 'ocp-stim-med') medicationBars.splice(i, 1);
     }
   }
 
@@ -2029,6 +2246,7 @@ function runCalc() {
 
 // ── フェーズ設定 ─────────────────────────────────────────────
 const PHASES = {
+  pre:      { label:'採卵前処理',            color:'#22c55e',  bg:'#f0fdf4'  },
   stim:     { label:'採卵周期（卵巣刺激）', color:'#3b82f6',  bg:'#eff6ff'  },
   retrieval:{ label:'採卵・受精・凍結',      color:'#8b5cf6',  bg:'#f5f3ff'  },
   rest:     { label:'卵巣休憩期',            color:'#6b7280',  bg:'#f9fafb'  },
@@ -2037,6 +2255,7 @@ const PHASES = {
 };
 
 const ICONS = {
+  agonist:'💊', ocpperiod:'🌙',
   stim:'🌱', inj:'💉', fcheck1:'🔬', fcheck2:'🔬', hcg:'💊',
   opu:'🥚', fert:'🔬', div:'🔬', blast:'❄️',
   reststart:'🌙', restmid:'🌙', consult:'💬',
